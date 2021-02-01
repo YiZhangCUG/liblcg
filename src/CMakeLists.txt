@@ -55,6 +55,7 @@ else()
 endif()
 # 头文件安装命令
 install(FILES lib/lcg.h DESTINATION include)
+install(FILES lib/lcg_cxx.h DESTINATION include)
 
 # 以下部分为例子程序的编译
 # 设置可执行文件的输出地址
@@ -74,3 +75,4 @@ add_sample(lcg_sample sample)
 add_sample(lcg_sample2 sample2)
 add_sample(lcg_sample3 sample3)
 add_sample(lcg_sample4 sample4)
+add_sample(lcg_sample5 sample5)
