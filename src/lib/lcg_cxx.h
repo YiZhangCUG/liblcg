@@ -42,11 +42,11 @@ public:
 
 	~LCG_Solver(){}
 
-	static void _Ax(void* instance, const lcg_float* a, lcg_float* b, const int num)
+	static void _AxProduct(void* instance, const lcg_float* a, lcg_float* b, const int num)
 	{
-		return reinterpret_cast<LCG_Solver*>(instance)->Ax(a, b, num);
+		return reinterpret_cast<LCG_Solver*>(instance)->AxProduct(a, b, num);
 	}
-	virtual void Ax(const lcg_float* a, lcg_float* b, const int num) = 0;
+	virtual void AxProduct(const lcg_float* a, lcg_float* b, const int num) = 0;
 
 	static int _Progress(void* instance, const lcg_float* m, const lcg_float converge, 
 		const lcg_para *param, const int n_size, const int k)
@@ -75,16 +75,16 @@ public:
 		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
-		int ret = lcg_solver(_Ax, _Progress, m, b, x_size, &param_, this, solver_id, p);
+		int ret = lcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id, p);
 		if (ret < 0) std::cout << lcg_error_str(ret) << std::endl;
 		return;
 	}
 
-	void Minimize_Constrained(lcg_float *m, const lcg_float *b, const lcg_float* low, 
-		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_CG)
+	void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float* low, 
+		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
-		int ret = clcg_solver(_Ax, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
+		int ret = clcg_solver(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
 		if (ret < 0) std::cout << lcg_error_str(ret) << std::endl;
 		return;
 	}

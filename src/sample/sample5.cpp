@@ -8,39 +8,36 @@ using std::endl;
 class TESTFUNC : public LCG_Solver
 {
 public:
-	TESTFUNC();
-	~TESTFUNC(){}
-	void Ax(const lcg_float* a, lcg_float* b, const int num); //定义共轭梯度中Ax的算法
+	TESTFUNC()
+	{
+		// 测试线性方程组
+		// 6.3*x1 + 3.9*x2 + 2.5*x3 = -2.37
+		// 3.9*x1 + 1.2*x2 + 3.1*x3 = 5.82
+		// 2.5*x1 + 3.1*x2 + 7.6*x3 = 5.21
+		// 目标解 x1=1.2 x2=-3.7 x3=1.8
+		// 注意根据共轭梯度法的要求 kernel是一个N阶对称阵
+		kernel_[0][0] = 6.3; kernel_[0][1] = 3.9; kernel_[0][2] = 2.5;
+		kernel_[1][0] = 3.9; kernel_[1][1] = 1.2; kernel_[1][2] = 3.1;
+		kernel_[2][0] = 2.5; kernel_[2][1] = 3.1; kernel_[2][2] = 7.6;
+	}
+
+	//定义共轭梯度中Ax的算法
+	void AxProduct(const lcg_float* a, lcg_float* b, const int num)
+	{
+		for (int i = 0; i < num; i++)
+		{
+			b[i] = 0.0;
+			for (int j = 0; j < num; j++)
+			{
+				b[i] += kernel_[i][j]*a[j];
+			}
+		}
+		return;
+	}
 
 private:
 	lcg_float kernel_[3][3];
 };
-
-TESTFUNC::TESTFUNC()
-{
-	// 测试线性方程组
-	// 6.3*x1 + 3.9*x2 + 2.5*x3 = -2.37
-	// 3.9*x1 + 1.2*x2 + 3.1*x3 = 5.82
-	// 2.5*x1 + 3.1*x2 + 7.6*x3 = 5.21
-	// 目标解 x1=1.2 x2=-3.7 x3=1.8
-	// 注意根据共轭梯度法的要求 kernel是一个N阶对称阵
-	kernel_[0][0] = 6.3; kernel_[0][1] = 3.9; kernel_[0][2] = 2.5;
-	kernel_[1][0] = 3.9; kernel_[1][1] = 1.2; kernel_[1][2] = 3.1;
-	kernel_[2][0] = 2.5; kernel_[2][1] = 3.1; kernel_[2][2] = 7.6;
-}
-
-void TESTFUNC::Ax(const lcg_float* a, lcg_float* b, const int num)
-{
-	for (int i = 0; i < num; i++)
-	{
-		b[i] = 0.0;
-		for (int j = 0; j < num; j++)
-		{
-			b[i] += kernel_[i][j]*a[j];
-		}
-	}
-	return;
-}
 
 int main(int argc, char const *argv[])
 {
