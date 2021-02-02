@@ -40,6 +40,74 @@ extern "C"
 typedef double lcg_float;
 
 /**
+ * @brief     A simple definition of the complex number type.
+ */
+typedef struct
+{
+	lcg_float rel, img;
+} lcg_complex;
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     equal or not
+ */
+bool operator==(const lcg_complex &a, const lcg_complex &b);
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     unequal or not
+ */
+bool operator!=(const lcg_complex &a, const lcg_complex &b);
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     sum
+ */
+lcg_complex operator+(const lcg_complex &a, const lcg_complex &b);
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     difference
+ */
+lcg_complex operator-(const lcg_complex &a, const lcg_complex &b);
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     product
+ */
+lcg_complex operator*(const lcg_complex &a, const lcg_complex &b);
+
+/**
+ * @brief      Reload operators for the complex number type
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     quotient
+ */
+lcg_complex operator/(const lcg_complex &a, const lcg_complex &b);
+
+/**
  * @brief      Types of method that could be recognized by the lcg_solver() function.
  */
 typedef enum

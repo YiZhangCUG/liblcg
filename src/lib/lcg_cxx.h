@@ -40,7 +40,7 @@ public:
 		param_ = lcg_default_parameters();
 	}
 
-	~LCG_Solver(){}
+	virtual ~LCG_Solver(){}
 
 	static void _AxProduct(void* instance, const lcg_float* a, lcg_float* b, const int num)
 	{
@@ -76,7 +76,7 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id, p);
-		if (ret < 0) std::cout << lcg_error_str(ret) << std::endl;
+		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
 
@@ -85,7 +85,7 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
-		if (ret < 0) std::cout << lcg_error_str(ret) << std::endl;
+		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
 };

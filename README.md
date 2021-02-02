@@ -80,12 +80,15 @@ _注：如需生成其他版本的VS工程文件，请使用-G命令查看相应
 
 ## 头文件与函数接口
 
-使用库函数需在源文件中包含头文件`lcg.h`，可用的函数接口包括
+使用库函数需在源文件中包含头文件`lcg.h`或`lcg_cxx.h`。`lcg.h`定义了C语言的函数接口，`lcg_cxx.h`定义了C++类对象的函数接口。可用的函数接口包括
 
 1. `lcg_float* lcg_malloc(const int n)` 开辟数组空间；
 2. `void lcg_free(lcg_float* x)` 释放数组空间；
 3. `lcg_para lcg_default_parameters()` 返回一组默认的共轭梯度参数；
-4. `const char* lcg_error_str(int er_index)` 按照 `lcg_solver()` 函数的返回值显示可能的错误信息。
+4. `const char* lcg_error_str(int er_index)` 按照 `lcg_solver()` 或`clcg_solver()` 函数的返回值显示帮助信息；
+5. `int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, ...)`求解无约束的最优化问题；
+6. `int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, ...)`求解约束的最优化问题；
+7. `class LCG_Solver` 基于类的求解器接口。
 
 ### 回调函数
 
@@ -124,7 +127,9 @@ typedef int (*lcg_progress_ptr)(void* instance, const lcg_float* m, const lcg_fl
 
 函数的返回值为0时迭代继续，否则迭代终止。此函数参数类型均为常量型，是迭代过程中暴露的变量值。求解过程中每迭代一次即在lcg_solver()与clcg_solver()函数内调用一次。用户可使用需要的变量监控或显示迭代过程。
 
-## 求解函数
+## 求解器
+
+#### 求解函数
 
 用户在定义 正演计算函数与监控函数后即可调用求解函数 lcg_solver() 或 clcg_solver() 对线性方程组进行求解，同时提供初始解x与共轭梯度的B项（即拟合的对象）。如果使用预优方法还需要提供预优矩阵P项。目前可用的求解方法如下：
 
@@ -162,3 +167,16 @@ int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lc
 1. `lcg_float* low` 可取的参数范围的底界；
 2. `lcg_float* hig` 可取的参数范围的顶界；
 3. `int solver_id` 求解函数使用的求解方法，可选的类型包括 LCG_PG 与 LCG_SPG。默认类型为 LCG_PG。
+
+#### 类模版
+
+用户可使用`lcg_cxx.h`内定义的`LCG_Solver`类模版继承得到所需的求解类。`LCG_Solver`内定义了纯虚函数`virtual void AxProduct(const lcg_float* a, lcg_float* b, const int num) = 0`作为正演计算函数的接口，用户需自行定义函数的内容。`LCG_Solver`定义的其他函数包括：
+
+1. `virtual int Progress(const lcg_float* m, const lcg_float converge, 
+   		const lcg_para *param, const int n_size, const int k)` 默认的监控函数，用户可通过重载自行定义所需的监控函数；
+2. `void set_lcg_parameter(const lcg_para &in_param)` 设置迭代参数；
+3. `void Minimize(lcg_float *m, const lcg_float *b, int x_size, 
+   		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL)` 无约束反演求解函数；
+4. `void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float* low, 
+   		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG)` 约束反演求解函数。
+
