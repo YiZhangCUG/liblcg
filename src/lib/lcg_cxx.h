@@ -84,7 +84,7 @@ public:
 		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
-		int ret = clcg_solver(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
+		int ret = lcg_solver_constrained(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
 		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}

@@ -62,7 +62,7 @@ enum lcg_return_enum
 	LCG_INVILAD_EPSILON, ///< The epsilon is negative.
 	LCG_INVILAD_RESTART_EPSILON, ///< The restart epsilon is negative.
 	LCG_REACHED_MAX_ITERATIONS, ///< Iteration reached maximal limit.
-	LCG_nullptr_PRECONDITION_MATRIX, ///< Null precondition matrix.
+	LCG_NULL_PRECONDITION_MATRIX, ///< Null precondition matrix.
 	LCG_NAN_VALUE, ///< Nan value.
 	LCG_INVALID_POINTER, ///< Invalid pointer.
 	LCG_INVALID_LAMBDA, ///< Invalid range for lambda.
@@ -117,7 +117,7 @@ const char* lcg_error_str(int er_index)
 			return "The restart epsilon is negative.";
 		case LCG_REACHED_MAX_ITERATIONS:
 			return "The maximal iteration is reached.";
-		case LCG_nullptr_PRECONDITION_MATRIX:
+		case LCG_NULL_PRECONDITION_MATRIX:
 			return "The precondition matrix can't be null for a preconditioned conjugate gradient method.";
 		case LCG_NAN_VALUE:
 			return "The model values are NaN.";
@@ -215,15 +215,15 @@ int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 typedef int (*lcg_solver_ptr2)(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, void* instance);
 
-int clcg_pg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance);
 
-int clcg_spg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance);
 
-int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lcg_solver_constrained(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float *hig, const int n_size, const lcg_para* param, 
 	void* instance, lcg_solver_enum solver_id)
 {
@@ -231,13 +231,13 @@ int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lc
 	switch (solver_id)
 	{
 		case LCG_PG:
-			cg_solver = clcg_pg;
+			cg_solver = lpg;
 			break;
 		case LCG_SPG:
-			cg_solver = clcg_spg;
+			cg_solver = lspg;
 			break;
 		default:
-			cg_solver = clcg_pg;
+			cg_solver = lpg;
 			break;
 	}
 
@@ -421,7 +421,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 	if (m == nullptr) return LCG_INVALID_POINTER;
 	if (B == nullptr) return LCG_INVALID_POINTER;
-	if (P == nullptr) return LCG_nullptr_PRECONDITION_MATRIX;
+	if (P == nullptr) return LCG_NULL_PRECONDITION_MATRIX;
 
 	// locate memory
 	lcg_float *rk = nullptr, *zk = nullptr;
@@ -1166,7 +1166,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
  *
  * @return     Status of the function.
  */
-int clcg_pg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance)
 {
@@ -1308,7 +1308,7 @@ int clcg_pg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_fl
  *
  * @return     Status of the function.
  */
-int clcg_spg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance)
 {

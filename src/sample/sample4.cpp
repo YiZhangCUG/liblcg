@@ -137,7 +137,7 @@ int main(int argc, char const *argv[])
 		hig[i] = 2.0;
 	}
 
-	int ret = clcg_solver(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_PG);
+	int ret = lcg_solver_constrained(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_PG);
 	if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)

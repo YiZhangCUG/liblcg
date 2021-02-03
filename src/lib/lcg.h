@@ -40,74 +40,6 @@ extern "C"
 typedef double lcg_float;
 
 /**
- * @brief     A simple definition of the complex number type.
- */
-typedef struct
-{
-	lcg_float rel, img;
-} lcg_complex;
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     equal or not
- */
-bool operator==(const lcg_complex &a, const lcg_complex &b);
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     unequal or not
- */
-bool operator!=(const lcg_complex &a, const lcg_complex &b);
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     sum
- */
-lcg_complex operator+(const lcg_complex &a, const lcg_complex &b);
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     difference
- */
-lcg_complex operator-(const lcg_complex &a, const lcg_complex &b);
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     product
- */
-lcg_complex operator*(const lcg_complex &a, const lcg_complex &b);
-
-/**
- * @brief      Reload operators for the complex number type
- *
- * @param[in]  a     complex number a
- * @param[in]  b     complex number b
- *
- * @return     quotient
- */
-lcg_complex operator/(const lcg_complex &a, const lcg_complex &b);
-
-/**
  * @brief      Types of method that could be recognized by the lcg_solver() function.
  */
 typedef enum
@@ -216,7 +148,6 @@ typedef struct
 typedef void (*lcg_axfunc_ptr)(void* instance, const lcg_float* x, lcg_float* prod_Ax, 
 	const int n_size);
 
-
 /**
  * @brief     Callback interface for monitoring the progress and terminate the iteration 
  * if necessary.
@@ -304,7 +235,7 @@ int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
  *
  * @return     Status of the function.
  */
-int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
+int lcg_solver_constrained(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float *hig, const int n_size, const lcg_para* param, 
 	void* instance, lcg_solver_enum solver_id = LCG_PG);
 
