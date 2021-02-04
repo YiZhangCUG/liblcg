@@ -51,17 +51,118 @@ typedef enum
 	Transpose,
 } matrix_layout_e;
 
+/**
+ * @brief      Reload equality operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     equal or not
+ */
 bool operator==(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      Reload equality operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     unequal or not
+ */
 bool operator!=(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      Reload addition operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     sum
+ */
 clcg_complex operator+(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      Reload subtraction operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     subtraction
+ */
 clcg_complex operator-(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      Reload multiplication operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     product
+ */
 clcg_complex operator*(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      Reload division operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     quotient
+ */
 clcg_complex operator/(const clcg_complex &a, const clcg_complex &b);
+
+/**
+ * @brief      calculate complex conjugate
+ *
+ * @param[in]  a     complex number a
+ *
+ * @return     complex conjugate
+ */
 clcg_complex conjugate(const clcg_complex &a);
+
+/**
+ * @brief      calculate the product of a real number multiplied by a complex number
+ *
+ * @param[in]  a     real number a
+ * @param[in]  b     complex number b
+ *
+ * @return     complex number
+ */
 clcg_complex real_product(const lcg_float &a, const clcg_complex &b);
+
+/**
+ * @brief      calculate inner product of two complex vectors
+ * 
+ * the product of two complex vectors are defined as <a, b> = \sum{\bar{a_i}\cdot\b_i}
+ *
+ * @param[in]  a       complex vector a
+ * @param[in]  b       complex vector b
+ * @param[in]  x_size  size of the vector
+ *
+ * @return     product
+ */
 clcg_complex inner_product(const clcg_complex *a, const clcg_complex *b, int x_size);
+
+/**
+ * @brief      calculate product of a complex matrix and a complex vector
+ * 
+ * the product of two complex vectors are defined as <a, b> = \sum{\bar{a_i}\cdot\b_i}.
+ * Different configurations:
+ * layout=Normal,conjugate=false -> A
+ * layout=Transpose,conjugate=false -> A^T
+ * layout=Normal,conjugate=true -> \bar{A}
+ * layout=Transpose,conjugate=true -> A^H
+ *
+ * @param      A          complex matrix A
+ * @param[in]  x          complex vector x
+ * @param      Ax         product of Ax
+ * @param[in]  m_size     row size of A
+ * @param[in]  n_size     column size of A
+ * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
+ * @param[in]  conjugate  whether to use the complex conjugate of A for calculation
+ */
 void matrix_product(clcg_complex **A, const clcg_complex *x, clcg_complex *Ax, 
-	int m_size, int n_size, matrix_layout_e layout, bool conjugate);
+	int m_size, int n_size, matrix_layout_e layout, bool conjugate = false);
 
 /**
  * @brief      Types of method that could be recognized by the clcg_solver() function.

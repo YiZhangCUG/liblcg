@@ -1,4 +1,4 @@
-#include "../lib/clcg.h"
+#include "../lib/clcg_cxx.h"
 #include "ctime"
 #include "random"
 #include "iostream"
@@ -19,35 +19,31 @@ int random_int(int small, int big)
 	return (rand() % (big - small))+ small;
 }
 
-// 普通二维数组做核矩阵
-clcg_complex **kernel;
-// 中间结果数组
-clcg_complex *tmp_arr;
-
-// 计算核矩阵乘向量的乘积
-void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
-	const int x_size, bool conjugate)
+class TESTFUNC : public CLCG_Solver
 {
-	matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
-	matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
-	return;
-}
+public:
+	TESTFUNC();
+	~TESTFUNC();
 
+	// 计算共轭梯度的B项
+	void cal_partb(clcg_complex *B, const clcg_complex *x);
 
-//定义共轭梯度监控函数
-int Prog(void* instance, const clcg_complex* m, const lcg_float converge, 
-	const clcg_para* param, const int n_size, const int k)
-{
-	std::clog << "Iteration-times: " << k << "\tconvergence: " << converge << std::endl;
-#ifdef __linux__
-	if (converge > param->epsilon) std::clog << "\033[1A\033[K";
-#elif defined __APPLE__
-	if (converge > param->epsilon) std::clog << "\033[1A\033[K";
-#endif
-	return 0;
-}
+	//定义共轭梯度中Ax的算法
+	void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, const int x_size, bool conjugate)
+	{
+		matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
+		matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
+		return;
+	}
 
-int main(int argc, char const *argv[])
+private:
+	// 普通二维数组做核矩阵
+	clcg_complex **kernel;
+	// 中间结果数组
+	clcg_complex *tmp_arr;
+};
+
+TESTFUNC::TESTFUNC()
 {
 	srand(time(0));
 
@@ -79,8 +75,28 @@ int main(int argc, char const *argv[])
 			kernel[i][tmp_id].img = random_lcg_float(-10, 10);
 		}
 	}
+}
 
-	// 生成一组正演解
+TESTFUNC::~TESTFUNC()
+{
+	for (int i = 0; i < M; i++)
+	{
+		delete[] kernel[i];
+	}
+	delete[] kernel;
+	delete[] tmp_arr;
+}
+
+void TESTFUNC::cal_partb(clcg_complex *B, const clcg_complex *x)
+{
+	matrix_product(kernel, x, tmp_arr, M, N, Normal);
+	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
+	return;
+}
+
+int main(int argc, char const *argv[])
+{
+	// 声明一组解
 	clcg_complex *fm = new clcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
@@ -88,16 +104,18 @@ int main(int argc, char const *argv[])
 		fm[i].img = random_lcg_float(1, 2);
 	}
 
+	TESTFUNC test;
+
 	// 计算共轭梯度B项
 	clcg_complex *B = new clcg_complex [N];
-	matrix_product(kernel, fm, tmp_arr, M, N, Normal);
-	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
+	test.cal_partb(B, fm);
 
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
 	self_para.epsilon = 1e-8;
 	self_para.abs_diff = 0;
+	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
 	clcg_complex *m = new clcg_complex [N];
@@ -107,8 +125,7 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
-	std::cerr << clcg_error_str(ret) << std::endl;
+	test.Minimize(m, B, N);
 
 	for (int i = 0; i < N; i++)
 	{
@@ -131,8 +148,6 @@ int main(int argc, char const *argv[])
 		}
 	}
 
-	delete[] kernel;
-	delete[] tmp_arr;
 	delete[] fm;
 	delete[] B;
 	delete[] m;

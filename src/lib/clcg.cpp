@@ -86,8 +86,8 @@ clcg_complex inner_product(const clcg_complex *a, const clcg_complex *b, int x_s
 	ret.rel = 0.0; ret.img = 0.0;
 	for (int i = 0; i < x_size; i++)
 	{
+		// <a,b> = a* \cdot b
 		ret.rel += (a[i].rel*b[i].rel + a[i].img*b[i].img);
-		//ret.img += (a[i].img*b[i].rel - a[i].rel*b[i].img);
 		ret.img += (a[i].rel*b[i].img - a[i].img*b[i].rel);
 	}
 	return ret;
@@ -108,6 +108,7 @@ void matrix_product(clcg_complex **A, const clcg_complex *x, clcg_complex *Ax,
 				Ax[i].img = 0.0;
 				for (j = 0; j < n_size; j++)
 				{
+					// <a,b> = a* \cdot b
 					Ax[i].rel += (A[i][j].rel*x[j].rel - A[i][j].img*x[j].img);
 					Ax[i].img += (A[i][j].img*x[j].rel + A[i][j].rel*x[j].img);
 				}
@@ -280,9 +281,9 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const cl
 	int i;
 	clcg_complex *r1k = nullptr, *r2k = nullptr, *d1k = nullptr, *d2k = nullptr;
 	clcg_complex *Ax = nullptr;
-	r1k   = clcg_malloc(n_size); r2k = clcg_malloc(n_size);
-	d1k   = clcg_malloc(n_size); d2k = clcg_malloc(n_size);
-	Ax    = clcg_malloc(n_size);
+	r1k = clcg_malloc(n_size); r2k = clcg_malloc(n_size);
+	d1k = clcg_malloc(n_size); d2k = clcg_malloc(n_size);
+	Ax  = clcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size, false);
 
@@ -342,10 +343,8 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const cl
 		}
 
 		r1r2 = inner_product(r1k, r2k, n_size);
-
 		Afp(instance, d1k, Ax, n_size, false);
 		Ad1d2 = inner_product(Ax, d2k, n_size);
-
 		ak = r1r2/Ad1d2;
 
 #pragma omp parallel for private (i) schedule(guided)
