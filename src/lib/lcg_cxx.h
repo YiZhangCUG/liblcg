@@ -72,20 +72,22 @@ public:
 	}
 
 	void Minimize(lcg_float *m, const lcg_float *b, int x_size, 
-		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL)
+		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL, bool verbose = true)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id, p);
-		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
+		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
 
 	void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float* low, 
-		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG)
+		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG, bool verbose = true)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver_constrained(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
-		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
+		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
 };

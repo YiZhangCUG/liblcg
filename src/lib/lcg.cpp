@@ -100,25 +100,25 @@ const char* lcg_error_str(int er_index)
 	switch (er_index)
 	{
 		case LCG_SUCCESS:
-			return "The iteration reached convergence.";
+			return "Iteration reached convergence.";
 		case LCG_STOP:
-			return "The conjugate gradient method stopped by the progress evaluation function.";
+			return "Iteration is stopped by the progress evaluation function.";
 		case LCG_ALREADY_OPTIMIZIED:
-			return "The input variables are already optimized results.";
+			return "Variables are already optimized.";
 		case LCG_UNKNOWN_ERROR:
 			return "Unknown error.";
 		case LCG_INVILAD_VARIABLE_SIZE:
-			return "The size of variables is negative.";
+			return "Size of the variables is negative.";
 		case LCG_INVILAD_MAX_ITERATIONS:
-			return "The maximal iteration times is negative.";
+			return "The maximal iteration times can't be negative.";
 		case LCG_INVILAD_EPSILON:
-			return "The epsilon is negative.";
+			return "The convergence threshold can't be negative.";
 		case LCG_INVILAD_RESTART_EPSILON:
-			return "The restart epsilon is negative.";
+			return "The restart threshold can't be negative.";
 		case LCG_REACHED_MAX_ITERATIONS:
-			return "The maximal iteration is reached.";
+			return "The maximal iteration has been reached.";
 		case LCG_NULL_PRECONDITION_MATRIX:
-			return "The precondition matrix can't be null for a preconditioned conjugate gradient method.";
+			return "The precondition matrix can't be null.";
 		case LCG_NAN_VALUE:
 			return "The model values are NaN.";
 		case LCG_INVALID_POINTER:
@@ -384,6 +384,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		lcg_free(dk);
 		lcg_free(gk);
 		lcg_free(Adk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -542,6 +543,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(zk);
 		lcg_free(dk);
 		lcg_free(Adk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -719,6 +721,7 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(uk);
 		lcg_free(qk);
 		lcg_free(wk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -899,6 +902,7 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 		lcg_free(Ax);
 		lcg_free(sk);
 		lcg_free(Apk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -1141,6 +1145,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 		lcg_free(Ax);
 		lcg_free(sk);
 		lcg_free(Apk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -1283,6 +1288,7 @@ int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		lcg_free(sk);
 		lcg_free(yk);
 		lcg_free(Adk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -1498,6 +1504,7 @@ int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(Adk);
 		lcg_free(dk);
 		lcg_free(qk_m);
+		return ret;
 	}
 
 	if (time == para.max_iterations)

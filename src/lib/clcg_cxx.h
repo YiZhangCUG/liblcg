@@ -74,11 +74,12 @@ public:
 	}
 
 	void Minimize(clcg_complex *m, const clcg_complex *b, int x_size, 
-		clcg_solver_enum solver_id = CLCG_CGS)
+		clcg_solver_enum solver_id = CLCG_CGS, bool verbose = true)
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id);
-		if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
+		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
 };

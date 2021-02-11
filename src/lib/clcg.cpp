@@ -209,21 +209,21 @@ const char* clcg_error_str(int er_index)
 	switch (er_index)
 	{
 		case CLCG_SUCCESS:
-			return "The iteration reached convergence.";
+			return "Iteration reached convergence.";
 		case CLCG_STOP:
-			return "The conjugate gradient method stopped by the progress evaluation function.";
+			return "Iteration is stopped by the progress evaluation function.";
 		case CLCG_ALREADY_OPTIMIZIED:
-			return "The input variables are already optimized results.";
+			return "Variables are already optimized.";
 		case CLCG_UNKNOWN_ERROR:
 			return "Unknown error.";
 		case CLCG_INVILAD_VARIABLE_SIZE:
-			return "The size of variables is negative.";
+			return "Size of the variables is negative.";
 		case CLCG_INVILAD_MAX_ITERATIONS:
 			return "The maximal iteration times is negative.";
 		case CLCG_INVILAD_EPSILON:
 			return "The epsilon is negative.";
 		case CLCG_REACHED_MAX_ITERATIONS:
-			return "The maximal iteration is reached.";
+			return "The maximal iteration has been reached.";
 		case CLCG_NAN_VALUE:
 			return "The model values are NaN.";
 		case CLCG_INVALID_POINTER:
@@ -387,6 +387,7 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const cl
 		clcg_free(d1k);
 		clcg_free(d2k);
 		clcg_free(Ax);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
@@ -523,6 +524,7 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const clc
 		clcg_free(uk);
 		clcg_free(qk);
 		clcg_free(wk);
+		return ret;
 	}
 
 	if (time == para.max_iterations)
