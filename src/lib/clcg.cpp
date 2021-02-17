@@ -314,7 +314,6 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const cl
 
 		if (para.abs_diff)
 		{
-			rk_mod = sqrt(rk_mod);
 			if (Pfp != nullptr)
 			{
 				if (Pfp(instance, m, rk_mod, &para, n_size, time))
@@ -446,7 +445,6 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const clc
 
 		if (para.abs_diff)
 		{
-			rk_mod = sqrt(rk_mod);
 			if (Pfp != nullptr)
 			{
 				if (Pfp(instance, m, rk_mod, &para, n_size, time))

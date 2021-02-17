@@ -45,8 +45,6 @@ private:
 
 TESTFUNC::TESTFUNC()
 {
-	srand(time(0));
-
 	kernel = new clcg_complex *[M];
 	for (int i = 0; i < M; i++)
 	{
@@ -96,6 +94,8 @@ void TESTFUNC::cal_partb(clcg_complex *B, const clcg_complex *x)
 
 int main(int argc, char const *argv[])
 {
+	srand(time(0));
+
 	// 声明一组解
 	clcg_complex *fm = new clcg_complex [N];
 	for (int i = 0; i < N; i++)
@@ -113,8 +113,8 @@ int main(int argc, char const *argv[])
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-8;
-	self_para.abs_diff = 0;
+	self_para.epsilon = 1e-3;
+	self_para.abs_diff = 1;
 	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
@@ -125,7 +125,7 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	test.Minimize(m, B, N);
+	test.Minimize(m, B, N, CLCG_BICG);
 
 	for (int i = 0; i < N; i++)
 	{

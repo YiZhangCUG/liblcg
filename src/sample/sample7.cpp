@@ -107,7 +107,7 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
+	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
 	std::cerr << clcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
