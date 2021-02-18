@@ -29,7 +29,8 @@ public:
 	void cal_partb(clcg_complex *B, const clcg_complex *x);
 
 	//定义共轭梯度中Ax的算法
-	void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, const int x_size, bool conjugate)
+	void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, const int x_size, 
+		matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
 		matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
 		matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
@@ -113,8 +114,8 @@ int main(int argc, char const *argv[])
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-3;
-	self_para.abs_diff = 1;
+	self_para.epsilon = 1e-6;
+	self_para.abs_diff = 0;
 	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
@@ -125,7 +126,7 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	test.Minimize(m, B, N, CLCG_BICG);
+	test.Minimize(m, B, N, CLCG_TFQMR);
 
 	for (int i = 0; i < N; i++)
 	{

@@ -43,12 +43,12 @@ public:
 	virtual ~CLCG_Solver(){}
 
 	static void _AxProduct(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
-		const int x_size, bool conjugate)
+		const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
-		return reinterpret_cast<CLCG_Solver*>(instance)->AxProduct(x, prod_Ax, x_size, conjugate);
+		return reinterpret_cast<CLCG_Solver*>(instance)->AxProduct(x, prod_Ax, x_size, layout, conjugate);
 	}
 	virtual void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, 
-		const int x_size, bool conjugate) = 0;
+		const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate) = 0;
 
 	static int _Progress(void* instance, const clcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
@@ -78,8 +78,8 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id);
-		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
-		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose) std::cerr << clcg_error_str(ret) << std::endl;
+		else if (ret < 0) std::cerr << clcg_error_str(ret) << std::endl;
 		return;
 	}
 };

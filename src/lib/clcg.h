@@ -52,6 +52,15 @@ typedef enum
 } matrix_layout_e;
 
 /**
+ * @brief      conjugate types for a complex number.
+ */
+typedef enum
+{
+	NonConjugate,
+	Conjugate,
+} complex_conjugate_e;
+
+/**
  * @brief      Reload equality operator.
  *
  * @param[in]  a     complex number a
@@ -161,8 +170,8 @@ clcg_complex inner_product(const clcg_complex *a, const clcg_complex *b, int x_s
  * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
  * @param[in]  conjugate  whether to use the complex conjugate of A for calculation
  */
-void matrix_product(clcg_complex **A, const clcg_complex *x, clcg_complex *Ax, 
-	int m_size, int n_size, matrix_layout_e layout, bool conjugate = false);
+void matrix_product(clcg_complex **A, const clcg_complex *x, clcg_complex *Ax, int m_size, int n_size, 
+	matrix_layout_e layout = Normal, complex_conjugate_e conjugate = NonConjugate);
 
 /**
  * @brief      Types of method that could be recognized by the clcg_solver() function.
@@ -170,13 +179,17 @@ void matrix_product(clcg_complex **A, const clcg_complex *x, clcg_complex *Ax,
 typedef enum
 {
 	/**
-	 * Jacob's Bi-conjugate Gradient Method
+	 * Jacob's Bi-Conjugate Gradient Method
 	 */
 	CLCG_BICG,
 	/**
 	 * Conjugate Gradient Squared Method.
 	 */
 	CLCG_CGS,
+	/**
+	 * Transpose Free Quasi-Minimal Residual Method
+	 */
+	CLCG_TFQMR,
 } clcg_solver_enum;
 
 /**
@@ -218,10 +231,11 @@ typedef struct
  * @param  x           Multiplier of the Ax product.
  * @param  Ax          Product of A multiplied by x.
  * @param  x_size      Size of x and column/row numbers of A.
- * @param  conjugate   Using the conjugate of A for calculation.
+ * @param  layout      Whether to use the transpose of A for calculation.
+ * @param  conjugate   Whether to use the conjugate of A for calculation.
  */
 typedef void (*clcg_axfunc_ptr)(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
-	const int x_size, bool conjugate);
+	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate);
 
 /**
  * @brief     Callback interface for monitoring the progress and terminate the iteration 

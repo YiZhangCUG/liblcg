@@ -384,12 +384,13 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		lcg_free(dk);
 		lcg_free(gk);
 		lcg_free(Adk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 /**
@@ -543,12 +544,13 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(zk);
 		lcg_free(dk);
 		lcg_free(Adk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 
@@ -721,12 +723,13 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(uk);
 		lcg_free(qk);
 		lcg_free(wk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 /**
@@ -902,12 +905,13 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 		lcg_free(Ax);
 		lcg_free(sk);
 		lcg_free(Apk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 
@@ -1145,12 +1149,13 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 		lcg_free(Ax);
 		lcg_free(sk);
 		lcg_free(Apk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 /**
@@ -1288,12 +1293,13 @@ int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		lcg_free(sk);
 		lcg_free(yk);
 		lcg_free(Adk);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }
 
 /**
@@ -1504,10 +1510,11 @@ int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		lcg_free(Adk);
 		lcg_free(dk);
 		lcg_free(qk_m);
-		return ret;
 	}
 
 	if (time == para.max_iterations)
 		return LCG_REACHED_MAX_ITERATIONS;
-	return LCG_SUCCESS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
 }

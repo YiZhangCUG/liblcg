@@ -26,7 +26,7 @@ clcg_complex *tmp_arr;
 
 // 计算核矩阵乘向量的乘积
 void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
-	const int x_size, bool conjugate)
+	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
 	matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
 	matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
