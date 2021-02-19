@@ -57,8 +57,8 @@ TESTFUNC::TESTFUNC()
 	{
 		for (int j = 0; j < N; j++)
 		{
-			kernel[i][j].rel = random_lcg_float(-1.0, 1.0);
-			kernel[i][j].img = random_lcg_float(-1.0, 1.0);
+			kernel[i][j].rel = 0.0;//random_lcg_float(-1.0, 1.0);
+			kernel[i][j].img = 0.0;//random_lcg_float(-1.0, 1.0);
 		}
 	}
 

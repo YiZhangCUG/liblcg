@@ -576,15 +576,10 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 
 	Afp(instance, yk, vk, n_size, Normal, NonConjugate);
 
-	lcg_float tao = 0.0;
-	for (i = 0; i < n_size; i++)
-	{
-		tao += (r0[i].rel*r0[i].rel + r0[i].img*r0[i].img);
-	}
-	tao = sqrt(tao);
-
 	//clcg_complex rho = inner_product(r0, r0, n_size);
 	lcg_float rho = inner_product(r0, r0, n_size).rel;
+	//lcg_float tao = sqrt(rho.rel);
+	lcg_float tao = sqrt(rho);
 
 	lcg_float B_mod = 0.0;
 	for (i = 0; i < n_size; i++)
@@ -593,21 +588,22 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 	}
 
 	int time, ret;
-	lcg_float w_mod, ck, alpha, betak, ak, rho2, eta = 0.0;
-	//clcg_complex betak, rho2, ak , eta, alpha;
+	lcg_float ck, w_mod = 0.0;
+	//clcg_complex betak, rho2, ak, eta, alpha;
 	//eta.rel = 0.0; eta.img = 0.0;
+	lcg_float betak, rho2, ak, alpha, eta = 0.0;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		if (para.abs_diff)
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, sqrt(2.0*(time+1)+1)*tao*tao, &para, n_size, time))
+				if (Pfp(instance, m, tao*tao, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (sqrt(2.0*(time+1)+1)*tao*tao <= para.epsilon)
+			if (tao*tao <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
@@ -616,32 +612,42 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, sqrt(2.0*(time+1)+1)*tao*tao/B_mod, &para, n_size, time))
+				if (Pfp(instance, m, tao*tao/B_mod, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (sqrt(2.0*(time+1)+1)*tao*tao/B_mod <= para.epsilon)
+			if (tao*tao/B_mod <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
 		}
 
+		//alpha = rho/inner_product(r0, vk, n_size);
 		alpha = rho/inner_product(r0, vk, n_size).rel;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
 			//y2k[i] = yk[i] - alpha*vk[i];
-			y2k[i] = yk[i] - real_product(alpha,vk[i]);
+			y2k[i] = yk[i] - real_product(alpha, vk[i]);
 		}
 
 		// iteration with A*yk
+		//ak = real_product(w_mod*w_mod, eta/alpha);
+		ak = w_mod*w_mod*eta/alpha;
+#pragma omp parallel for private (i) schedule(guided)
+		for (i = 0; i < n_size; i++)
+		{
+			//dk[i] = yk[i] + ak*dk[i];
+			dk[i] = yk[i] + real_product(ak, dk[i]);
+		}
+
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
 			//wk[i] = wk[i] - alpha*vk[i];
-			wk[i] = wk[i] - real_product(alpha,vk[i]);
+			wk[i] = wk[i] - real_product(alpha, vk[i]);
 		}
 
 		w_mod = 0.0;
@@ -651,20 +657,15 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		}
 		w_mod = sqrt(w_mod)/tao;
 		ck = 1.0/sqrt(1.0+w_mod*w_mod);
-		tao = tao*w_mod*ck;
-
-		//ak = real_product(w_mod*w_mod, eta/alpha);
 		//eta = real_product(ck*ck, alpha);
-		ak = w_mod*w_mod*eta/alpha;
 		eta = ck*ck*alpha;
+		tao = tao*w_mod*ck;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
-			//dk[i] = yk[i] + ak*dk[i];
-			//m[i]  = m[i] + eta*dk[i];
-			dk[i] = yk[i] + real_product(ak, dk[i]);
-			m[i]  = m[i] + real_product(eta, dk[i]);
+			//m[i] = m[i] + eta*dk[i];
+			m[i] = m[i] + real_product(eta, dk[i]);
 		}
 
 		for (i = 0; i < n_size; i++)
@@ -679,11 +680,19 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		Afp(instance, y2k, v2k, n_size, Normal, NonConjugate);
 
 		// iteration with A*y2k
+		ak = w_mod*w_mod*eta/alpha;
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
-			//wk[i] = wk[i] - alpha*v2k[i];
-			wk[i] = wk[i] - real_product(alpha,v2k[i]);
+			//dk[i] = yk[i] + ak*dk[i];
+			dk[i] = y2k[i] + real_product(ak, dk[i]);
+		}
+
+#pragma omp parallel for private (i) schedule(guided)
+		for (i = 0; i < n_size; i++)
+		{
+			//wk[i] = wk[i] - alpha*vk[i];
+			wk[i] = wk[i] - real_product(alpha, v2k[i]);
 		}
 
 		w_mod = 0.0;
@@ -693,20 +702,15 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		}
 		w_mod = sqrt(w_mod)/tao;
 		ck = 1.0/sqrt(1.0+w_mod*w_mod);
-		tao = tao*w_mod*ck;
-
-		//ak = real_product(w_mod*w_mod, eta/alpha);
 		//eta = real_product(ck*ck, alpha);
-		ak = w_mod*w_mod*eta/alpha;
 		eta = ck*ck*alpha;
+		tao = tao*w_mod*ck;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
-			//dk[i] = y2k[i] + ak*dk[i];
-			//m[i]  = m[i] + eta*dk[i];
-			dk[i] = y2k[i] + real_product(ak, dk[i]);
-			m[i]  = m[i] + real_product(eta, dk[i]);
+			//m[i] = m[i] + eta*dk[i];
+			m[i] = m[i] + real_product(eta, dk[i]);
 		}
 
 		for (i = 0; i < n_size; i++)
@@ -718,6 +722,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		}
 		// end iteration with A*y2k
 
+		//rho2 = inner_product(r0, wk, n_size);
 		rho2 = inner_product(r0, wk, n_size).rel;
 		betak = rho2/rho;
 		rho = rho2;
@@ -727,8 +732,8 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, const c
 		{
 			//yk[i] = wk[i] + betak*y2k[i];
 			//v2k[i] = betak*(v2k[i] + betak*vk[i]);
-			yk[i] = wk[i] + real_product(betak,y2k[i]);
-			v2k[i] = real_product(betak,(v2k[i] + real_product(betak,vk[i])));
+			yk[i] = wk[i] + real_product(betak, y2k[i]);
+			v2k[i] = real_product(betak, v2k[i] + real_product(betak, vk[i]));
 		}
 
 		Afp(instance, yk, vk, n_size, Normal, NonConjugate);
