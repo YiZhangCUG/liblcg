@@ -276,9 +276,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 	// locate memory
 	lcg_float *gk = nullptr, *dk = nullptr, *Adk = nullptr;
-	gk = lcg_malloc(n_size);
-	dk = lcg_malloc(n_size);
-	Adk = lcg_malloc(n_size);
+	gk = lcg_malloc(n_size); dk = lcg_malloc(n_size); Adk = lcg_malloc(n_size);
 
 	Afp(instance, m, Adk, n_size);
 
@@ -298,46 +296,23 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 	}
 
 	int time, ret;
-	lcg_float dTAd, ak, betak, gk1_mod, gk_abs;
+	lcg_float dTAd, ak, betak, gk1_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		if (para.abs_diff)
+		if (para.abs_diff) residual = sqrt(gk_mod)/n_size;
+		else residual = gk_mod/B_mod;
+
+		if (Pfp != nullptr)
 		{
-			gk_abs = 0.0;
-			for (i = 0; i < n_size; i++)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-#ifdef LCG_FABS
-				gk_abs += lcg_fabs(gk[i]);
-#else
-				gk_abs += fabs(gk[i]);
-#endif
-			}
-			gk_abs /= 1.0*n_size;
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, gk_abs, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (gk_abs <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
+				ret = LCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, gk_mod/B_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (gk_mod/B_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
-			}
+			ret = LCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance , dk, Adk, n_size);
@@ -428,7 +403,6 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	// locate memory
 	lcg_float *rk = nullptr, *zk = nullptr;
 	lcg_float *dk = nullptr, *Adk = nullptr;
-
 	rk = lcg_malloc(n_size); zk = lcg_malloc(n_size);
 	dk = lcg_malloc(n_size); Adk = lcg_malloc(n_size);
 
@@ -456,46 +430,23 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	}
 
 	int time, ret;
-	lcg_float dTAd, ak, betak, zTr1, rk_mod;
+	lcg_float dTAd, ak, betak, zTr1, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		if (para.abs_diff)
+		if (para.abs_diff) residual = sqrt(zTr)/n_size;
+		else residual = zTr/B_mod;
+
+		if (Pfp != nullptr)
 		{
-			rk_mod = 0.0;
-			for (i = 0; i < n_size; i++)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-#ifdef LCG_FABS
-				rk_mod += lcg_fabs(rk[i]);
-#else
-				rk_mod += fabs(rk[i]);
-#endif
-			}
-			rk_mod /= 1.0*n_size;
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
+				ret = LCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, zTr/B_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (zTr/B_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
-			}
+			ret = LCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance , dk, Adk, n_size);
@@ -588,9 +539,9 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	int i;
 	lcg_float *rk = nullptr, *r0_T = nullptr, *pk = nullptr;
 	lcg_float *Ax = nullptr, *uk = nullptr,   *qk = nullptr, *wk = nullptr;
-	rk   = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
-	pk   = lcg_malloc(n_size); Ax  = lcg_malloc(n_size);
-	uk   = lcg_malloc(n_size); qk   = lcg_malloc(n_size);
+	rk  = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
+	pk  = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
+	uk  = lcg_malloc(n_size); qk   = lcg_malloc(n_size);
 	wk  = lcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size);
@@ -616,53 +567,29 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	}
 
 	int time, ret;
-	lcg_float ak, rk_abs, rkr0_T1, Apr_T, betak, rk_mod;
+	lcg_float ak, rk_abs, rkr0_T1, Apr_T, betak, rk_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		// 我们在迭代开始的时候先检查m是否符合终止条件以避免不必要的迭代
 		rk_mod = 0.0;
 		for (i = 0; i < n_size; i++)
 		{
 			rk_mod += rk[i]*rk[i];
 		}
 
-		if (para.abs_diff)
+		if (para.abs_diff) residual = sqrt(rk_mod)/n_size;
+		else residual = rk_mod/B_mod;
+
+		if (Pfp != nullptr)
 		{
-			rk_abs = 0.0;
-			for (i = 0; i < n_size; i++)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-#ifdef LCG_FABS
-				rk_abs += lcg_fabs(rk[i]);
-#else
-				rk_abs += fabs(rk[i]);
-#endif
-			}
-			rk_abs /= 1.0*n_size;
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_abs, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_abs <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
+				ret = LCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod/B_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
-			}
+			ret = LCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance, pk, Ax, n_size);
@@ -789,7 +716,7 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 	}
 
 	int time, ret;
-	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak, Ass, AsAs, rk_mod;
+	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak, Ass, AsAs, rk_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		rk_mod = 0.0;
@@ -798,43 +725,20 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 			rk_mod += rk[i]*rk[i];
 		}
 
-		if (para.abs_diff)
+		if (para.abs_diff) residual = sqrt(rk_mod)/n_size;
+		else residual = rk_mod/B_mod;
+
+		if (Pfp != nullptr)
 		{
-			rk_abs = 0.0;
-			for (i = 0; i < n_size; i++)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-#ifdef LCG_FABS
-				rk_abs += lcg_fabs(rk[i]);
-#else
-				rk_abs += fabs(rk[i]);
-#endif
-			}
-			rk_abs /= 1.0*n_size;
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_abs, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_abs <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
+				ret = LCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod/B_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
-			}
+			ret = LCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance, pk, Apk, n_size);
@@ -973,7 +877,8 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 	}
 
 	int time, ret;
-	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak, Ass, AsAs, s_abs, rr1_abs, rk_mod;
+	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak;
+	lcg_float Ass, AsAs, s_abs, rr1_abs, rk_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		rk_mod = 0.0;
@@ -982,42 +887,14 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 			rk_mod += rk[i]*rk[i];
 		}
 
-		if (para.abs_diff)
+		if (para.abs_diff) residual = sqrt(rk_mod)/n_size;
+		else residual = rk_mod/B_mod;
+
+		if (Pfp != nullptr)
 		{
-			rk_abs = 0.0;
-			for (i = 0; i < n_size; i++)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-#ifdef LCG_FABS
-				rk_abs += lcg_fabs(rk[i]);
-#else
-				rk_abs += fabs(rk[i]);
-#endif
-			}
-			rk_abs /= 1.0*n_size;
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_abs, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_abs <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
-			}
-		}
-		else
-		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
-				{
-					ret = LCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod/B_mod <= para.epsilon)
-			{
-				ret = LCG_CONVERGENCE; goto func_ends;
+				ret = LCG_STOP; goto func_ends;
 			}
 		}
 

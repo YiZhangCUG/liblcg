@@ -76,7 +76,31 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id, p);
-		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			switch (solver_id)
+			{
+				case LCG_CG:
+					std::cerr << "Solver: Conjugate Gradient" << std::endl;
+					break;
+				case LCG_PCG:
+					std::cerr << "Solver: Preconditioned Conjugate Gradient" << std::endl;
+					break;
+				case LCG_CGS:
+					std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
+					break;
+				case LCG_BICGSTAB:
+					std::cerr << "Solver: Bi-Conjugate Gradient Stabilized" << std::endl;
+					break;
+				case LCG_BICGSTAB2:
+					std::cerr << "Solver: Bi-Conjugate Gradient Stabilized 2" << std::endl;
+					break;
+				default:
+					std::cerr << "Solver: Unknown" << std::endl;
+					break;
+			}
+			std::cerr << lcg_error_str(ret) << std::endl;
+		}
 		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}
@@ -86,7 +110,22 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver_constrained(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
-		if (verbose) std::cerr << lcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			switch (solver_id)
+			{
+				case LCG_PG:
+					std::cerr << "Solver: Projected Gradient" << std::endl;
+					break;
+				case LCG_SPG:
+					std::cerr << "Solver: Spectral Projected Gradient" << std::endl;
+					break;
+				default:
+					std::cerr << "Solver: Unknown" << std::endl;
+					break;
+			}
+			std::cerr << lcg_error_str(ret) << std::endl;
+		}
 		else if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
 		return;
 	}

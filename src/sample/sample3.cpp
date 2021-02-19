@@ -121,15 +121,22 @@ int main(int argc, char const *argv[])
 	/********************准备工作完成************************/
 	lcg_para self_para = lcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-10;
+	self_para.epsilon = 1e-3;
+	self_para.abs_diff = 1;
 
 	// 声明一组解
 	double *m = new double [N];
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
+	// 声明一组预优因子
+	double *p = new double [N];
+	for (int i = 0; i < N; i++)
+		p[i] = 1.0;
+
 	int ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CG);
-	if (ret < 0) std::cerr << lcg_error_str(ret) << std::endl;
+	//int ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_PCG, p);
+	std::cerr << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 	{
@@ -141,5 +148,6 @@ int main(int argc, char const *argv[])
 	delete[] fm;
 	delete[] B;
 	delete[] m;
+	delete[] p;
 	return 0;
 }

@@ -3,8 +3,8 @@
 #include "random"
 #include "iostream"
 
-#define M 80
-#define N 120
+#define M 120
+#define N 80
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
 double random_double(double L,double T)
