@@ -97,6 +97,7 @@ lcg_para lcg_default_parameters()
 
 const char* lcg_error_str(int er_index)
 {
+#if defined(__linux__) || defined(__APPLE__)
 	switch (er_index)
 	{
 		case LCG_SUCCESS:
@@ -134,6 +135,45 @@ const char* lcg_error_str(int er_index)
 		default:
 			return "\033[1m\033[31mFail\033[0m Unknown error.";
 	}
+#else
+	switch (er_index)
+	{
+		case LCG_SUCCESS:
+			return "Iteration reached convergence.";
+		case LCG_STOP:
+			return "Iteration is stopped by the progress evaluation function.";
+		case LCG_ALREADY_OPTIMIZIED:
+			return "Variables are already optimized.";
+		case LCG_UNKNOWN_ERROR:
+			return "Unknown error.";
+		case LCG_INVILAD_VARIABLE_SIZE:
+			return "Size of the variables is negative.";
+		case LCG_INVILAD_MAX_ITERATIONS:
+			return "The maximal iteration times can't be negative.";
+		case LCG_INVILAD_EPSILON:
+			return "The convergence threshold can't be negative.";
+		case LCG_INVILAD_RESTART_EPSILON:
+			return "The restart threshold can't be negative.";
+		case LCG_REACHED_MAX_ITERATIONS:
+			return "The maximal iteration has been reached.";
+		case LCG_NULL_PRECONDITION_MATRIX:
+			return "The precondition matrix can't be null.";
+		case LCG_NAN_VALUE:
+			return "The model values are NaN.";
+		case LCG_INVALID_POINTER:
+			return "Invalid pointer.";
+		case LCG_INVALID_LAMBDA:
+			return "Invalid value for lambda.";
+		case LCG_INVALID_SIGMA:
+			return "Invalid value for sigma.";
+		case LCG_INVALID_BETA:
+			return "Invalid value for beta.";
+		case LCG_INVALID_MAXIM:
+			return "Invalid value for maxi_m.";
+		default:
+			return "Unknown error.";
+	}
+#endif
 }
 
 /**

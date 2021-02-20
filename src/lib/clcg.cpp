@@ -207,6 +207,7 @@ clcg_para clcg_default_parameters()
 
 const char* clcg_error_str(int er_index)
 {
+#if defined(__linux__) || defined(__APPLE__)
 	switch (er_index)
 	{
 		case CLCG_SUCCESS:
@@ -232,6 +233,33 @@ const char* clcg_error_str(int er_index)
 		default:
 			return "\033[1m\033[31mFail\033[0m Unknown error.";
 	}
+#else
+	switch (er_index)
+	{
+		case CLCG_SUCCESS:
+			return "Iteration reached convergence.";
+		case CLCG_STOP:
+			return "Iteration is stopped by the progress evaluation function.";
+		case CLCG_ALREADY_OPTIMIZIED:
+			return "Variables are already optimized.";
+		case CLCG_UNKNOWN_ERROR:
+			return "Unknown error.";
+		case CLCG_INVILAD_VARIABLE_SIZE:
+			return "Size of the variables is negative.";
+		case CLCG_INVILAD_MAX_ITERATIONS:
+			return "The maximal iteration times is negative.";
+		case CLCG_INVILAD_EPSILON:
+			return "The epsilon is negative.";
+		case CLCG_REACHED_MAX_ITERATIONS:
+			return "The maximal iteration has been reached.";
+		case CLCG_NAN_VALUE:
+			return "The model values are NaN.";
+		case CLCG_INVALID_POINTER:
+			return "Invalid pointer.";
+		default:
+			return "Unknown error.";
+	}
+#endif
 }
 
 typedef int (*clcg_solver_ptr)(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex* m, 

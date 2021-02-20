@@ -63,11 +63,13 @@ public:
 	virtual int Progress(const clcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
 	{
+#if defined(__linux__) || defined(__APPLE__)
 		std::clog << "Iteration-times: " << k << "\tconvergence: " << converge << std::endl;
-#ifdef __linux__
 		if (converge > param->epsilon) std::clog << "\033[1A\033[K";
-#elif defined __APPLE__
-		if (converge > param->epsilon) std::clog << "\033[1A\033[K";
+#elif defined (__WIN32__)
+		if (converge > param->epsilon)
+			std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
+		else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;
 #endif
 		return 0;
 	}
