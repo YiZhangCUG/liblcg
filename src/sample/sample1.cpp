@@ -49,14 +49,9 @@ void CalAx(void* instance, const lcg_float* x, lcg_float* prod_Ax, const int n_s
 //定义共轭梯度监控函数
 int Prog(void* instance, const lcg_float* m, const lcg_float converge, const lcg_para* param, const int n_s, const int k)
 {
-#if defined(__linux__) || defined(__APPLE__)
-	std::clog << "Iteration-times: " << k << "\tconvergence: " << converge << std::endl;
-	if (converge > param->epsilon) std::clog << "\033[1A\033[K";
-#elif defined (__WIN32__)
 	if (converge > param->epsilon)
 		std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
 	else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;
-#endif
 	return 0;
 }
 
