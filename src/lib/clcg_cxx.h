@@ -42,6 +42,11 @@ public:
 
 	virtual ~CLCG_Solver(){}
 
+	/**
+	 * 因为类的成员函数指针不能直接被调用，所以我们在这里定义一个静态的中转函数来辅助Ax函数的调用
+	 * 这里我们利用reinterpret_cast将_Ax的指针转换到Ax上，需要注意的是成员函数的指针只能通过
+	 * 实例对象进行调用，因此需要void* instance变量。
+	*/
 	static void _AxProduct(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
 		const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
@@ -78,7 +83,25 @@ public:
 	{
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id);
-		if (verbose) std::cerr << clcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			switch (solver_id)
+			{
+				case CLCG_BICG:
+					std::cerr << "Solver: Bi-Conjugate Gradient" << std::endl;
+					break;
+				case CLCG_CGS:
+					std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
+					break;
+				case CLCG_TFQMR:
+					std::cerr << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;
+					break;
+				default:
+					std::cerr << "Solver: Unknown" << std::endl;
+					break;
+			}
+			std::cerr << clcg_error_str(ret) << std::endl;
+		}
 		else if (ret < 0) std::cerr << clcg_error_str(ret) << std::endl;
 		return;
 	}

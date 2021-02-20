@@ -1,124 +1,205 @@
-#include "../lib/lcg.h"
+#include "../lib/lcg_cxx.h"
+#include "ctime"
+#include "random"
 #include "iostream"
 
-using std::cout;
-using std::clog;
-using std::endl;
+#define M 100
+#define N 80
 
-class TESTFUNC
+//返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
+double random_double(double L,double T)
+{
+	return (T-L)*rand()*1.0/RAND_MAX + L;
+}
+
+//返回范围内的随机整数 注意调取函数之前要调用srand(time(0));
+int random_int(int small, int big)
+{
+	return (rand() % (big - small))+ small;
+}
+
+class TESTFUNC : public LCG_Solver
 {
 public:
 	TESTFUNC();
 	~TESTFUNC();
-	void Routine();
-	/**
-	 * 因为类的成员函数指针不能直接被调用，所以我们在这里定义一个静态的中转函数来辅助Ax函数的调用
-	 * 这里我们利用reinterpret_cast将_Ax的指针转换到Ax上，需要注意的是成员函数的指针只能通过
-	 * 实例对象进行调用，因此需要void* instance变量。
-	*/
-	static void _Ax(void* instance, const lcg_float* a, lcg_float* b, const int num)
-	{
-		return reinterpret_cast<TESTFUNC*>(instance)->Ax(a, b, num);
-	}
-	void Ax(const lcg_float* a, lcg_float* b, const int num); //定义共轭梯度中Ax的算法
 
-	static int _Progress(void* instance, const lcg_float* m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)
+	// 计算共轭梯度的B项
+	void cal_partb(lcg_float *B, const lcg_float *x);
+
+	//定义共轭梯度中Ax的算法
+	void AxProduct(const lcg_float* a, lcg_float* b, const int num)
 	{
-		return reinterpret_cast<TESTFUNC*>(instance)->Progress(m, converge, param, n_size, k);
+		for (int i = 0; i < M; i++)
+		{
+			tmp_arr[i] = 0.0;
+			for (int j = 0; j < num; j++)
+			{
+				tmp_arr[i] += kernel[i][j] * a[j];
+			}
+		}
+
+		for (int j = 0; j < num; j++)
+		{
+			b[j] = 0.0;
+			for (int i = 0; i < M; i++)
+			{
+				b[j] += kernel[i][j] * tmp_arr[i];
+			}
+		}
+		return;
 	}
-	int Progress(const lcg_float* m, const lcg_float converge, const lcg_para *param, const int n_size, const int k);
+
 private:
-	lcg_float* m_;
-	lcg_float* b_;
-	lcg_float kernel_[3][3];
+	// 普通二维数组做核矩阵
+	lcg_float **kernel;
+	// 中间结果数组
+	lcg_float *tmp_arr;
 };
 
 TESTFUNC::TESTFUNC()
 {
-	// 测试线性方程组
-	// 6.3*x1 + 3.9*x2 + 2.5*x3 = -2.37
-	// 1.2*x1 + 2.6*x2 + 1.1*x3 = -6.2
-	// 4.5*x1 + 1.4*x2 + 2.6*x3 = 4.9
-	// 目标解 x1=1.2 x2=-3.7 x3=1.8
-	// CGS与BICGSTAB方法主要用于求解非对称的线性方程组
-	kernel_[0][0] = 6.3; kernel_[0][1] = 3.9; kernel_[0][2] = 2.5;
-	kernel_[1][0] = 1.2; kernel_[1][1] = 2.6; kernel_[1][2] = 1.1;
-	kernel_[2][0] = 4.5; kernel_[2][1] = 1.4; kernel_[2][2] = 2.6;
-	// 初始解
-	m_ = lcg_malloc(3);
-	m_[0] = 0.0; m_[1] = 0.0; m_[2] = 0.0;
-	// 拟合目标值（含有一定的噪声）
-	b_ = lcg_malloc(3);
-	b_[0] = -2.3701212; b_[1] = -6.2100323; b_[2] = 4.9204232;
+	kernel = new double *[M];
+	for (int i = 0; i < M; i++)
+	{
+		kernel[i] = new double [N];
+	}
+	tmp_arr = new double [M];
+
+	srand(time(0));
+
+	for (int i = 0; i < M; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			kernel[i][j] = random_double(-1.0, 1.0);
+		}
+	}
+
+	// 添加一些大数
+	int tmp_id, tmp_size;
+	double tmp_val;
+	for (int i = 0; i < M; i++)
+	{
+		tmp_size = random_int(25, 35);
+		for (int j = 0; j < tmp_size; j++)
+		{
+			tmp_id = random_int(0, N);
+			tmp_val = random_double(-10, 10);
+
+			kernel[i][tmp_id] = tmp_val;
+		}
+	}
 }
 
 TESTFUNC::~TESTFUNC()
 {
-	lcg_free(m_);
-	lcg_free(b_);
+	for (int i = 0; i < M; i++)
+	{
+		delete[] kernel[i];
+	}
+	delete[] kernel;
+	delete[] tmp_arr;
 }
 
-void TESTFUNC::Ax(const lcg_float* a, lcg_float* b, const int num)
+void TESTFUNC::cal_partb(lcg_float *B, const lcg_float *x)
 {
-	for (int i = 0; i < num; i++)
+	for (int i = 0; i < M; i++)
 	{
-		b[i] = 0.0;
-		for (int j = 0; j < num; j++)
+		tmp_arr[i] = 0.0;
+		for (int j = 0; j < N; j++)
 		{
-			b[i] += kernel_[i][j]*a[j];
+			tmp_arr[i] += kernel[i][j]*x[j];
 		}
 	}
-	return;
-}
 
-int TESTFUNC::Progress(const lcg_float* m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)
-{
-	clog << "Iteration-times: " << k << "\tconvergence: " << converge << endl;
-#ifdef __linux__
-	if (converge > param->epsilon) clog << "\033[1A\033[K";
-#elif defined __APPLE__
-	if (converge > param->epsilon) clog << "\033[1A\033[K";
-#endif
-	return 0;
-}
-
-void TESTFUNC::Routine()
-{
-	lcg_para self_para = lcg_default_parameters();
-	// 调用函数求解
-	int ret = lcg_solver(_Ax, _Progress, m_, b_, 3, &self_para, this);
-	if (ret < 0) cout << lcg_error_str(ret) << endl;
-	// 输出解
-	for (int i = 0; i < 3; i++)
+	for (int j = 0; j < N; j++)
 	{
-		cout << m_[i] << endl;
+		B[j] = 0.0;
+		for (int i = 0; i < M; i++)
+		{
+			B[j] += kernel[i][j]*tmp_arr[i];
+		}
 	}
-
-	m_[0] = 0.0; m_[1] = 0.0; m_[2] = 0.0;
-	// 调用函数求解
-	ret = lcg_solver(_Ax, _Progress, m_, b_, 3, &self_para, this, LCG_BICGSTAB);
-	if (ret < 0) cout << lcg_error_str(ret) << endl;
-	// 输出解
-	for (int i = 0; i < 3; i++)
-	{
-		cout << m_[i] << endl;
-	}
-
-	m_[0] = 0.0; m_[1] = 0.0; m_[2] = 0.0;
-	// 调用函数求解
-	ret = lcg_solver(_Ax, _Progress, m_, b_, 3, &self_para, this, LCG_BICGSTAB2);
-	if (ret < 0) cout << lcg_error_str(ret) << endl;
-	// 输出解
-	for (int i = 0; i < 3; i++)
-	{
-		cout << m_[i] << endl;
-	}
-	return;
 }
 
 int main(int argc, char const *argv[])
 {
+	// 生成一组正演解
+	double *fm = new double [N];
+	for (int i = 0; i < N; i++)
+	{
+		fm[i] = random_double(1, 2);
+	}
+
 	TESTFUNC test;
-	test.Routine();
+
+	// 计算共轭梯度B项
+	double *B = new double [N];
+	test.cal_partb(B, fm);
+
+	/********************准备工作完成************************/
+	lcg_para self_para = lcg_default_parameters();
+	self_para.max_iterations = 1000;
+	self_para.epsilon = 1e-3;
+	self_para.abs_diff = 1;
+	test.set_lcg_parameter(self_para);
+
+	// 声明一组解
+	double *m = new double [N];
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	double *p = new double [N];
+	for (int i = 0; i < N; i++)
+		p[i] = 1.0;
+
+	// 约束解的范围
+	double *low = new double [N];
+	double *hig = new double [N];
+	for (int i = 0; i < N; i++)
+	{
+		low[i] = 1.0;
+		hig[i] = 2.0;
+	}
+
+	test.Minimize(m, B, N, LCG_CG);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.Minimize(m, B, N, LCG_PCG, p);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.Minimize(m, B, N, LCG_CGS);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.Minimize(m, B, N, LCG_BICGSTAB);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.Minimize(m, B, N, LCG_BICGSTAB2);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.MinimizeConstrained(m, B, low, hig, N, LCG_PG);
+
+	for (int i = 0; i < N; i++)
+		m[i] = 0.0;
+
+	test.MinimizeConstrained(m, B, low, hig, N, LCG_SPG);
+
+	delete[] fm;
+	delete[] B;
+	delete[] m;
+	delete[] p;
+	delete[] low;
+	delete[] hig;
 	return 0;
 }

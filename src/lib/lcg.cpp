@@ -539,10 +539,10 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	int i;
 	lcg_float *rk = nullptr, *r0_T = nullptr, *pk = nullptr;
 	lcg_float *Ax = nullptr, *uk = nullptr,   *qk = nullptr, *wk = nullptr;
-	rk  = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
-	pk  = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
-	uk  = lcg_malloc(n_size); qk   = lcg_malloc(n_size);
-	wk  = lcg_malloc(n_size);
+	rk = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
+	pk = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
+	uk = lcg_malloc(n_size); qk   = lcg_malloc(n_size);
+	wk = lcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size);
 
@@ -716,7 +716,7 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 	}
 
 	int time, ret;
-	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak, Ass, AsAs, rk_mod, residual;
+	lcg_float ak, wk, rkr0_T1, Apr_T, betak, Ass, AsAs, rk_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		rk_mod = 0.0;

@@ -42,6 +42,11 @@ public:
 
 	virtual ~LCG_Solver(){}
 
+	/**
+	 * 因为类的成员函数指针不能直接被调用，所以我们在这里定义一个静态的中转函数来辅助Ax函数的调用
+	 * 这里我们利用reinterpret_cast将_Ax的指针转换到Ax上，需要注意的是成员函数的指针只能通过
+	 * 实例对象进行调用，因此需要void* instance变量。
+	*/
 	static void _AxProduct(void* instance, const lcg_float* a, lcg_float* b, const int num)
 	{
 		return reinterpret_cast<LCG_Solver*>(instance)->AxProduct(a, b, num);
@@ -115,10 +120,10 @@ public:
 			switch (solver_id)
 			{
 				case LCG_PG:
-					std::cerr << "Solver: Projected Gradient" << std::endl;
+					std::cerr << "Solver: CG with Projected Gradient" << std::endl;
 					break;
 				case LCG_SPG:
-					std::cerr << "Solver: Spectral Projected Gradient" << std::endl;
+					std::cerr << "Solver: CG with Spectral Projected gradient" << std::endl;
 					break;
 				default:
 					std::cerr << "Solver: Unknown" << std::endl;

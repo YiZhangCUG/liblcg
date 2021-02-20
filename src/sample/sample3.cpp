@@ -1,13 +1,14 @@
-#include "../lib/lcg.h"
+#include "../lib/clcg.h"
 #include "ctime"
 #include "random"
 #include "iostream"
+#include "iomanip"
 
 #define M 100
-#define N 80
+#define N 60
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
-double random_double(double L,double T)
+lcg_float random_lcg_float(lcg_float L,lcg_float T)
 {
 	return (T-L)*rand()*1.0/RAND_MAX + L;
 }
@@ -19,35 +20,23 @@ int random_int(int small, int big)
 }
 
 // 普通二维数组做核矩阵
-double **kernel;
+clcg_complex **kernel;
 // 中间结果数组
-double *tmp_arr;
+clcg_complex *tmp_arr;
 
 // 计算核矩阵乘向量的乘积
-void CalAx(void* instance, const lcg_float* x, lcg_float* prod_Ax, const int n_s)
+void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
+	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
-	for (int i = 0; i < M; i++)
-	{
-		tmp_arr[i] = 0.0;
-		for (int j = 0; j < n_s; j++)
-		{
-			tmp_arr[i] += kernel[i][j] * x[j];
-		}
-	}
-
-	for (int j = 0; j < n_s; j++)
-	{
-		prod_Ax[j] = 0.0;
-		for (int i = 0; i < M; i++)
-		{
-			prod_Ax[j] += kernel[i][j] * tmp_arr[i];
-		}
-	}
+	matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
+	matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
 	return;
 }
 
+
 //定义共轭梯度监控函数
-int Prog(void* instance, const lcg_float* m, const lcg_float converge, const lcg_para* param, const int n_s, const int k)
+int Prog(void* instance, const clcg_complex* m, const lcg_float converge, 
+	const clcg_para* param, const int n_size, const int k)
 {
 	std::clog << "Iteration-times: " << k << "\tconvergence: " << converge << std::endl;
 #ifdef __linux__
@@ -60,87 +49,86 @@ int Prog(void* instance, const lcg_float* m, const lcg_float converge, const lcg
 
 int main(int argc, char const *argv[])
 {
-	kernel = new double *[M];
+	srand(time(0));
+
+	kernel = new clcg_complex *[M];
 	for (int i = 0; i < M; i++)
 	{
-		kernel[i] = new double [N];
+		kernel[i] = new clcg_complex [N];
 	}
-	tmp_arr = new double [M];
+	tmp_arr = new clcg_complex [M];
 
 	for (int i = 0; i < M; i++)
 	{
 		for (int j = 0; j < N; j++)
 		{
-			kernel[i][j] = random_double(-1.0, 1.0);
+			kernel[i][j].rel = random_lcg_float(-1.0, 1.0);
+			kernel[i][j].img = random_lcg_float(-1.0, 1.0);
 		}
 	}
 
-	srand(time(0));
 	// 添加一些大数
 	int tmp_id, tmp_size;
-	double tmp_val;
 	for (int i = 0; i < M; i++)
 	{
 		tmp_size = random_int(25, 35);
 		for (int j = 0; j < tmp_size; j++)
 		{
 			tmp_id = random_int(0, N);
-			tmp_val = random_double(-10, 10);
-
-			kernel[i][tmp_id] = tmp_val;
+			kernel[i][tmp_id].rel = random_lcg_float(-10, 10);
+			kernel[i][tmp_id].img = random_lcg_float(-10, 10);
 		}
 	}
 
 	// 生成一组正演解
-	double *fm = new double [N];
+	clcg_complex *fm = new clcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
-		fm[i] = random_double(1, 2);
+		fm[i].rel = random_lcg_float(1, 2);
+		fm[i].img = random_lcg_float(1, 2);
 	}
 
 	// 计算共轭梯度B项
-	double *B = new double [N];
-	for (int i = 0; i < M; i++)
-	{
-		tmp_arr[i] = 0.0;
-		for (int j = 0; j < N; j++)
-		{
-			tmp_arr[i] += kernel[i][j]*fm[j];
-		}
-	}
-
-	for (int j = 0; j < N; j++)
-	{
-		B[j] = 0.0;
-		for (int i = 0; i < M; i++)
-		{
-			B[j] += kernel[i][j]*tmp_arr[i];
-		}
-	}
+	clcg_complex *B = new clcg_complex [N];
+	matrix_product(kernel, fm, tmp_arr, M, N, Normal);
+	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
 
 	/********************准备工作完成************************/
-	lcg_para self_para = lcg_default_parameters();
+	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-3;
-	self_para.abs_diff = 1;
+	self_para.epsilon = 1e-8;
+	self_para.abs_diff = 0;
 
 	// 声明一组解
-	double *m = new double [N];
+	clcg_complex *m = new clcg_complex [N];
 	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
+	{
+		m[i].rel = 0.0;
+		m[i].img = 0.0;
+	}
 
-	// 声明一组预优因子
-	double *p = new double [N];
-	for (int i = 0; i < N; i++)
-		p[i] = 1.0;
-
-	int ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CG);
-	//int ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_PCG, p);
-	std::cerr << lcg_error_str(ret) << std::endl;
+	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
+	std::cerr << clcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 	{
-		std::cout << fm[i] << " " << m[i] << std::endl;
+		if (fm[i].img >= 0)
+		{
+			std::cout << std::setw(8) << fm[i].rel << "+" << fm[i].img << "i\t";
+		}
+		else
+		{
+			std::cout << std::setw(8) << fm[i].rel << fm[i].img << "i\t";
+		}
+
+		if (m[i].img >= 0)
+		{
+			std::cout << std::setw(8) << m[i].rel << "+" << m[i].img << "i" << std::endl;
+		}
+		else
+		{
+			std::cout << std::setw(8) << m[i].rel << m[i].img << "i" << std::endl;
+		}
 	}
 
 	delete[] kernel;
@@ -148,6 +136,5 @@ int main(int argc, char const *argv[])
 	delete[] fm;
 	delete[] B;
 	delete[] m;
-	delete[] p;
 	return 0;
 }
