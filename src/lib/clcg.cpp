@@ -210,27 +210,27 @@ const char* clcg_error_str(int er_index)
 	switch (er_index)
 	{
 		case CLCG_SUCCESS:
-			return "Iteration reached convergence.";
+			return "\033[1m\033[32mSuccess\033[0m Iteration reached convergence.";
 		case CLCG_STOP:
-			return "Iteration is stopped by the progress evaluation function.";
+			return "\033[1m\033[32mSuccess\033[0m Iteration is stopped by the progress evaluation function.";
 		case CLCG_ALREADY_OPTIMIZIED:
-			return "Variables are already optimized.";
+			return "\033[1m\033[32mSuccess\033[0m Variables are already optimized.";
 		case CLCG_UNKNOWN_ERROR:
-			return "Unknown error.";
+			return "\033[1m\033[31mFail\033[0m Unknown error.";
 		case CLCG_INVILAD_VARIABLE_SIZE:
-			return "Size of the variables is negative.";
+			return "\033[1m\033[31mFail\033[0m Size of the variables is negative.";
 		case CLCG_INVILAD_MAX_ITERATIONS:
-			return "The maximal iteration times is negative.";
+			return "\033[1m\033[31mFail\033[0m The maximal iteration times is negative.";
 		case CLCG_INVILAD_EPSILON:
-			return "The epsilon is negative.";
+			return "\033[1m\033[31mFail\033[0m The epsilon is negative.";
 		case CLCG_REACHED_MAX_ITERATIONS:
-			return "The maximal iteration has been reached.";
+			return "\033[1m\033[31mFail\033[0m The maximal iteration has been reached.";
 		case CLCG_NAN_VALUE:
-			return "The model values are NaN.";
+			return "\033[1m\033[31mFail\033[0m The model values are NaN.";
 		case CLCG_INVALID_POINTER:
-			return "Invalid pointer.";
+			return "\033[1m\033[31mFail\033[0m Invalid pointer.";
 		default:
-			return "Unknown error.";
+			return "\033[1m\033[31mFail\033[0m Unknown error.";
 	}
 }
 
