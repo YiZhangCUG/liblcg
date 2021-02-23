@@ -63,6 +63,7 @@ public:
 	virtual int Progress(const clcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
 	{
+		// 如果迭代达不到收敛值则会出现一个bug 后面再解决
 		if (converge > param->epsilon)
 			std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
 		else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;

@@ -121,6 +121,24 @@ clcg_complex operator*(const clcg_complex &a, const clcg_complex &b);
 clcg_complex operator/(const clcg_complex &a, const clcg_complex &b);
 
 /**
+ * @brief      calculate the squared module of a complex number
+ *
+ * @param[in]  a     complex number a
+ *
+ * @return     The squared module
+ */
+lcg_float complex_module_squared(const clcg_complex &a);
+
+/**
+ * @brief      calculate the module of a complex number
+ *
+ * @param[in]  a        complex number a
+ *
+ * @return     The module
+ */
+lcg_float complex_module(const clcg_complex &a);
+
+/**
  * @brief      calculate complex conjugate
  *
  * @param[in]  a     complex number a
