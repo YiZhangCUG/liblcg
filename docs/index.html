@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="textblock"><p><a class="anchor" id="md_README"></a> 张壹（zhangyiss@icloud.com）</p>
 <p><em>浙江大学地球科学学院·地球物理研究所</em></p>
 <h1>简介</h1>
-<p>liblcg 是一个独立的、高效的 C++ 线性共轭梯度算法库。包含了实数域的共轭梯度算法、预优共轭梯度算法、共轭梯度平方算法、双稳共轭梯度算法、BB步共轭梯度投影法与SPG共轭梯度投影法。可用于求解如下形式的线性方程组：</p>
+<p>liblcg 是一个独立的、高效的 C++ 线性共轭梯度算法库。包含了实数域的共轭梯度算法、预优共轭梯度算法、共轭梯度平方算法、双稳共轭梯度算法、BB步共轭梯度投影法与SPG共轭梯度投影法，复数域的双共轭梯度法、共轭梯度平方法与TFQMR法。可用于求解如下形式的线性方程组：</p>
 <div class="fragment"><div class="line">Ax = B</div>
 </div><!-- fragment --><p>其中，A 是一个 N 阶的方阵、x 为 N*1 大小的待求解的模型向量，B 为 N*1 大小的需拟合的目标向量。共轭梯度法广泛应用于无约束与约束的线性最优化问题，拥有优良的收敛与计算效率。其中，共轭梯度法与预优共轭梯度法可用于求解A为对称形式的线性方程组，而共轭梯度平方法与双稳共轭梯度法可用于求解A为非对称形式的线性方程组。同时，两种投影梯度法可用于求解带不等式约束的线性最优化问题。</p>
 <h1>安装</h1>
@@ -145,12 +145,15 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>结构体 <code><a class="el" href="structlcg__para.html" title="Parameters of the conjugate gradient methods.">lcg_para</a></code> 为共轭梯度参数类型。包含 <code>max_iterations</code>，<code>epsilon</code>，<code>abs_diff</code>，<code>restart_epsilon</code> 等变量，包含最大迭代次数、终止精度等条件变量。具体含义请见头文件内的注释。</li>
 </ol>
 <h1>头文件与函数接口</h1>
-<p>使用库函数需在源文件中包含头文件<code><a class="el" href="lcg_8h.html">lcg.h</a></code>，可用的函数接口包括</p>
+<p>使用库函数需在源文件中包含头文件<code><a class="el" href="lcg_8h.html">lcg.h</a></code>或<code><a class="el" href="lcg__cxx_8h.html">lcg_cxx.h</a></code>。<code><a class="el" href="lcg_8h.html">lcg.h</a></code>定义了C语言的函数接口，<code><a class="el" href="lcg__cxx_8h.html">lcg_cxx.h</a></code>定义了C++类对象的函数接口。可用的函数接口包括</p>
 <ol type="1">
 <li><code>lcg_float* <a class="el" href="lcg_8h.html#ad4d1ad1663815eb1214f7683acfd1cbe" title="Locate memory for a lcg_float pointer type.">lcg_malloc(const int n)</a></code> 开辟数组空间；</li>
 <li><code>void <a class="el" href="lcg_8h.html#a51d9b69c6afbba37a48470b4e1db4739" title="Destroy memory used by the lcg_float type array.">lcg_free(lcg_float* x)</a></code> 释放数组空间；</li>
 <li><code><a class="el" href="structlcg__para.html" title="Parameters of the conjugate gradient methods.">lcg_para</a> <a class="el" href="lcg_8cpp.html#ae709a311e61bd35843a9f4333c38ab18" title="Return a lcg_para type instance with default values.">lcg_default_parameters()</a></code> 返回一组默认的共轭梯度参数；</li>
-<li><code>const char* <a class="el" href="lcg_8h.html#a7d76a821bc6ddd804abaf1974e5d7583" title="Return a string explanation for the lcg_solver() function&#39;s return values.">lcg_error_str(int er_index)</a></code> 按照 <code><a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a></code> 函数的返回值显示可能的错误信息。</li>
+<li><code>const char* <a class="el" href="lcg_8h.html#a7d76a821bc6ddd804abaf1974e5d7583" title="Return a string explanation for the lcg_solver() function&#39;s return values.">lcg_error_str(int er_index)</a></code> 按照 <code><a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a></code> 或<code><a class="el" href="clcg_8cpp.html#a375b42c37b38866f0649cb0fcad927f1" title="A combined complex conjugate gradient solver function.">clcg_solver()</a></code> 函数的返回值显示帮助信息；</li>
+<li><code>int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, ...)</code>求解无约束的最优化问题；</li>
+<li><code>int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, ...)</code>求解约束的最优化问题；</li>
+<li><code>class <a class="el" href="class_l_c_g___solver.html">LCG_Solver</a></code> 基于类的求解器接口。</li>
 </ol>
 <h2>回调函数</h2>
 <h3>正演计算函数接口</h3>
@@ -176,8 +179,9 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li><code>const int k</code> 当前迭代的次数。</li>
 </ol>
 <p>函数的返回值为0时迭代继续，否则迭代终止。此函数参数类型均为常量型，是迭代过程中暴露的变量值。求解过程中每迭代一次即在lcg_solver()与clcg_solver()函数内调用一次。用户可使用需要的变量监控或显示迭代过程。</p>
-<h1>求解函数</h1>
-<p>用户在定义 正演计算函数与监控函数后即可调用求解函数 <a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> 或 <a class="el" href="lcg_8cpp.html#a3f5d952c1de72bb77a5f3dfdfe2cb349" title="A combined conjugate gradient solver function with inequality constraints.">clcg_solver()</a> 对线性方程组进行求解，同时提供初始解x与共轭梯度的B项（即拟合的对象）。如果使用预优方法还需要提供预优矩阵P项。目前可用的求解方法如下：</p>
+<h1>求解器</h1>
+<h3>求解函数</h3>
+<p>用户在定义 正演计算函数与监控函数后即可调用求解函数 <a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> 或 <a class="el" href="clcg_8cpp.html#a375b42c37b38866f0649cb0fcad927f1" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> 对线性方程组进行求解，同时提供初始解x与共轭梯度的B项（即拟合的对象）。如果使用预优方法还需要提供预优矩阵P项。目前可用的求解方法如下：</p>
 <ol type="1">
 <li>LCG_CG：共轭梯度算法；</li>
 <li>LCG_PCG：预优共轭梯度算法；</li>
@@ -200,21 +204,29 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li><code>int solver_id</code> 求解函数使用的求解方法，即上文中 LCG_CG 至 LCG_BICGSTAB2 五种方法，默认的求解方法为 LCG_CGS；</li>
 <li><code>const lcg_float* P</code> 预优矩阵，一般是一个N阶的对角阵，这里直接用一个一维数组表示。此参数只在求解方法为 LCG_PCG 时是必须的，其他情况下是一个默认值为 NULL 的参数。</li>
 </ol>
-<p>投影梯度算法的参数形式如下： </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> <a class="code" href="lcg_8cpp.html#a3f5d952c1de72bb77a5f3dfdfe2cb349">clcg_solver</a>(<a class="code" href="lcg_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a> Afp, <a class="code" href="lcg_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a> Pfp, <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* B, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* low, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a>* param, <span class="keywordtype">void</span>* instance, <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id);</div>
+<p>投影梯度算法的参数形式如下： </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> <a class="code" href="clcg_8cpp.html#a375b42c37b38866f0649cb0fcad927f1">clcg_solver</a>(<a class="code" href="lcg_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a> Afp, <a class="code" href="lcg_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a> Pfp, <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* B, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* low, <span class="keyword">const</span> <a class="code" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a>* param, <span class="keywordtype">void</span>* instance, <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id);</div>
 </div><!-- fragment --><p>函数接收10个参数，参数含义与无约束求解函数一致。除了：</p><ol type="1">
 <li><code>lcg_float* low</code> 可取的参数范围的底界；</li>
 <li><code>lcg_float* hig</code> 可取的参数范围的顶界；</li>
-<li><code>int solver_id</code> 求解函数使用的求解方法，可选的类型包括 LCG_PG 与 LCG_SPG。默认类型为 LCG_PG。 </li>
+<li><code>int solver_id</code> 求解函数使用的求解方法，可选的类型包括 LCG_PG 与 LCG_SPG。默认类型为 LCG_PG。</li>
+</ol>
+<h3>类模版</h3>
+<p>用户可使用<code><a class="el" href="lcg__cxx_8h.html">lcg_cxx.h</a></code>内定义的<code><a class="el" href="class_l_c_g___solver.html">LCG_Solver</a></code>类模版继承得到所需的求解类。<code><a class="el" href="class_l_c_g___solver.html">LCG_Solver</a></code>内定义了纯虚函数<code>virtual void AxProduct(const lcg_float* a, lcg_float* b, const int num) = 0</code>作为正演计算函数的接口，用户需自行定义函数的内容。<code><a class="el" href="class_l_c_g___solver.html">LCG_Solver</a></code>定义的其他函数包括：</p>
+<ol type="1">
+<li><code>virtual int Progress(const lcg_float* m, const lcg_float converge, const <a class="el" href="structlcg__para.html" title="Parameters of the conjugate gradient methods.">lcg_para</a> *param, const int n_size, const int k)</code> 默认的监控函数，用户可通过重载自行定义所需的监控函数；</li>
+<li><code>void set_lcg_parameter(const lcg_para &amp;in_param)</code> 设置迭代参数；</li>
+<li><code>void Minimize(lcg_float *m, const lcg_float *b, int x_size, lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL)</code> 无约束反演求解函数；</li>
+<li><code>void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float* low, const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG)</code> 约束反演求解函数。 </li>
 </ol>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="alcg_8cpp_html_a5d3eb4595fc2c3d6830c5c5fbe130ae9"><div class="ttname"><a href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9">lcg_solver</a></div><div class="ttdeci">int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float *m, const lcg_float *B, const int n_size, const lcg_para *param, void *instance, lcg_solver_enum solver_id, const lcg_float *P)</div><div class="ttdoc">A combined conjugate gradient solver function.</div><div class="ttdef"><b>Definition:</b> lcg.cpp:168</div></div>
+<div class="ttc" id="alcg_8cpp_html_a5d3eb4595fc2c3d6830c5c5fbe130ae9"><div class="ttname"><a href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9">lcg_solver</a></div><div class="ttdeci">int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float *m, const lcg_float *B, const int n_size, const lcg_para *param, void *instance, lcg_solver_enum solver_id, const lcg_float *P)</div><div class="ttdoc">A combined conjugate gradient solver function.</div><div class="ttdef"><b>Definition:</b> lcg.cpp:208</div></div>
 <div class="ttc" id="astructlcg__para_html"><div class="ttname"><a href="structlcg__para.html">lcg_para</a></div><div class="ttdoc">Parameters of the conjugate gradient methods.</div><div class="ttdef"><b>Definition:</b> lcg.h:83</div></div>
 <div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a></div><div class="ttdeci">lcg_solver_enum</div><div class="ttdoc">Types of method that could be recognized by the lcg_solver() function.</div><div class="ttdef"><b>Definition:</b> lcg.h:46</div></div>
-<div class="ttc" id="alcg_8cpp_html_a3f5d952c1de72bb77a5f3dfdfe2cb349"><div class="ttname"><a href="lcg_8cpp.html#a3f5d952c1de72bb77a5f3dfdfe2cb349">clcg_solver</a></div><div class="ttdeci">int clcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float *m, const lcg_float *B, const lcg_float *low, const lcg_float *hig, const int n_size, const lcg_para *param, void *instance, lcg_solver_enum solver_id)</div><div class="ttdoc">A combined conjugate gradient solver function with inequality constraints.</div><div class="ttdef"><b>Definition:</b> lcg.cpp:226</div></div>
+<div class="ttc" id="aclcg_8cpp_html_a375b42c37b38866f0649cb0fcad927f1"><div class="ttname"><a href="clcg_8cpp.html#a375b42c37b38866f0649cb0fcad927f1">clcg_solver</a></div><div class="ttdeci">int clcg_solver(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, clcg_complex *m, const clcg_complex *B, const int n_size, const clcg_para *param, void *instance, clcg_solver_enum solver_id)</div><div class="ttdoc">A combined complex conjugate gradient solver function.</div><div class="ttdef"><b>Definition:</b> clcg.cpp:277</div></div>
 <div class="ttc" id="alcg_8h_html_aad8c7423a269f54e028c07441615fba6"><div class="ttname"><a href="lcg_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a></div><div class="ttdeci">void(* lcg_axfunc_ptr)(void *instance, const lcg_float *x, lcg_float *prod_Ax, const int n_size)</div><div class="ttdoc">Callback interface for calculating the product of a N*N matrix 'A' multiplied by a vertical vector 'x...</div><div class="ttdef"><b>Definition:</b> lcg.h:148</div></div>
-<div class="ttc" id="alcg_8h_html_af5153afe716c929b922ad48dda46d252"><div class="ttname"><a href="lcg_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a></div><div class="ttdeci">int(* lcg_progress_ptr)(void *instance, const lcg_float *m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)</div><div class="ttdoc">Callback interface for monitoring the progress and terminate the iteration if necessary.</div><div class="ttdef"><b>Definition:</b> lcg.h:165</div></div>
+<div class="ttc" id="alcg_8h_html_af5153afe716c929b922ad48dda46d252"><div class="ttname"><a href="lcg_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a></div><div class="ttdeci">int(* lcg_progress_ptr)(void *instance, const lcg_float *m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)</div><div class="ttdoc">Callback interface for monitoring the progress and terminate the iteration if necessary.</div><div class="ttdef"><b>Definition:</b> lcg.h:164</div></div>
 <div class="ttc" id="alcg_8h_html_a5282007dc6f0c317361d25fa0eeb4a35"><div class="ttname"><a href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a></div><div class="ttdeci">double lcg_float</div><div class="ttdoc">A simple definition of the float type we use here. Easy to change in the future. Right now it is just...</div><div class="ttdef"><b>Definition:</b> lcg.h:40</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

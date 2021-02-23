@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lcg_5freturn_5fenum_94',['lcg_return_enum',['../lcg_8cpp.html#ad643ef582f994ef247d3e040811feb81',1,'lcg.cpp']]],
-  ['lcg_5fsolver_5fenum_95',['lcg_solver_enum',['../lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1',1,'lcg.h']]]
+  ['clcg_5freturn_5fenum_197',['clcg_return_enum',['../clcg_8cpp.html#af82eac923ab2df65f9aa20c7cc9edb7e',1,'clcg.cpp']]],
+  ['clcg_5fsolver_5fenum_198',['clcg_solver_enum',['../clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d',1,'clcg.h']]],
+  ['complex_5fconjugate_5fe_199',['complex_conjugate_e',['../clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5',1,'clcg.h']]]
 ];

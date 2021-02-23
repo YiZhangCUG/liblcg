@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['max_5fiterations_58',['max_iterations',['../structlcg__para.html#a945e14f1204dc4a68eacedc79600694b',1,'lcg_para']]],
-  ['maxi_5fm_59',['maxi_m',['../structlcg__para.html#a54175d14ccdf34738d472d78d0b5d0b9',1,'lcg_para']]]
+  ['img_41',['img',['../structclcg__complex.html#adeaff2b65e5b34b7ecf8d2203a9b3483',1,'clcg_complex']]],
+  ['inner_5fproduct_42',['inner_product',['../clcg_8cpp.html#a8e603e8f7b4ac26bdebe87dab8c0beda',1,'inner_product(const clcg_complex *a, const clcg_complex *b, int x_size):&#160;clcg.cpp'],['../clcg_8h.html#a8e603e8f7b4ac26bdebe87dab8c0beda',1,'inner_product(const clcg_complex *a, const clcg_complex *b, int x_size):&#160;clcg.cpp']]]
 ];

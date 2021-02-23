@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['max_5fiterations_85',['max_iterations',['../structlcg__para.html#a945e14f1204dc4a68eacedc79600694b',1,'lcg_para']]],
-  ['maxi_5fm_86',['maxi_m',['../structlcg__para.html#a54175d14ccdf34738d472d78d0b5d0b9',1,'lcg_para']]]
+  ['lambda_182',['lambda',['../structlcg__para.html#a5151a9c973c04e18210d3d6364dad224',1,'lcg_para']]]
 ];

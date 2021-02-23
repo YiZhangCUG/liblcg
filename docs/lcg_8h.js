@@ -13,10 +13,10 @@ var lcg_8h =
       [ "LCG_PG", "lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d", null ],
       [ "LCG_SPG", "lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a742a59eb85b7fe90ed34e348da29ce0b", null ]
     ] ],
-    [ "clcg_solver", "lcg_8h.html#a4a6535695279f3c290dd4c334b597db7", null ],
     [ "lcg_default_parameters", "lcg_8h.html#ae709a311e61bd35843a9f4333c38ab18", null ],
     [ "lcg_error_str", "lcg_8h.html#a7d76a821bc6ddd804abaf1974e5d7583", null ],
     [ "lcg_free", "lcg_8h.html#a51d9b69c6afbba37a48470b4e1db4739", null ],
     [ "lcg_malloc", "lcg_8h.html#ad4d1ad1663815eb1214f7683acfd1cbe", null ],
-    [ "lcg_solver", "lcg_8h.html#a7ff2b408d70cbf2513a2a02b8df51676", null ]
+    [ "lcg_solver", "lcg_8h.html#a7ff2b408d70cbf2513a2a02b8df51676", null ],
+    [ "lcg_solver_constrained", "lcg_8h.html#a967075cdbd4ef5410bb1d9fb1ae1598e", null ]
 ];

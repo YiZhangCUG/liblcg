@@ -32,6 +32,7 @@ var NAVTREE =
       [ "结构体索引", "classes.html", null ],
       [ "成员变量", "functions.html", [
         [ "全部", "functions.html", null ],
+        [ "函数", "functions_func.html", null ],
         [ "变量", "functions_vars.html", null ]
       ] ]
     ] ],
