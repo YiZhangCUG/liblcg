@@ -63,10 +63,7 @@ public:
 	virtual int Progress(const clcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
 	{
-		// 如果迭代达不到收敛值则会出现一个bug 后面再解决
-		if (converge > param->epsilon)
-			std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
-		else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;
+		std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
 		return 0;
 	}
 
@@ -79,28 +76,32 @@ public:
 	void Minimize(clcg_complex *m, const clcg_complex *b, int x_size, 
 		clcg_solver_enum solver_id = CLCG_CGS, bool verbose = true)
 	{
+		switch (solver_id)
+		{
+			case CLCG_BICG:
+				std::cerr << "Solver: Bi-Conjugate Gradient" << std::endl;
+				break;
+			case CLCG_BICG_SYM:
+				std::cerr << "Solver: Bi-Conjugate Gradient (symmetrically accelerated)" << std::endl;
+				break;
+			case CLCG_CGS:
+				std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
+				break;
+			case CLCG_CGS2:
+				std::cerr << "Solver: Conjugate Gradient Squared 2" << std::endl;
+				break;
+			case CLCG_TFQMR:
+				std::cerr << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;
+				break;
+			default:
+				std::cerr << "Solver: Unknown" << std::endl;
+				break;
+		}
+
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id);
-		if (verbose)
-		{
-			switch (solver_id)
-			{
-				case CLCG_BICG:
-					std::cerr << "Solver: Bi-Conjugate Gradient" << std::endl;
-					break;
-				case CLCG_CGS:
-					std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
-					break;
-				case CLCG_TFQMR:
-					std::cerr << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;
-					break;
-				default:
-					std::cerr << "Solver: Unknown" << std::endl;
-					break;
-			}
-			std::cerr << clcg_error_str(ret) << std::endl;
-		}
-		else if (ret < 0) std::cerr << clcg_error_str(ret) << std::endl;
+		if (verbose) std::cerr << std::endl << clcg_error_str(ret) << std::endl;
+		else if (ret < 0) std::cerr << std::endl << clcg_error_str(ret) << std::endl;
 		return;
 	}
 };

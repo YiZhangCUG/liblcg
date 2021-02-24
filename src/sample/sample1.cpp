@@ -49,9 +49,7 @@ void CalAx(void* instance, const lcg_float* x, lcg_float* prod_Ax, const int n_s
 //定义共轭梯度监控函数
 int Prog(void* instance, const lcg_float* m, const lcg_float converge, const lcg_para* param, const int n_s, const int k)
 {
-	if (converge > param->epsilon)
-		std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
-	else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;
+	std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
 	return 0;
 }
 
@@ -145,49 +143,49 @@ int main(int argc, char const *argv[])
 
 	std::clog << "solver: cg" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CG);
-	std::clog << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: pcg" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_PCG, p);
-	std::clog << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: cgs" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CGS);
-	std::clog << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: bicgstab" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_BICGSTAB);
-	std::clog << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: bicgstab2" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_BICGSTAB2);
-	std::clog << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: pg" << std::endl;
 	ret = lcg_solver_constrained(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_PG);
-	std::cerr << lcg_error_str(ret) << std::endl;
+	std::cerr << std::endl << lcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 		m[i] = 0.0;
 
 	std::clog << "solver: spg" << std::endl;
 	ret = lcg_solver_constrained(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_SPG);
-	std::cerr << lcg_error_str(ret) << std::endl;
+	std::cerr << std::endl << lcg_error_str(ret) << std::endl;
 
 	delete[] kernel;
 	delete[] tmp_arr;

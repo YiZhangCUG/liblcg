@@ -114,8 +114,8 @@ int main(int argc, char const *argv[])
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-6;
-	self_para.abs_diff = 0;
+	self_para.epsilon = 1e-3;
+	self_para.abs_diff = 1;
 	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
@@ -126,7 +126,7 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	test.Minimize(m, B, N, CLCG_TFQMR);
+	test.Minimize(m, B, N, CLCG_CGS2);
 
 	for (int i = 0; i < N; i++)
 	{

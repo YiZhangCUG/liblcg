@@ -160,7 +160,7 @@ clcg_complex real_product(const lcg_float &a, const clcg_complex &b);
 /**
  * @brief      calculate inner product of two complex vectors
  * 
- * the product of two complex vectors are defined as <a, b> = \sum{\bar{a_i}\cdot\b_i}
+ * the product of two complex vectors are defined as <a, b> = \sum{\bar{a_i} \cdot b_i}
  *
  * @param[in]  a       complex vector a
  * @param[in]  b       complex vector b
@@ -201,9 +201,17 @@ typedef enum
 	 */
 	CLCG_BICG,
 	/**
-	 * Conjugate Gradient Squared Method.
+	 * Bi-Conjugate Gradient Method accelerated for complex symmetric A
+	 */
+	CLCG_BICG_SYM,
+	/**
+	 * Conjugate Gradient Squared Method with real coefficients.
 	 */
 	CLCG_CGS,
+	/**
+	 * Conjugate Gradient Squared Method with complex coefficients.
+	 */
+	CLCG_CGS2,
 	/**
 	 * Transpose Free Quasi-Minimal Residual Method
 	 */

@@ -4,8 +4,7 @@
 #include "iostream"
 #include "iomanip"
 
-#define M 100
-#define N 60
+#define N 100
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
 lcg_float random_lcg_float(lcg_float L,lcg_float T)
@@ -21,15 +20,12 @@ int random_int(int small, int big)
 
 // 普通二维数组做核矩阵
 clcg_complex **kernel;
-// 中间结果数组
-clcg_complex *tmp_arr;
 
 // 计算核矩阵乘向量的乘积
 void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
 	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
-	matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
-	matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
+	matrix_product(kernel, x, prod_Ax, N, x_size, layout, conjugate);
 	return;
 }
 
@@ -38,9 +34,7 @@ void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax,
 int Prog(void* instance, const clcg_complex* m, const lcg_float converge, 
 	const clcg_para* param, const int n_size, const int k)
 {
-	if (converge > param->epsilon)
-		std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
-	else std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge << std::endl;
+	std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
 	return 0;
 }
 
@@ -48,32 +42,33 @@ int main(int argc, char const *argv[])
 {
 	srand(time(0));
 
-	kernel = new clcg_complex *[M];
-	for (int i = 0; i < M; i++)
+	kernel = new clcg_complex *[N];
+	for (int i = 0; i < N; i++)
 	{
 		kernel[i] = new clcg_complex [N];
 	}
-	tmp_arr = new clcg_complex [M];
 
-	for (int i = 0; i < M; i++)
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = 0; j < N; j++)
+		for (int j = i; j < N; j++)
 		{
 			kernel[i][j].rel = random_lcg_float(-1.0, 1.0);
 			kernel[i][j].img = random_lcg_float(-1.0, 1.0);
+			kernel[j][i] = kernel[i][j];
 		}
 	}
 
 	// 添加一些大数
 	int tmp_id, tmp_size;
-	for (int i = 0; i < M; i++)
+	for (int i = 0; i < N; i++)
 	{
-		tmp_size = random_int(25, 35);
+		tmp_size = random_int(20, 35);
 		for (int j = 0; j < tmp_size; j++)
 		{
 			tmp_id = random_int(0, N);
 			kernel[i][tmp_id].rel = random_lcg_float(-10, 10);
 			kernel[i][tmp_id].img = random_lcg_float(-10, 10);
+			kernel[tmp_id][i] = kernel[i][tmp_id];
 		}
 	}
 
@@ -87,14 +82,13 @@ int main(int argc, char const *argv[])
 
 	// 计算共轭梯度B项
 	clcg_complex *B = new clcg_complex [N];
-	matrix_product(kernel, fm, tmp_arr, M, N, Normal);
-	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
+	matrix_product(kernel, fm, B, N, N, Normal, NonConjugate);
 
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-8;
-	self_para.abs_diff = 0;
+	self_para.epsilon = 1e-3;
+	self_para.abs_diff = 1;
 
 	// 声明一组解
 	clcg_complex *m = new clcg_complex [N];
@@ -104,8 +98,8 @@ int main(int argc, char const *argv[])
 		m[i].img = 0.0;
 	}
 
-	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
-	std::cerr << clcg_error_str(ret) << std::endl;
+	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
+	std::cerr << std::endl << clcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 	{
@@ -129,7 +123,6 @@ int main(int argc, char const *argv[])
 	}
 
 	delete[] kernel;
-	delete[] tmp_arr;
 	delete[] fm;
 	delete[] B;
 	delete[] m;
