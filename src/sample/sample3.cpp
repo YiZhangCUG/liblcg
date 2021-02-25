@@ -25,7 +25,7 @@ lcg_complex **kernel;
 void CalAx(void *instance, const lcg_complex *x, lcg_complex *prod_Ax, 
 	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
-	matrix_product(kernel, x, prod_Ax, N, x_size, layout, conjugate);
+	complex_matvec(kernel, x, prod_Ax, N, x_size, layout, conjugate);
 	return;
 }
 
@@ -82,7 +82,7 @@ int main(int argc, char const *argv[])
 
 	// 计算共轭梯度B项
 	lcg_complex *B = new lcg_complex [N];
-	matrix_product(kernel, fm, B, N, N, Normal, NonConjugate);
+	complex_matvec(kernel, fm, B, N, N, Normal, NonConjugate);
 
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();

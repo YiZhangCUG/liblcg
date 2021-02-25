@@ -1,4 +1,4 @@
-#include "../lib/lcg_cxx.h"
+#include "../lib/lcg.h"
 #include "ctime"
 #include "random"
 #include "iostream"

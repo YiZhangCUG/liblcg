@@ -1,5 +1,5 @@
 /******************************************************//**
- *    C/C++ library of real and complex linear algebra.
+ *    C++ library of real and complex linear algebra.
  *
  * Copyright (c) 2019-2029 Yi Zhang (zhangyiss@icloud.com)
  * All rights reserved.
@@ -26,28 +26,25 @@
 #ifndef _LCG_ALGEBRA_H
 #define _LCG_ALGEBRA_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include "iostream"
 
 /**
  * @brief      Matrix layouts.
  */
-typedef enum
+enum matrix_layout_e
 {
 	Normal,
 	Transpose,
-} matrix_layout_e;
+};
 
 /**
  * @brief      Conjugate types for a complex number.
  */
-typedef enum
+enum complex_conjugate_e
 {
 	NonConjugate,
 	Conjugate,
-} complex_conjugate_e;
+};
 
 /**
  * @brief      A simple definition of the float type we use here. 
@@ -59,10 +56,46 @@ typedef double lcg_float;
  * @brief     A simple definition of the complex number type. 
  * Easy to change in the future. Right now it is just two double variables
  */
-typedef struct
+struct lcg_complex
 {
-	lcg_float rel, img;
-} lcg_complex;
+	lcg_float rel; ///< The real part
+	lcg_float img; ///< The imaginary part
+
+	/**
+	 * @brief      Constructs a new instance.
+	 */
+	lcg_complex();
+	/**
+	 * @brief      Constructs a new instance.
+	 *
+	 * @param[in]  r     The real part of the complex number
+	 * @param[in]  i     The imaginary part of the complex number
+	 */
+	lcg_complex(lcg_float r, lcg_float i);
+	/**
+	 * @brief      Destructor
+	 */
+	virtual ~lcg_complex();
+	/**
+	 * @brief      setup a complex number
+	 *
+	 * @param[in]  r     The real part of the complex number
+	 * @param[in]  i     The imaginary part of the complex number
+	 */
+	void set(lcg_float r, lcg_float i);
+	/**
+	 * @brief      Calculate the L2 module of a complex number
+	 *
+	 * @return     The module
+	 */
+	lcg_float module();
+	/**
+	 * @brief      Calculate the conjugate of a complex number
+	 *
+	 * @return     The complex conjugate.
+	 */
+	lcg_complex conjugate();
+};
 
 /**
  * @brief      Reload equality operator.
@@ -115,6 +148,16 @@ lcg_complex operator-(const lcg_complex &a, const lcg_complex &b);
 lcg_complex operator*(const lcg_complex &a, const lcg_complex &b);
 
 /**
+ * @brief      Reload multiplication operator.
+ *
+ * @param[in]  a     complex number a
+ * @param[in]  b     complex number b
+ *
+ * @return     product
+ */
+lcg_complex operator*(const lcg_float &a, const lcg_complex &b);
+
+/**
  * @brief      Reload division operator.
  *
  * @param[in]  a     complex number a
@@ -125,42 +168,27 @@ lcg_complex operator*(const lcg_complex &a, const lcg_complex &b);
 lcg_complex operator/(const lcg_complex &a, const lcg_complex &b);
 
 /**
- * @brief      Initiate a complex number
+ * @brief      Reload ostream operator.
  *
- * @param[in]  r     Real part of a complex number
- * @param[in]  i     Imaginary part of a complex number
- *
- * @return     A complex number.
- */
-lcg_complex complex(lcg_float r, lcg_float i);
-
-/**
- * @brief      calculate the module of a complex number
- *
- * @param[in]  a        complex number a
- *
- * @return     The module
- */
-lcg_float complex_module(const lcg_complex &a);
-
-/**
- * @brief      calculate complex conjugate
- *
+ * @param      os    The ostream
  * @param[in]  a     complex number a
  *
- * @return     complex conjugate
+ * @return     The ostream
  */
-lcg_complex complex_conjugate(const lcg_complex &a);
+std::ostream &operator<<(std::ostream &os, const lcg_complex &a);
 
 /**
- * @brief      calculate the product of a real number multiplied by a complex number
+ * @brief      calculate dot product of two complex vectors
+ * 
+ * the product of two complex vectors are defined as <a, b> = \sum{a_i \cdot b_i}
  *
- * @param[in]  a     real number a
- * @param[in]  b     complex number b
+ * @param[in]  a       complex vector a
+ * @param[in]  b       complex vector b
+ * @param[in]  x_size  size of the vector
  *
- * @return     complex number
+ * @return     product
  */
-lcg_complex real_product(const lcg_float &a, const lcg_complex &b);
+lcg_complex complex_dot(const lcg_complex *a, const lcg_complex *b, int x_size);
 
 /**
  * @brief      calculate inner product of two complex vectors
@@ -173,7 +201,7 @@ lcg_complex real_product(const lcg_float &a, const lcg_complex &b);
  *
  * @return     product
  */
-lcg_complex inner_product(const lcg_complex *a, const lcg_complex *b, int x_size);
+lcg_complex complex_inner(const lcg_complex *a, const lcg_complex *b, int x_size);
 
 /**
  * @brief      calculate product of a complex matrix and a complex vector
@@ -193,11 +221,7 @@ lcg_complex inner_product(const lcg_complex *a, const lcg_complex *b, int x_size
  * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
  * @param[in]  conjugate  whether to use the complex conjugate of A for calculation
  */
-void matrix_product(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
+void complex_matvec(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
 	matrix_layout_e layout = Normal, complex_conjugate_e conjugate = NonConjugate);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //_LCG_ALGEBRA_H

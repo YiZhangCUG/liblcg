@@ -1,4 +1,4 @@
-#include "../lib/clcg_cxx.h"
+#include "../lib/clcg.h"
 #include "ctime"
 #include "random"
 #include "iostream"
@@ -32,8 +32,8 @@ public:
 	void AxProduct(const lcg_complex *x, lcg_complex *prod_Ax, const int x_size, 
 		matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
-		matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
-		matrix_product(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
+		complex_matvec(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
+		complex_matvec(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
 		return;
 	}
 
@@ -88,8 +88,8 @@ TESTFUNC::~TESTFUNC()
 
 void TESTFUNC::cal_partb(lcg_complex *B, const lcg_complex *x)
 {
-	matrix_product(kernel, x, tmp_arr, M, N, Normal);
-	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
+	complex_matvec(kernel, x, tmp_arr, M, N, Normal);
+	complex_matvec(kernel, tmp_arr, B, M, N, Transpose);
 	return;
 }
 

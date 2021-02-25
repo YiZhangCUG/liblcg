@@ -1,70 +1,46 @@
-#include "../lib/clcg.h"
-#include "random"
+#include "../lib/algebra.h"
 #include "iostream"
-#include "iomanip"
-
-#define N 3
-
-lcg_float random_lcg_float(lcg_float L,lcg_float T)
-{
-	return (T-L)*rand()*1.0/RAND_MAX + L;
-}
-
-lcg_complex **kernel;
 
 int main(int argc, char const *argv[])
 {
-	srand(time(0));
+	lcg_complex a(2, 4);
+	lcg_complex b(-3, 5);
 
-	kernel = new lcg_complex *[N];
-	for (int i = 0; i < N; i++)
+	lcg_complex c;
+	c = a + b;
+	std::cout << c << std::endl;
+	c = a - b;
+	std::cout << c << std::endl;
+	c = a * b;
+	std::cout << c << std::endl;
+	c = a / b;
+	std::cout << c << std::endl;
+	c = a.conjugate();
+	std::cout << c << std::endl;
+	lcg_float a_rel = a.module();
+	std::cout << a_rel << std::endl;
+	std::cout << "===================" << std::endl;
+
+	lcg_complex d[3];
+	lcg_complex e[3];
+	for (int i = 0; i < 3; i++)
 	{
-		kernel[i] = new lcg_complex [N];
+		d[i].set(1.1*i-5.1, -0.6*i+3.32);
+		std::cout << d[i] << std::endl;
 	}
+	std::cout << "===================" << std::endl;
 
-	for (int i = 0; i < N; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		for (int j = 0; j < N; j++)
-		{
-			kernel[i][j].rel = random_lcg_float(-1.0, 1.0);
-			kernel[i][j].img = random_lcg_float(-1.0, 1.0);
-			if (kernel[i][j].img >= 0)
-			{
-				std::cout << std::setprecision(3) << kernel[i][j].rel << "+" << kernel[i][j].img << "i\t";
-			}
-			else
-			{
-				std::cout << std::setprecision(3) << kernel[i][j].rel << kernel[i][j].img << "i\t";
-			}
-		}
-		std::cout << std::endl;
+		e[i].set(-0.9*i+4.65, 0.7*i-4.35);
+		std::cout << e[i] << std::endl;
 	}
+	std::cout << "===================" << std::endl;
 
-	std::cout << std::endl;
+	lcg_complex f = complex_inner(d,e,3);
+	std::cout << f << std::endl;
+	lcg_complex g = complex_inner(e,d,3);
+	std::cout << g << std::endl;
 
-	lcg_complex a;
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			a.rel = a.img = 0.0;
-			for (int k = 0; k < N; k++)
-			{
-				a.rel += (kernel[k][i].rel*kernel[k][j].rel - kernel[k][i].img*kernel[k][j].img);
-				a.img += (kernel[k][i].rel*kernel[k][j].img + kernel[k][i].img*kernel[k][j].rel);
-			}
-			if (a.img >= 0)
-			{
-				std::cout << std::setprecision(3) << a.rel << "+" << a.img << "i\t";
-			}
-			else
-			{
-				std::cout << std::setprecision(3) << a.rel << a.img << "i\t";
-			}
-		}
-		std::cout << std::endl;
-	}
-
-	delete[] kernel;
 	return 0;
 }
