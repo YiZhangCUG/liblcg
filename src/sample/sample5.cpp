@@ -3,23 +3,23 @@
 #include "iostream"
 #include "iomanip"
 
-#define N 5
+#define N 3
 
 lcg_float random_lcg_float(lcg_float L,lcg_float T)
 {
 	return (T-L)*rand()*1.0/RAND_MAX + L;
 }
 
-clcg_complex **kernel;
+lcg_complex **kernel;
 
 int main(int argc, char const *argv[])
 {
 	srand(time(0));
 
-	kernel = new clcg_complex *[N];
+	kernel = new lcg_complex *[N];
 	for (int i = 0; i < N; i++)
 	{
-		kernel[i] = new clcg_complex [N];
+		kernel[i] = new lcg_complex [N];
 	}
 
 	for (int i = 0; i < N; i++)
@@ -42,14 +42,17 @@ int main(int argc, char const *argv[])
 
 	std::cout << std::endl;
 
-	clcg_complex a;
+	lcg_complex a;
 	for (int i = 0; i < N; i++)
 	{
-		a.rel = a.img = 0.0;
 		for (int j = 0; j < N; j++)
 		{
-			a.rel += (kernel[j][i].rel*kernel[i][j].rel + kernel[j][i].img*kernel[i][j].img);
-			a.img += -1.0*(kernel[j][i].rel*kernel[i][j].img - kernel[j][i].img*kernel[i][j].rel);
+			a.rel = a.img = 0.0;
+			for (int k = 0; k < N; k++)
+			{
+				a.rel += (kernel[k][i].rel*kernel[k][j].rel - kernel[k][i].img*kernel[k][j].img);
+				a.img += (kernel[k][i].rel*kernel[k][j].img + kernel[k][i].img*kernel[k][j].rel);
+			}
 			if (a.img >= 0)
 			{
 				std::cout << std::setprecision(3) << a.rel << "+" << a.img << "i\t";

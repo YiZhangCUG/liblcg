@@ -31,13 +31,8 @@ extern "C"
 {
 
 #include "stddef.h"
+#include "lcg_algebra.h"
 #endif
-
-/**
- * @brief      A simple definition of the float type we use here. 
- * Easy to change in the future. Right now it is just an alias of double
- */
-typedef double lcg_float;
 
 /**
  * @brief      Types of method that could be recognized by the lcg_solver() function.

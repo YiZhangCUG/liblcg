@@ -47,20 +47,20 @@ public:
 	 * 这里我们利用reinterpret_cast将_Ax的指针转换到Ax上，需要注意的是成员函数的指针只能通过
 	 * 实例对象进行调用，因此需要void* instance变量。
 	*/
-	static void _AxProduct(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
+	static void _AxProduct(void *instance, const lcg_complex *x, lcg_complex *prod_Ax, 
 		const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
 		return reinterpret_cast<CLCG_Solver*>(instance)->AxProduct(x, prod_Ax, x_size, layout, conjugate);
 	}
-	virtual void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, 
+	virtual void AxProduct(const lcg_complex *x, lcg_complex *prod_Ax, 
 		const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate) = 0;
 
-	static int _Progress(void* instance, const clcg_complex* m, const lcg_float converge, 
+	static int _Progress(void* instance, const lcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
 	{
 		return reinterpret_cast<CLCG_Solver*>(instance)->Progress(m, converge, param, n_size, k);
 	}
-	virtual int Progress(const clcg_complex* m, const lcg_float converge, 
+	virtual int Progress(const lcg_complex* m, const lcg_float converge, 
 		const clcg_para* param, const int n_size, const int k)
 	{
 		std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
@@ -73,7 +73,7 @@ public:
 		return;
 	}
 
-	void Minimize(clcg_complex *m, const clcg_complex *b, int x_size, 
+	void Minimize(lcg_complex *m, const lcg_complex *b, int x_size, 
 		clcg_solver_enum solver_id = CLCG_CGS, bool verbose = true)
 	{
 		switch (solver_id)
@@ -86,9 +86,6 @@ public:
 				break;
 			case CLCG_CGS:
 				std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
-				break;
-			case CLCG_CGS2:
-				std::cerr << "Solver: Conjugate Gradient Squared 2" << std::endl;
 				break;
 			case CLCG_TFQMR:
 				std::cerr << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;

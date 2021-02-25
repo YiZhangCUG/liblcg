@@ -4,7 +4,7 @@
 #include "iostream"
 #include "iomanip"
 
-#define N 100
+#define N 25
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
 lcg_float random_lcg_float(lcg_float L,lcg_float T)
@@ -19,10 +19,10 @@ int random_int(int small, int big)
 }
 
 // 普通二维数组做核矩阵
-clcg_complex **kernel;
+lcg_complex **kernel;
 
 // 计算核矩阵乘向量的乘积
-void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax, 
+void CalAx(void *instance, const lcg_complex *x, lcg_complex *prod_Ax, 
 	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
 	matrix_product(kernel, x, prod_Ax, N, x_size, layout, conjugate);
@@ -31,7 +31,7 @@ void CalAx(void *instance, const clcg_complex *x, clcg_complex *prod_Ax,
 
 
 //定义共轭梯度监控函数
-int Prog(void* instance, const clcg_complex* m, const lcg_float converge, 
+int Prog(void* instance, const lcg_complex* m, const lcg_float converge, 
 	const clcg_para* param, const int n_size, const int k)
 {
 	std::clog << "\rIteration-times: " << k << "\tconvergence: " << converge;
@@ -42,10 +42,10 @@ int main(int argc, char const *argv[])
 {
 	srand(time(0));
 
-	kernel = new clcg_complex *[N];
+	kernel = new lcg_complex *[N];
 	for (int i = 0; i < N; i++)
 	{
-		kernel[i] = new clcg_complex [N];
+		kernel[i] = new lcg_complex [N];
 	}
 
 	for (int i = 0; i < N; i++)
@@ -62,7 +62,7 @@ int main(int argc, char const *argv[])
 	int tmp_id, tmp_size;
 	for (int i = 0; i < N; i++)
 	{
-		tmp_size = random_int(20, 35);
+		tmp_size = random_int(5, 10);
 		for (int j = 0; j < tmp_size; j++)
 		{
 			tmp_id = random_int(0, N);
@@ -73,7 +73,7 @@ int main(int argc, char const *argv[])
 	}
 
 	// 生成一组正演解
-	clcg_complex *fm = new clcg_complex [N];
+	lcg_complex *fm = new lcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
 		fm[i].rel = random_lcg_float(1, 2);
@@ -81,7 +81,7 @@ int main(int argc, char const *argv[])
 	}
 
 	// 计算共轭梯度B项
-	clcg_complex *B = new clcg_complex [N];
+	lcg_complex *B = new lcg_complex [N];
 	matrix_product(kernel, fm, B, N, N, Normal, NonConjugate);
 
 	/********************准备工作完成************************/
@@ -91,36 +91,44 @@ int main(int argc, char const *argv[])
 	self_para.abs_diff = 1;
 
 	// 声明一组解
-	clcg_complex *m = new clcg_complex [N];
+	lcg_complex *m = new lcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
-		m[i].rel = 0.0;
-		m[i].img = 0.0;
+		m[i].rel = 0.0; m[i].img = 0.0;
 	}
 
-	int ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
-	std::cerr << std::endl << clcg_error_str(ret) << std::endl;
+	int ret;
+
+	std::clog << "solver: bicg" << std::endl;
+	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
+	std::clog << std::endl << clcg_error_str(ret) << std::endl;
 
 	for (int i = 0; i < N; i++)
 	{
-		if (fm[i].img >= 0)
-		{
-			std::cout << std::setw(8) << fm[i].rel << "+" << fm[i].img << "i\t";
-		}
-		else
-		{
-			std::cout << std::setw(8) << fm[i].rel << fm[i].img << "i\t";
-		}
-
-		if (m[i].img >= 0)
-		{
-			std::cout << std::setw(8) << m[i].rel << "+" << m[i].img << "i" << std::endl;
-		}
-		else
-		{
-			std::cout << std::setw(8) << m[i].rel << m[i].img << "i" << std::endl;
-		}
+		m[i].rel = 0.0; m[i].img = 0.0;
 	}
+
+	std::clog << "solver: bicg-symmetric" << std::endl;
+	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG_SYM);
+	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+
+	for (int i = 0; i < N; i++)
+	{
+		m[i].rel = 0.0; m[i].img = 0.0;
+	}
+
+	std::clog << "solver: cgs" << std::endl;
+	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
+	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+
+	for (int i = 0; i < N; i++)
+	{
+		m[i].rel = 0.0; m[i].img = 0.0;
+	}
+
+	std::clog << "solver: tfqmr" << std::endl;
+	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_TFQMR);
+	std::clog << std::endl << clcg_error_str(ret) << std::endl;
 
 	delete[] kernel;
 	delete[] fm;

@@ -5,7 +5,7 @@
 #include "iomanip"
 
 #define M 100
-#define N 60
+#define N 80
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
 lcg_float random_lcg_float(lcg_float L,lcg_float T)
@@ -26,10 +26,10 @@ public:
 	~TESTFUNC();
 
 	// 计算共轭梯度的B项
-	void cal_partb(clcg_complex *B, const clcg_complex *x);
+	void cal_partb(lcg_complex *B, const lcg_complex *x);
 
 	//定义共轭梯度中Ax的算法
-	void AxProduct(const clcg_complex *x, clcg_complex *prod_Ax, const int x_size, 
+	void AxProduct(const lcg_complex *x, lcg_complex *prod_Ax, const int x_size, 
 		matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
 		matrix_product(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
@@ -39,19 +39,19 @@ public:
 
 private:
 	// 普通二维数组做核矩阵
-	clcg_complex **kernel;
+	lcg_complex **kernel;
 	// 中间结果数组
-	clcg_complex *tmp_arr;
+	lcg_complex *tmp_arr;
 };
 
 TESTFUNC::TESTFUNC()
 {
-	kernel = new clcg_complex *[M];
+	kernel = new lcg_complex *[M];
 	for (int i = 0; i < M; i++)
 	{
-		kernel[i] = new clcg_complex [N];
+		kernel[i] = new lcg_complex [N];
 	}
-	tmp_arr = new clcg_complex [M];
+	tmp_arr = new lcg_complex [M];
 
 	for (int i = 0; i < M; i++)
 	{
@@ -86,7 +86,7 @@ TESTFUNC::~TESTFUNC()
 	delete[] tmp_arr;
 }
 
-void TESTFUNC::cal_partb(clcg_complex *B, const clcg_complex *x)
+void TESTFUNC::cal_partb(lcg_complex *B, const lcg_complex *x)
 {
 	matrix_product(kernel, x, tmp_arr, M, N, Normal);
 	matrix_product(kernel, tmp_arr, B, M, N, Transpose);
@@ -98,7 +98,7 @@ int main(int argc, char const *argv[])
 	srand(time(0));
 
 	// 声明一组解
-	clcg_complex *fm = new clcg_complex [N];
+	lcg_complex *fm = new lcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
 		fm[i].rel = random_lcg_float(1, 2);
@@ -108,7 +108,7 @@ int main(int argc, char const *argv[])
 	TESTFUNC test;
 
 	// 计算共轭梯度B项
-	clcg_complex *B = new clcg_complex [N];
+	lcg_complex *B = new lcg_complex [N];
 	test.cal_partb(B, fm);
 
 	/********************准备工作完成************************/
@@ -119,35 +119,34 @@ int main(int argc, char const *argv[])
 	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
-	clcg_complex *m = new clcg_complex [N];
+	lcg_complex *m = new lcg_complex [N];
 	for (int i = 0; i < N; i++)
 	{
-		m[i].rel = 0.0;
-		m[i].img = 0.0;
+		m[i].rel = 0.0; m[i].img = 0.0;
 	}
 
-	test.Minimize(m, B, N, CLCG_CGS2);
+	test.Minimize(m, B, N, CLCG_BICG);
 
 	for (int i = 0; i < N; i++)
 	{
-		if (fm[i].img >= 0)
-		{
-			std::cout << std::setw(8) << fm[i].rel << "+" << fm[i].img << "i\t";
-		}
-		else
-		{
-			std::cout << std::setw(8) << fm[i].rel << fm[i].img << "i\t";
-		}
-
-		if (m[i].img >= 0)
-		{
-			std::cout << std::setw(8) << m[i].rel << "+" << m[i].img << "i" << std::endl;
-		}
-		else
-		{
-			std::cout << std::setw(8) << m[i].rel << m[i].img << "i" << std::endl;
-		}
+		m[i].rel = 0.0; m[i].img = 0.0;
 	}
+
+	test.Minimize(m, B, N, CLCG_BICG_SYM);
+
+	for (int i = 0; i < N; i++)
+	{
+		m[i].rel = 0.0; m[i].img = 0.0;
+	}
+
+	test.Minimize(m, B, N, CLCG_CGS);
+
+	for (int i = 0; i < N; i++)
+	{
+		m[i].rel = 0.0; m[i].img = 0.0;
+	}
+
+	test.Minimize(m, B, N, CLCG_TFQMR);
 
 	delete[] fm;
 	delete[] B;
