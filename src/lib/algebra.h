@@ -137,35 +137,6 @@ lcg_float dot(const lcg_float *a, const lcg_float *b, int size);
 void matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, int m_size, int n_size, 
 	matrix_layout_e layout = Normal);
 
-/**
- * @brief      Calculate the sum of two vectors
- *
- * @param[in]  a     vector a
- * @param[in]  b     vector b
- * @param      sum   vector sum
- * @param[in]  size  vector size
- */
-void addvec(const lcg_float *a, const lcg_float *b, lcg_float *sum, int size);
-
-/**
- * @brief      Calculate the difference of two vectors
- *
- * @param[in]  a     vector a
- * @param[in]  b     vector b
- * @param      sub   vector sub
- * @param[in]  size  vector size
- */
-void subvec(const lcg_float *a, const lcg_float *b, lcg_float *sub, int size);
-
-/**
- * @brief      Append a vector to another
- *
- * @param[in]  a      vector a
- * @param      ret    vector ret
- * @param[in]  size   vector size
- * @param[in]  scale  scale
- */
-void appvec(const lcg_float *a, lcg_float *ret, int size, lcg_float scale = 1.0);
 
 /**
  * @brief     A simple definition of the complex number type. 

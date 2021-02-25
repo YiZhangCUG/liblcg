@@ -59,36 +59,6 @@ void matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax,
 	return;
 }
 
-void addvec(const lcg_float *a, const lcg_float *b, lcg_float *sum, int size)
-{
-	int i;
-#pragma omp parallel for private (i) schedule(guided)
-	for (i = 0; i < size; i++)
-	{
-		sum[i] = a[i] + b[i];
-	}
-	return;
-}
-
-void subvec(const lcg_float *a, const lcg_float *b, lcg_float *sub, int size)
-{
-	int i;
-#pragma omp parallel for private (i) schedule(guided)
-	for (i = 0; i < size; i++)
-	{
-		sub[i] = a[i] - b[i];
-	}
-	return;
-}
-
-void appvec(const lcg_float *a, lcg_float *ret, int size, lcg_float scale)
-{
-	for (int i = 0; i < size; i++)
-	{
-		ret[i] += scale * a[i];
-	}
-	return;
-}
 
 lcg_complex::lcg_complex()
 {
