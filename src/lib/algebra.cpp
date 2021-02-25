@@ -6,6 +6,90 @@
 #include "omp.h"
 #endif
 
+lcg_float* malloc(const int n)
+{
+	lcg_float* x = new lcg_float [n];
+	return x;
+}
+
+void free(lcg_float* x)
+{
+	if (x != nullptr) delete[] x;
+	x = nullptr;
+	return;
+}
+
+lcg_float dot(const lcg_float *a, const lcg_float *b, int size)
+{
+	lcg_float sum = 0.0;
+	for (int i = 0; i < size; i++)
+	{
+		sum += a[i]*b[i];
+	}
+	return sum;
+}
+
+void matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, 
+	int m_size, int n_size, matrix_layout_e layout)
+{
+	int i, j;
+	if (layout == Normal)
+	{
+#pragma omp parallel for private (i, j) schedule(guided)
+		for (i = 0; i < m_size; i++)
+		{
+			Ax[i] = 0.0;
+			for (j = 0; j < n_size; j++)
+			{
+				Ax[i] += A[i][j]*x[j];
+			}
+		}
+		return;
+	}
+
+#pragma omp parallel for private (i, j) schedule(guided)
+	for (j = 0; j < n_size; j++)
+	{
+		Ax[j] = 0.0;
+		for (i = 0; i < m_size; i++)
+		{
+			Ax[j] += A[i][j]*x[i];
+		}
+	}
+	return;
+}
+
+void addvec(const lcg_float *a, const lcg_float *b, lcg_float *sum, int size)
+{
+	int i;
+#pragma omp parallel for private (i) schedule(guided)
+	for (i = 0; i < size; i++)
+	{
+		sum[i] = a[i] + b[i];
+	}
+	return;
+}
+
+void subvec(const lcg_float *a, const lcg_float *b, lcg_float *sub, int size)
+{
+	int i;
+#pragma omp parallel for private (i) schedule(guided)
+	for (i = 0; i < size; i++)
+	{
+		sub[i] = a[i] - b[i];
+	}
+	return;
+}
+
+void appvec(const lcg_float *a, lcg_float *ret, int size, lcg_float scale)
+{
+	for (int i = 0; i < size; i++)
+	{
+		ret[i] += scale * a[i];
+	}
+	return;
+}
+
 lcg_complex::lcg_complex()
 {
 	rel = img = NAN;
@@ -106,7 +190,20 @@ std::ostream &operator<<(std::ostream &os, const lcg_complex &a)
 	return os;
 }
 
-lcg_complex complex_dot(const lcg_complex *a, const lcg_complex *b, int x_size)
+lcg_complex* malloc_complex(const int n)
+{
+	lcg_complex* x = new lcg_complex [n];
+	return x;
+}
+
+void free(lcg_complex* x)
+{
+	if (x != nullptr) delete[] x;
+	x = nullptr;
+	return;
+}
+
+lcg_complex dot_complex(const lcg_complex *a, const lcg_complex *b, int x_size)
 {
 	lcg_complex ret;
 	ret.set(0.0, 0.0);
@@ -120,7 +217,7 @@ lcg_complex complex_dot(const lcg_complex *a, const lcg_complex *b, int x_size)
 	return ret;
 }
 
-lcg_complex complex_inner(const lcg_complex *a, const lcg_complex *b, int x_size)
+lcg_complex inner_complex(const lcg_complex *a, const lcg_complex *b, int x_size)
 {
 	lcg_complex ret;
 	ret.set(0.0, 0.0);
@@ -134,7 +231,7 @@ lcg_complex complex_inner(const lcg_complex *a, const lcg_complex *b, int x_size
 	return ret;
 }
 
-void complex_matvec(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, 
+void matvec_complex(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, 
 	int m_size, int n_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
 	int i, j;

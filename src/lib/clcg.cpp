@@ -30,19 +30,6 @@ enum clcg_return_enum
  */
 static const clcg_para defparam = {100, 1e-6, 0};
 
-lcg_complex* clcg_malloc(const int n)
-{
-	lcg_complex* x = new lcg_complex [n];
-	return x;
-}
-
-void clcg_free(lcg_complex* x)
-{
-	if (x != nullptr) delete[] x;
-	x = nullptr;
-	return;
-}
-
 clcg_para clcg_default_parameters()
 {
 	clcg_para param = defparam;
@@ -166,9 +153,9 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 	int i;
 	lcg_complex *r1k = nullptr, *r2k = nullptr, *d1k = nullptr, *d2k = nullptr;
 	lcg_complex *Ax = nullptr;
-	r1k = clcg_malloc(n_size); r2k = clcg_malloc(n_size);
-	d1k = clcg_malloc(n_size); d2k = clcg_malloc(n_size);
-	Ax  = clcg_malloc(n_size);
+	r1k = malloc_complex(n_size); r2k = malloc_complex(n_size);
+	d1k = malloc_complex(n_size); d2k = malloc_complex(n_size);
+	Ax  = malloc_complex(n_size);
 
 	Afp(instance, m, Ax, n_size, Normal, NonConjugate);
 
@@ -179,15 +166,15 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 		d2k[i] = r2k[i] = r1k[i].conjugate();
 	}
 
-	lcg_float B_mod = complex_inner(B, B, n_size).rel;
-	lcg_complex r1r2 = complex_inner(r2k, r1k, n_size);
+	lcg_float B_mod = inner_complex(B, B, n_size).rel;
+	lcg_complex r1r2 = inner_complex(r2k, r1k, n_size);
 
 	int time, ret;
 	lcg_complex ak, Ad1d2, r1r2_next, betak;
 	lcg_float rk_mod;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = complex_inner(r1k, r1k, n_size).rel;
+		rk_mod = inner_complex(r1k, r1k, n_size).rel;
 
 		if (para.abs_diff)
 		{
@@ -219,7 +206,7 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 		}
 
 		Afp(instance, d1k, Ax, n_size, Normal, NonConjugate);
-		Ad1d2 = complex_inner(d2k, Ax, n_size);
+		Ad1d2 = inner_complex(d2k, Ax, n_size);
 		ak = r1r2/Ad1d2;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -245,7 +232,7 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 			}
 		}
 
-		r1r2_next = complex_inner(r2k, r1k, n_size);
+		r1r2_next = inner_complex(r2k, r1k, n_size);
 		betak = r1r2_next/r1r2;
 		r1r2 = r1r2_next;
 
@@ -259,11 +246,11 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 
 	func_ends:
 	{
-		clcg_free(r1k);
-		clcg_free(r2k);
-		clcg_free(d1k);
-		clcg_free(d2k);
-		clcg_free(Ax);
+		free(r1k);
+		free(r2k);
+		free(d1k);
+		free(d2k);
+		free(Ax);
 	}
 
 	if (time == para.max_iterations)
@@ -290,8 +277,8 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 	int i;
 	lcg_complex *rk = nullptr, *dk = nullptr;
 	lcg_complex *Ax = nullptr;
-	rk = clcg_malloc(n_size); dk = clcg_malloc(n_size);
-	Ax = clcg_malloc(n_size);
+	rk = malloc_complex(n_size); dk = malloc_complex(n_size);
+	Ax = malloc_complex(n_size);
 
 	Afp(instance, m, Ax, n_size, Normal, NonConjugate);
 
@@ -301,15 +288,15 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 		dk[i] = rk[i] = B[i] - Ax[i];
 	}
 
-	lcg_float B_mod = complex_inner(B, B, n_size).rel;
-	lcg_complex rkrk = complex_dot(rk, rk, n_size);
+	lcg_float B_mod = inner_complex(B, B, n_size).rel;
+	lcg_complex rkrk = dot_complex(rk, rk, n_size);
 
 	int time, ret;
 	lcg_float rk_mod;
 	lcg_complex ak, rkrk2, betak;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = complex_inner(rk, rk, n_size).rel;
+		rk_mod = inner_complex(rk, rk, n_size).rel;
 		if (para.abs_diff)
 		{
 			if (Pfp != nullptr)
@@ -340,7 +327,7 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 		}
 
 		Afp(instance, dk, Ax, n_size, Normal, NonConjugate);
-		ak = rkrk/complex_dot(dk, Ax, n_size);
+		ak = rkrk/dot_complex(dk, Ax, n_size);
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
@@ -357,7 +344,7 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 			}
 		}
 
-		rkrk2 = complex_dot(rk, rk, n_size);
+		rkrk2 = dot_complex(rk, rk, n_size);
 		betak = rkrk2/rkrk;
 		rkrk = rkrk2;
 
@@ -370,9 +357,9 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 
 	func_ends:
 	{
-		clcg_free(rk);
-		clcg_free(dk);
-		clcg_free(Ax);
+		free(rk);
+		free(dk);
+		free(Ax);
 	}
 
 	if (time == para.max_iterations)
@@ -399,10 +386,10 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 	int i;
 	lcg_complex *rk = nullptr, *r0 = nullptr, *pk = nullptr;
 	lcg_complex *Ax = nullptr, *uk = nullptr, *qk = nullptr, *wk = nullptr;
-	rk = clcg_malloc(n_size); r0 = clcg_malloc(n_size);
-	pk = clcg_malloc(n_size); Ax  = clcg_malloc(n_size);
-	uk = clcg_malloc(n_size); qk  = clcg_malloc(n_size);
-	wk = clcg_malloc(n_size);
+	rk = malloc_complex(n_size); r0 = malloc_complex(n_size);
+	pk = malloc_complex(n_size); Ax  = malloc_complex(n_size);
+	uk = malloc_complex(n_size); qk  = malloc_complex(n_size);
+	wk = malloc_complex(n_size);
 
 	Afp(instance, m, Ax, n_size, Normal, NonConjugate);
 
@@ -412,15 +399,15 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 		pk[i] = qk[i] = r0[i] = rk[i] = B[i] - Ax[i];
 	}
 
-	lcg_float B_mod = complex_inner(B, B, n_size).rel;
-	lcg_complex r0Hrk = complex_inner(r0, rk, n_size);
+	lcg_float B_mod = inner_complex(B, B, n_size).rel;
+	lcg_complex r0Hrk = inner_complex(r0, rk, n_size);
 
 	int time, ret;
 	lcg_float rk_mod;
 	lcg_complex ak, r0Hrk1, r0HAp, betak;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = complex_inner(rk, rk, n_size).rel;
+		rk_mod = inner_complex(rk, rk, n_size).rel;
 
 		if (para.abs_diff)
 		{
@@ -452,7 +439,7 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 		}
 
 		Afp(instance, qk, Ax, n_size, Normal, NonConjugate);
-		r0HAp = complex_inner(r0, Ax, n_size);
+		r0HAp = inner_complex(r0, Ax, n_size);
 		ak = r0Hrk/r0HAp;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -479,7 +466,7 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 			}
 		}
 
-		r0Hrk1 = complex_inner(r0, rk, n_size);
+		r0Hrk1 = inner_complex(r0, rk, n_size);
 		betak = r0Hrk1/r0Hrk;
 		r0Hrk = r0Hrk1;
 
@@ -493,13 +480,13 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 
 	func_ends:
 	{
-		clcg_free(rk);
-		clcg_free(r0);
-		clcg_free(pk);
-		clcg_free(Ax);
-		clcg_free(uk);
-		clcg_free(qk);
-		clcg_free(wk);
+		free(rk);
+		free(r0);
+		free(pk);
+		free(Ax);
+		free(uk);
+		free(qk);
+		free(wk);
 	}
 
 	if (time == para.max_iterations)
@@ -526,8 +513,8 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 	int i;
 	lcg_complex *yk = nullptr, *vk = nullptr, *v2k = nullptr;
 	lcg_complex *r0 = nullptr, *wk = nullptr, *dk = nullptr;
-	yk = clcg_malloc(n_size); vk = clcg_malloc(n_size); v2k = clcg_malloc(n_size);
-	r0 = clcg_malloc(n_size); wk = clcg_malloc(n_size); dk = clcg_malloc(n_size);
+	yk = malloc_complex(n_size); vk = malloc_complex(n_size); v2k = malloc_complex(n_size);
+	r0 = malloc_complex(n_size); wk = malloc_complex(n_size); dk = malloc_complex(n_size);
 
 #pragma omp parallel for private (i) schedule(guided)
 	for (i = 0; i < n_size; i++)
@@ -543,9 +530,9 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 		v2k[i].set(0.0, 0.0);
 	}
 
-	lcg_complex rho = complex_inner(r0, r0, n_size);
+	lcg_complex rho = inner_complex(r0, r0, n_size);
 	lcg_float tao = sqrt(rho.rel);
-	lcg_float B_mod = complex_inner(B, B, n_size).rel;
+	lcg_float B_mod = inner_complex(B, B, n_size).rel;
 
 	int time, ret;
 	lcg_float ck, w_mod = 0.0;
@@ -587,7 +574,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			vk[i] = vk[i] + v2k[i];
 		}
 
-		alphak = rho/complex_inner(r0, vk, n_size);
+		alphak = rho/inner_complex(r0, vk, n_size);
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
@@ -596,7 +583,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
 		}
 
-		w_mod = sqrt(complex_inner(wk, wk, n_size).rel)/tao;
+		w_mod = sqrt(inner_complex(wk, wk, n_size).rel)/tao;
 		ck = 1.0/sqrt(1.0+w_mod*w_mod);
 		tao = tao*w_mod*ck;
 		eta = ck*ck*alphak;
@@ -630,7 +617,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
 		}
 
-		w_mod = sqrt(complex_inner(wk, wk, n_size).rel)/tao;
+		w_mod = sqrt(inner_complex(wk, wk, n_size).rel)/tao;
 		ck = 1.0/sqrt(1.0+w_mod*w_mod);
 		tao = tao*w_mod*ck;
 		eta = ck*ck*alphak;
@@ -649,7 +636,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			}
 		}
 
-		rho2 = complex_inner(r0, wk, n_size);
+		rho2 = inner_complex(r0, wk, n_size);
 		betak = rho2/rho;
 		rho = rho2;
 
@@ -663,12 +650,12 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 
 	func_ends:
 	{
-		clcg_free(yk);
-		clcg_free(vk);
-		clcg_free(v2k);
-		clcg_free(dk);
-		clcg_free(r0);
-		clcg_free(wk);
+		free(yk);
+		free(vk);
+		free(v2k);
+		free(dk);
+		free(r0);
+		free(wk);
 	}
 
 	if (time == para.max_iterations)

@@ -23,10 +23,51 @@
  * THE SOFTWARE.
  *********************************************************/
 
-#ifndef _LCG_ALGEBRA_H
-#define _LCG_ALGEBRA_H
+#ifndef _ALGEBRA_H
+#define _ALGEBRA_H
 
 #include "iostream"
+#include "config.h"
+
+#ifdef LCG_FABS
+/**
+ * @brief      return absolute value
+ *
+ * @param      x     input value
+ */
+#define lcg_fabs(x) ((x < 0) ? -1*x : x)
+#endif
+
+/**
+ * @brief      return the bigger value
+ *
+ * @param      a     input value
+ * @param      b     another input value
+ *
+ * @return     the bigger value
+ */
+#define lcg_max(a, b) (a>b?a:b)
+
+/**
+ * @brief      return the smaller value
+ *
+ * @param      a     input value
+ * @param      b     another input value
+ *
+ * @return     the smaller value
+ */
+#define lcg_min(a, b) (a<b?a:b)
+
+/**
+ * @brief      Set the input value within a box constraint
+ *
+ * @param      a     low boundary
+ * @param      b     high boundary
+ * @param      in    input value
+ *
+ * @return     box constrained value
+ */
+#define lcg_set2box(a, b, in) (lcg_max(a, lcg_min(b, in)))
 
 /**
  * @brief      Matrix layouts.
@@ -51,6 +92,80 @@ enum complex_conjugate_e
  * Easy to change in the future. Right now it is just an alias of double
  */
 typedef double lcg_float;
+
+/**
+ * @brief      Locate memory for a lcg_float pointer type.
+ *
+ * @param[in]  n     Size of the lcg_float array.
+ *
+ * @return     Pointer of the array's location.
+ */
+lcg_float* malloc(const int n);
+
+/**
+ * @brief      Destroy memory used by the lcg_float type array.
+ *
+ * @param      x     Pointer of the array.
+ */
+void free(lcg_float* x);
+
+/**
+ * @brief      calculate dot product of two real vectors
+ *
+ * @param[in]  a       pointer of the vector a
+ * @param[in]  b       pointer of the vector b
+ * @param[in]  size    size of the vector
+ *
+ * @return     dot product
+ */
+lcg_float dot(const lcg_float *a, const lcg_float *b, int size);
+
+/**
+ * @brief      calculate product of a real matrix and a vector
+ * 
+ * Different configurations:
+ * layout=Normal -> A
+ * layout=Transpose -> A^T
+ *
+ * @param      A          matrix A
+ * @param[in]  x          vector x
+ * @param      Ax         product of Ax
+ * @param[in]  m_size     row size of A
+ * @param[in]  n_size     column size of A
+ * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
+ */
+void matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, int m_size, int n_size, 
+	matrix_layout_e layout = Normal);
+
+/**
+ * @brief      Calculate the sum of two vectors
+ *
+ * @param[in]  a     vector a
+ * @param[in]  b     vector b
+ * @param      sum   vector sum
+ * @param[in]  size  vector size
+ */
+void addvec(const lcg_float *a, const lcg_float *b, lcg_float *sum, int size);
+
+/**
+ * @brief      Calculate the difference of two vectors
+ *
+ * @param[in]  a     vector a
+ * @param[in]  b     vector b
+ * @param      sub   vector sub
+ * @param[in]  size  vector size
+ */
+void subvec(const lcg_float *a, const lcg_float *b, lcg_float *sub, int size);
+
+/**
+ * @brief      Append a vector to another
+ *
+ * @param[in]  a      vector a
+ * @param      ret    vector ret
+ * @param[in]  size   vector size
+ * @param[in]  scale  scale
+ */
+void appvec(const lcg_float *a, lcg_float *ret, int size, lcg_float scale = 1.0);
 
 /**
  * @brief     A simple definition of the complex number type. 
@@ -178,6 +293,22 @@ lcg_complex operator/(const lcg_complex &a, const lcg_complex &b);
 std::ostream &operator<<(std::ostream &os, const lcg_complex &a);
 
 /**
+ * @brief      Locate memory for a lcg_complex pointer type.
+ *
+ * @param[in]  n     Size of the lcg_float array.
+ *
+ * @return     Pointer of the array's location.
+ */
+lcg_complex* malloc_complex(const int n);
+
+/**
+ * @brief      Destroy memory used by the lcg_complex type array.
+ *
+ * @param      x     Pointer of the array.
+ */
+void free(lcg_complex* x);
+
+/**
  * @brief      calculate dot product of two complex vectors
  * 
  * the product of two complex vectors are defined as <a, b> = \sum{a_i \cdot b_i}
@@ -188,7 +319,7 @@ std::ostream &operator<<(std::ostream &os, const lcg_complex &a);
  *
  * @return     product
  */
-lcg_complex complex_dot(const lcg_complex *a, const lcg_complex *b, int x_size);
+lcg_complex dot_complex(const lcg_complex *a, const lcg_complex *b, int x_size);
 
 /**
  * @brief      calculate inner product of two complex vectors
@@ -201,7 +332,7 @@ lcg_complex complex_dot(const lcg_complex *a, const lcg_complex *b, int x_size);
  *
  * @return     product
  */
-lcg_complex complex_inner(const lcg_complex *a, const lcg_complex *b, int x_size);
+lcg_complex inner_complex(const lcg_complex *a, const lcg_complex *b, int x_size);
 
 /**
  * @brief      calculate product of a complex matrix and a complex vector
@@ -221,7 +352,7 @@ lcg_complex complex_inner(const lcg_complex *a, const lcg_complex *b, int x_size
  * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
  * @param[in]  conjugate  whether to use the complex conjugate of A for calculation
  */
-void complex_matvec(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
+void matvec_complex(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
 	matrix_layout_e layout = Normal, complex_conjugate_e conjugate = NonConjugate);
 
-#endif //_LCG_ALGEBRA_H
+#endif //_ALGEBRA_H

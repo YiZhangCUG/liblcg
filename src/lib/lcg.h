@@ -154,22 +154,6 @@ typedef int (*lcg_progress_ptr)(void* instance, const lcg_float* m, const lcg_fl
 	const lcg_para* param, const int n_size, const int k);
 
 /**
- * @brief      Locate memory for a lcg_float pointer type.
- *
- * @param[in]  n     Size of the lcg_float array.
- *
- * @return     Pointer of the array's location.
- */
-lcg_float* lcg_malloc(const int n);
-
-/**
- * @brief      Destroy memory used by the lcg_float type array.
- *
- * @param      x     Pointer of the array.
- */
-void lcg_free(lcg_float* x);
-
-/**
  * @brief      Return a lcg_para type instance with default values.
  * 
  * Users can use this function to get default parameters' value for the conjugate gradient methods.

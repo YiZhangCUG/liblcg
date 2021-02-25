@@ -113,22 +113,6 @@ typedef int (*clcg_progress_ptr)(void* instance, const lcg_complex* m,
 	const lcg_float converge, const clcg_para* param, const int n_size, const int k);
 
 /**
- * @brief      Locate memory for a lcg_complex pointer type.
- *
- * @param[in]  n     Size of the lcg_float array.
- *
- * @return     Pointer of the array's location.
- */
-lcg_complex* clcg_malloc(const int n);
-
-/**
- * @brief      Destroy memory used by the lcg_complex type array.
- *
- * @param      x     Pointer of the array.
- */
-void clcg_free(lcg_complex* x);
-
-/**
  * @brief      Return a clcg_para type instance with default values.
  * 
  * Users can use this function to get default parameters' value for the complex conjugate gradient methods.
