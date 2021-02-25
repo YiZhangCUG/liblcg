@@ -524,9 +524,9 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 	if (B == nullptr) return CLCG_INVALID_POINTER;
 
 	int i;
-	lcg_complex *uk = nullptr, *vk = nullptr, *v2k = nullptr;
+	lcg_complex *yk = nullptr, *vk = nullptr, *v2k = nullptr;
 	lcg_complex *r0 = nullptr, *wk = nullptr, *dk = nullptr;
-	uk = clcg_malloc(n_size); vk = clcg_malloc(n_size); v2k = clcg_malloc(n_size);
+	yk = clcg_malloc(n_size); vk = clcg_malloc(n_size); v2k = clcg_malloc(n_size);
 	r0 = clcg_malloc(n_size); wk = clcg_malloc(n_size); dk = clcg_malloc(n_size);
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -539,7 +539,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 #pragma omp parallel for private (i) schedule(guided)
 	for (i = 0; i < n_size; i++)
 	{
-		wk[i] = uk[i] = r0[i] = B[i] - v2k[i];
+		wk[i] = yk[i] = r0[i] = B[i] - v2k[i];
 		v2k[i].set(0.0, 0.0);
 	}
 
@@ -581,19 +581,19 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			}
 		}
 
-		Afp(instance, uk, vk, n_size, Normal, NonConjugate);
+		Afp(instance, yk, vk, n_size, Normal, NonConjugate);
 		for (i = 0; i < n_size; i++)
 		{
 			vk[i] = vk[i] + v2k[i];
 		}
 
-		alphak = rho/complex_inner(vk, r0, n_size);
+		alphak = rho/complex_inner(r0, vk, n_size);
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
 			wk[i] = wk[i] - alphak*vk[i];
-			dk[i] = uk[i] + (w_mod*w_mod)*eta*dk[i]/alphak;
+			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
 		}
 
 		w_mod = sqrt(complex_inner(wk, wk, n_size).rel)/tao;
@@ -618,16 +618,16 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
-			uk[i] = uk[i] - alphak*vk[i];
+			yk[i] = yk[i] - alphak*vk[i];
 		}
 
-		Afp(instance, uk, v2k, n_size, Normal, NonConjugate);
+		Afp(instance, yk, v2k, n_size, Normal, NonConjugate);
 
 		#pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
 			wk[i] = wk[i] - alphak*v2k[i];
-			dk[i] = uk[i] + (w_mod*w_mod)*eta*dk[i]/alphak;
+			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
 		}
 
 		w_mod = sqrt(complex_inner(wk, wk, n_size).rel)/tao;
@@ -649,21 +649,21 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			}
 		}
 
-		rho2 = complex_inner(wk, r0, n_size);
+		rho2 = complex_inner(r0, wk, n_size);
 		betak = rho2/rho;
 		rho = rho2;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
-			uk[i] = wk[i] + betak*uk[i];
+			yk[i] = wk[i] + betak*yk[i];
 			v2k[i] = betak*(v2k[i] + betak*vk[i]);
 		}
 	}
 
 	func_ends:
 	{
-		clcg_free(uk);
+		clcg_free(yk);
 		clcg_free(vk);
 		clcg_free(v2k);
 		clcg_free(dk);
