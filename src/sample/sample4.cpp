@@ -32,8 +32,8 @@ public:
 	void AxProduct(const lcg_complex *x, lcg_complex *prod_Ax, const int x_size, 
 		matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
-		matvec_complex(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
-		matvec_complex(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
+		lcg_matvec_complex(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
+		lcg_matvec_complex(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
 		return;
 	}
 
@@ -88,8 +88,8 @@ TESTFUNC::~TESTFUNC()
 
 void TESTFUNC::cal_partb(lcg_complex *B, const lcg_complex *x)
 {
-	matvec_complex(kernel, x, tmp_arr, M, N, Normal);
-	matvec_complex(kernel, tmp_arr, B, M, N, Transpose);
+	lcg_matvec_complex(kernel, x, tmp_arr, M, N, Normal);
+	lcg_matvec_complex(kernel, tmp_arr, B, M, N, Transpose);
 	return;
 }
 

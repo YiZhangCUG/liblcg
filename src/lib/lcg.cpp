@@ -6,46 +6,6 @@
 #include "omp.h"
 #endif
 
-#ifdef LCG_FABS
-/**
- * @brief      return absolute value
- *
- * @param      x     input value
- */
-#define lcg_fabs(x) ((x < 0) ? -1*x : x)
-#endif
-
-/**
- * @brief      return the bigger value
- *
- * @param      a     input value
- * @param      b     another input value
- *
- * @return     the bigger value
- */
-#define lcg_max(a, b) (a>b?a:b)
-
-/**
- * @brief      return the smaller value
- *
- * @param      a     input value
- * @param      b     another input value
- *
- * @return     the smaller value
- */
-#define lcg_min(a, b) (a<b?a:b)
-
-/**
- * @brief      Set the input value within a box constraint
- *
- * @param      a     low boundary
- * @param      b     high boundary
- * @param      in    input value
- *
- * @return     box constrained value
- */
-#define lcg_set2box(a, b, in) (lcg_max(a, lcg_min(b, in)))
-
 
 /**
  * @brief      return value of the lcg_solver() function
@@ -304,7 +264,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 	// locate memory
 	lcg_float *gk = nullptr, *dk = nullptr, *Adk = nullptr;
-	gk = malloc(n_size); dk = malloc(n_size); Adk = malloc(n_size);
+	gk = lcg_malloc(n_size); dk = lcg_malloc(n_size); Adk = lcg_malloc(n_size);
 
 	Afp(instance, m, Adk, n_size);
 
@@ -316,8 +276,8 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		dk[i] = -1.0*gk[i];
 	}
 
-	lcg_float B_mod = dot(B, B, n_size);
-	lcg_float gk_mod = dot(gk, gk, n_size);
+	lcg_float B_mod = lcg_dot(B, B, n_size);
+	lcg_float gk_mod = lcg_dot(gk, gk, n_size);
 
 	int time, ret;
 	lcg_float dTAd, ak, betak, gk1_mod, residual;
@@ -341,7 +301,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 		Afp(instance , dk, Adk, n_size);
 
-		dTAd = dot(dk, Adk, n_size);
+		dTAd = lcg_dot(dk, Adk, n_size);
 		ak = gk_mod/dTAd;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -359,7 +319,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 			}
 		}
 
-		gk1_mod = dot(gk, gk, n_size);
+		gk1_mod = lcg_dot(gk, gk, n_size);
 		betak = gk1_mod/gk_mod;
 		gk_mod = gk1_mod;
 
@@ -372,9 +332,9 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 	func_ends:
 	{
-		free(dk);
-		free(gk);
-		free(Adk);
+		lcg_free(dk);
+		lcg_free(gk);
+		lcg_free(Adk);
 	}
 
 	if (time == para.max_iterations)
@@ -419,8 +379,8 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	// locate memory
 	lcg_float *rk = nullptr, *zk = nullptr;
 	lcg_float *dk = nullptr, *Adk = nullptr;
-	rk = malloc(n_size); zk = malloc(n_size);
-	dk = malloc(n_size); Adk = malloc(n_size);
+	rk = lcg_malloc(n_size); zk = lcg_malloc(n_size);
+	dk = lcg_malloc(n_size); Adk = lcg_malloc(n_size);
 
 	Afp(instance, m, Adk, n_size);
 
@@ -438,8 +398,8 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		dk[i] = zk[i];
 	}
 
-	lcg_float zTr = dot(zk, rk, n_size);
-	lcg_float B_mod = dot(B, B, n_size);
+	lcg_float zTr = lcg_dot(zk, rk, n_size);
+	lcg_float B_mod = lcg_dot(B, B, n_size);
 
 	int time, ret;
 	lcg_float dTAd, ak, betak, zTr1, residual;
@@ -463,7 +423,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 		Afp(instance , dk, Adk, n_size);
 
-		dTAd = dot(dk, Adk, n_size);
+		dTAd = lcg_dot(dk, Adk, n_size);
 		ak = zTr/dTAd;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -482,7 +442,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 			}
 		}
 
-		zTr1 = dot(zk, rk, n_size);
+		zTr1 = lcg_dot(zk, rk, n_size);
 		betak = zTr1/zTr;
 		zTr = zTr1;
 
@@ -495,10 +455,10 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 	func_ends:
 	{
-		free(rk);
-		free(zk);
-		free(dk);
-		free(Adk);
+		lcg_free(rk);
+		lcg_free(zk);
+		lcg_free(dk);
+		lcg_free(Adk);
 	}
 
 	if (time == para.max_iterations)
@@ -543,10 +503,10 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	int i;
 	lcg_float *rk = nullptr, *r0_T = nullptr, *pk = nullptr;
 	lcg_float *Ax = nullptr, *uk = nullptr,   *qk = nullptr, *wk = nullptr;
-	rk = malloc(n_size); r0_T = malloc(n_size);
-	pk = malloc(n_size); Ax   = malloc(n_size);
-	uk = malloc(n_size); qk   = malloc(n_size);
-	wk = malloc(n_size);
+	rk = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
+	pk = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
+	uk = lcg_malloc(n_size); qk   = lcg_malloc(n_size);
+	wk = lcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size);
 
@@ -647,13 +607,13 @@ int lcgs(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 	func_ends:
 	{
-		free(rk);
-		free(r0_T);
-		free(pk);
-		free(Ax);
-		free(uk);
-		free(qk);
-		free(wk);
+		lcg_free(rk);
+		lcg_free(r0_T);
+		lcg_free(pk);
+		lcg_free(Ax);
+		lcg_free(uk);
+		lcg_free(qk);
+		lcg_free(wk);
 	}
 
 	if (time == para.max_iterations)
@@ -695,9 +655,9 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 	int i;
 	lcg_float *rk = nullptr, *r0_T = nullptr, *pk = nullptr;
 	lcg_float *Ax = nullptr, *sk = nullptr, *Apk = nullptr;
-	rk = malloc(n_size); r0_T = malloc(n_size);
-	pk = malloc(n_size); Ax   = malloc(n_size);
-	sk = malloc(n_size); Apk  = malloc(n_size);
+	rk = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
+	pk = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
+	sk = lcg_malloc(n_size); Apk  = lcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size);
 
@@ -807,12 +767,12 @@ int lbicgstab(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_
 
 	func_ends:
 	{
-		free(rk);
-		free(r0_T);
-		free(pk);
-		free(Ax);
-		free(sk);
-		free(Apk);
+		lcg_free(rk);
+		lcg_free(r0_T);
+		lcg_free(pk);
+		lcg_free(Ax);
+		lcg_free(sk);
+		lcg_free(Apk);
 	}
 
 	if (time == para.max_iterations)
@@ -856,9 +816,9 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 	int i;
 	lcg_float *rk = nullptr, *r0_T = nullptr, *pk = nullptr;
 	lcg_float *Ax = nullptr, *sk = nullptr,   *Apk = nullptr;
-	rk = malloc(n_size); r0_T = malloc(n_size);
-	pk = malloc(n_size); Ax   = malloc(n_size);
-	sk = malloc(n_size); Apk  = malloc(n_size);
+	rk = lcg_malloc(n_size); r0_T = lcg_malloc(n_size);
+	pk = lcg_malloc(n_size); Ax   = lcg_malloc(n_size);
+	sk = lcg_malloc(n_size); Apk  = lcg_malloc(n_size);
 
 	Afp(instance, m, Ax, n_size);
 
@@ -923,7 +883,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 			for (i = 0; i < n_size; i++)
 			{
 #ifdef LCG_FABS
-				s_abs += lcg_fabs(sk[i]);
+				s_abs += lcg_abs(sk[i]);
 #else
 				s_abs += fabs(sk[i]);
 #endif
@@ -988,7 +948,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 		}
 
 #ifdef LCG_FABS
-		rr1_abs = lcg_fabs(rkr0_T1);
+		rr1_abs = lcg_abs(rkr0_T1);
 #else
 		rr1_abs = fabs(rkr0_T1);
 #endif
@@ -1024,12 +984,12 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 
 	func_ends:
 	{
-		free(rk);
-		free(r0_T);
-		free(pk);
-		free(Ax);
-		free(sk);
-		free(Apk);
+		lcg_free(rk);
+		lcg_free(r0_T);
+		lcg_free(pk);
+		lcg_free(Ax);
+		lcg_free(sk);
+		lcg_free(Apk);
 	}
 
 	if (time == para.max_iterations)
@@ -1079,12 +1039,12 @@ int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 	lcg_float *gk = nullptr, *Adk = nullptr;
 	lcg_float *m_new = nullptr, *gk_new = nullptr;
 	lcg_float *sk = nullptr, *yk = nullptr;
-	gk = malloc(n_size);
-	Adk = malloc(n_size);
-	m_new = malloc(n_size);
-	gk_new = malloc(n_size);
-	sk = malloc(n_size);
-	yk = malloc(n_size);
+	gk = lcg_malloc(n_size);
+	Adk = lcg_malloc(n_size);
+	m_new = lcg_malloc(n_size);
+	gk_new = lcg_malloc(n_size);
+	sk = lcg_malloc(n_size);
+	yk = lcg_malloc(n_size);
 
 	int i;
 	// project the initial model
@@ -1168,12 +1128,12 @@ int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 	func_ends:
 	{
-		free(gk);
-		free(gk_new);
-		free(m_new);
-		free(sk);
-		free(yk);
-		free(Adk);
+		lcg_free(gk);
+		lcg_free(gk_new);
+		lcg_free(m_new);
+		lcg_free(sk);
+		lcg_free(yk);
+		lcg_free(Adk);
 	}
 
 	if (time == para.max_iterations)
@@ -1227,14 +1187,14 @@ int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 	lcg_float *m_new = nullptr, *gk_new = nullptr;
 	lcg_float *sk = nullptr, *yk = nullptr;
 	lcg_float *dk = nullptr, *qk_m = nullptr;
-	gk = malloc(n_size);
-	Adk = malloc(n_size);
-	m_new = malloc(n_size);
-	gk_new = malloc(n_size);
-	sk = malloc(n_size);
-	yk = malloc(n_size);
-	dk = malloc(n_size);
-	qk_m = malloc(para.maxi_m);
+	gk = lcg_malloc(n_size);
+	Adk = lcg_malloc(n_size);
+	m_new = lcg_malloc(n_size);
+	gk_new = lcg_malloc(n_size);
+	sk = lcg_malloc(n_size);
+	yk = lcg_malloc(n_size);
+	dk = lcg_malloc(n_size);
+	qk_m = lcg_malloc(para.maxi_m);
 
 	int i;
 	// project the initial model
@@ -1383,14 +1343,14 @@ int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 	func_ends:
 	{
-		free(gk);
-		free(gk_new);
-		free(m_new);
-		free(sk);
-		free(yk);
-		free(Adk);
-		free(dk);
-		free(qk_m);
+		lcg_free(gk);
+		lcg_free(gk_new);
+		lcg_free(m_new);
+		lcg_free(sk);
+		lcg_free(yk);
+		lcg_free(Adk);
+		lcg_free(dk);
+		lcg_free(qk_m);
 	}
 
 	if (time == para.max_iterations)
