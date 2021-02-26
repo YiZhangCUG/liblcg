@@ -6,6 +6,47 @@
 #include "omp.h"
 #endif
 
+#ifdef LCG_FABS
+/**
+ * @brief      return absolute value
+ *
+ * @param      x     input value
+ */
+#define lcg_fabs(x) ((x < 0) ? -1*x : x)
+#endif
+
+/**
+ * @brief      return the bigger value
+ *
+ * @param      a     input value
+ * @param      b     another input value
+ *
+ * @return     the bigger value
+ */
+#define lcg_max(a, b) (a>b?a:b)
+
+/**
+ * @brief      return the smaller value
+ *
+ * @param      a     input value
+ * @param      b     another input value
+ *
+ * @return     the smaller value
+ */
+#define lcg_min(a, b) (a<b?a:b)
+
+/**
+ * @brief      Set the input value within a box constraint
+ *
+ * @param      a     low boundary
+ * @param      b     high boundary
+ * @param      in    input value
+ *
+ * @return     box constrained value
+ */
+#define lcg_set2box(a, b, in) (lcg_max(a, lcg_min(b, in)))
+
+
 /**
  * @brief      return value of the lcg_solver() function
  */

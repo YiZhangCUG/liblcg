@@ -6,6 +6,7 @@
 #include "omp.h"
 #endif
 
+
 lcg_float* malloc(const int n)
 {
 	lcg_float* x = new lcg_float [n];
