@@ -254,6 +254,23 @@ inline static lcg_float* lcg_malloc(int n)
 }
 
 /**
+ * @brief      Locate memory for a lcg_float second pointer type.
+ *
+ * @param[in]  n     Size of the lcg_float array.
+ *
+ * @return     Pointer of the array's location.
+ */
+inline static lcg_float** lcg_malloc(int m, int n)
+{
+	lcg_float **x = new lcg_float* [m];
+	for (int i = 0; i < m; i++)
+	{
+		x[i] = new lcg_float [n];
+	}
+	return x;
+}
+
+/**
  * @brief      Locate memory for a lcg_complex pointer type.
  *
  * @param[in]  n     Size of the lcg_float array.
@@ -263,6 +280,23 @@ inline static lcg_float* lcg_malloc(int n)
 inline static lcg_complex* lcg_malloc_complex(int n)
 {
 	lcg_complex* x = new lcg_complex [n];
+	return x;
+}
+
+/**
+ * @brief      Locate memory for a lcg_complex second pointer type.
+ *
+ * @param[in]  n     Size of the lcg_float array.
+ *
+ * @return     Pointer of the array's location.
+ */
+inline static lcg_complex** lcg_malloc_complex(int m, int n)
+{
+	lcg_complex **x = new lcg_complex* [m];
+	for (int i = 0; i < m; i++)
+	{
+		x[i] = new lcg_complex [n];
+	}
 	return x;
 }
 
@@ -279,6 +313,25 @@ inline static void lcg_free(lcg_float* x)
 }
 
 /**
+ * @brief      Destroy memory used by the 2D lcg_float type array.
+ *
+ * @param      x     Pointer of the array.
+ */
+inline static void lcg_free(lcg_float **x, int m)
+{
+	if (x != nullptr)
+	{
+		for (int i = 0; i < m; i++)
+		{
+			delete[] x[i];
+		}
+		delete[] x;
+	}
+	x = nullptr;
+	return;
+}
+
+/**
  * @brief      Destroy memory used by the lcg_complex type array.
  *
  * @param      x     Pointer of the array.
@@ -286,6 +339,25 @@ inline static void lcg_free(lcg_float* x)
 inline static void lcg_free(lcg_complex* x)
 {
 	if (x != nullptr) delete[] x;
+	x = nullptr;
+	return;
+}
+
+/**
+ * @brief      Destroy memory used by the 2D lcg_complex type array.
+ *
+ * @param      x     Pointer of the array.
+ */
+inline static void lcg_free(lcg_complex **x, int m)
+{
+	if (x != nullptr)
+	{
+		for (int i = 0; i < m; i++)
+		{
+			delete[] x[i];
+		}
+		delete[] x;
+	}
 	x = nullptr;
 	return;
 }
