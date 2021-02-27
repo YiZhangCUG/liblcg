@@ -185,7 +185,7 @@ std::ostream &operator<<(std::ostream &os, const lcg_complex &a);
  *
  * @return     The absolute value
  */
-inline lcg_float lcg_abs(lcg_float a)
+inline static lcg_float lcg_abs(lcg_float a)
 {
 	if (a >= 0.0) return a;
 	return -1.0*a;
@@ -199,7 +199,7 @@ inline lcg_float lcg_abs(lcg_float a)
  *
  * @return     The bigger value
  */
-inline lcg_float lcg_max(lcg_float a, lcg_float b)
+inline static lcg_float lcg_max(lcg_float a, lcg_float b)
 {
 	if (a >= b) return a;
 	return b;
@@ -213,7 +213,7 @@ inline lcg_float lcg_max(lcg_float a, lcg_float b)
  *
  * @return     The smaller value
  */
-inline lcg_float lcg_min(lcg_float a, lcg_float b)
+inline static lcg_float lcg_min(lcg_float a, lcg_float b)
 {
 	if (a <= b) return a;
 	return b;
@@ -230,7 +230,7 @@ inline lcg_float lcg_min(lcg_float a, lcg_float b)
  *
  * @return     box constrained value
  */
-inline lcg_float lcg_set2box(lcg_float low, lcg_float hig, lcg_float a, 
+inline static lcg_float lcg_set2box(lcg_float low, lcg_float hig, lcg_float a, 
 	bool low_bound = true, bool hig_bound = true)
 {
 	if (hig_bound && a >= hig) return hig;
@@ -247,7 +247,7 @@ inline lcg_float lcg_set2box(lcg_float low, lcg_float hig, lcg_float a,
  *
  * @return     Pointer of the array's location.
  */
-inline lcg_float* lcg_malloc(int n)
+inline static lcg_float* lcg_malloc(int n)
 {
 	lcg_float* x = new lcg_float [n];
 	return x;
@@ -260,7 +260,7 @@ inline lcg_float* lcg_malloc(int n)
  *
  * @return     Pointer of the array's location.
  */
-inline lcg_complex* lcg_malloc_complex(int n)
+inline static lcg_complex* lcg_malloc_complex(int n)
 {
 	lcg_complex* x = new lcg_complex [n];
 	return x;
@@ -271,7 +271,7 @@ inline lcg_complex* lcg_malloc_complex(int n)
  *
  * @param      x     Pointer of the array.
  */
-inline void lcg_free(lcg_float* x)
+inline static void lcg_free(lcg_float* x)
 {
 	if (x != nullptr) delete[] x;
 	x = nullptr;
@@ -283,7 +283,7 @@ inline void lcg_free(lcg_float* x)
  *
  * @param      x     Pointer of the array.
  */
-inline void lcg_free(lcg_complex* x)
+inline static void lcg_free(lcg_complex* x)
 {
 	if (x != nullptr) delete[] x;
 	x = nullptr;
@@ -299,7 +299,16 @@ inline void lcg_free(lcg_complex* x)
  *
  * @return     dot product
  */
-lcg_float lcg_dot(const lcg_float *a, const lcg_float *b, int size);
+inline static void lcg_dot(lcg_float &ret, const lcg_float *a, 
+	const lcg_float *b, int size)
+{
+	ret = 0.0;
+	for (int i = 0; i < size; i++)
+	{
+		ret += a[i]*b[i];
+	}
+	return;
+}
 
 /**
  * @brief      calculate dot product of two complex vectors
@@ -312,7 +321,18 @@ lcg_float lcg_dot(const lcg_float *a, const lcg_float *b, int size);
  *
  * @return     product
  */
-lcg_complex lcg_dot_complex(const lcg_complex *a, const lcg_complex *b, int x_size);
+inline static void lcg_dot_complex(lcg_complex &ret, const lcg_complex *a, 
+	const lcg_complex *b, int size)
+{
+	ret.set(0.0, 0.0);
+	// <a,b> = \sum{a_i \cdot b_i}
+	for (int i = 0; i < size; i++)
+	{
+		ret.rel += (a[i].rel*b[i].rel - a[i].img*b[i].img);
+		ret.img += (a[i].rel*b[i].img + a[i].img*b[i].rel);
+	}
+	return;
+}
 
 /**
  * @brief      calculate inner product of two complex vectors
@@ -325,7 +345,18 @@ lcg_complex lcg_dot_complex(const lcg_complex *a, const lcg_complex *b, int x_si
  *
  * @return     product
  */
-lcg_complex lcg_inner_complex(const lcg_complex *a, const lcg_complex *b, int x_size);
+inline static void lcg_inner_complex(lcg_complex &ret, const lcg_complex *a, 
+	const lcg_complex *b, int size)
+{
+	ret.set(0.0, 0.0);
+	// <a,b> = \sum{\bar{a_i} \cdot b_i}
+	for (int i = 0; i < size; i++)
+	{
+		ret.rel += (a[i].rel*b[i].rel + a[i].img*b[i].img);
+		ret.img += (a[i].rel*b[i].img - a[i].img*b[i].rel);
+	}
+	return;
+}
 
 /**
  * @brief      calculate product of a real matrix and a vector

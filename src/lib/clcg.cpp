@@ -166,26 +166,26 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 		d2k[i] = r2k[i] = r1k[i].conjugate();
 	}
 
-	lcg_float B_mod = lcg_inner_complex(B, B, n_size).rel;
-	lcg_complex r1r2 = lcg_inner_complex(r2k, r1k, n_size);
+	lcg_complex B_mod, r1r2;
+	lcg_inner_complex(B_mod, B, B, n_size);
+	lcg_inner_complex(r1r2, r2k, r1k, n_size);
 
 	int time, ret;
-	lcg_complex ak, Ad1d2, r1r2_next, betak;
-	lcg_float rk_mod;
+	lcg_complex ak, Ad1d2, r1r2_next, betak, rk_mod;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = lcg_inner_complex(r1k, r1k, n_size).rel;
+		lcg_inner_complex(rk_mod, r1k, r1k, n_size);
 
 		if (para.abs_diff)
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod <= para.epsilon)
+			if (rk_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
@@ -194,19 +194,19 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod/B_mod <= para.epsilon)
+			if (rk_mod.rel/B_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
 		}
 
 		Afp(instance, d1k, Ax, n_size, Normal, NonConjugate);
-		Ad1d2 = lcg_inner_complex(d2k, Ax, n_size);
+		lcg_inner_complex(Ad1d2, d2k, Ax, n_size);
 		ak = r1r2/Ad1d2;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -232,7 +232,7 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 			}
 		}
 
-		r1r2_next = lcg_inner_complex(r2k, r1k, n_size);
+		lcg_inner_complex(r1r2_next, r2k, r1k, n_size);
 		betak = r1r2_next/r1r2;
 		r1r2 = r1r2_next;
 
@@ -288,25 +288,25 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 		dk[i] = rk[i] = B[i] - Ax[i];
 	}
 
-	lcg_float B_mod = lcg_inner_complex(B, B, n_size).rel;
-	lcg_complex rkrk = lcg_dot_complex(rk, rk, n_size);
+	lcg_complex B_mod, rkrk;
+	lcg_inner_complex(B_mod, B, B, n_size);
+	lcg_dot_complex(rkrk, rk, rk, n_size);
 
 	int time, ret;
-	lcg_float rk_mod;
-	lcg_complex ak, rkrk2, betak;
+	lcg_complex ak, rkrk2, betak, rk_mod, dkAx;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = lcg_inner_complex(rk, rk, n_size).rel;
+		lcg_inner_complex(rk_mod, rk, rk, n_size);
 		if (para.abs_diff)
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod <= para.epsilon)
+			if (rk_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
@@ -315,19 +315,20 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod/B_mod <= para.epsilon)
+			if (rk_mod.rel/B_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
 		}
 
 		Afp(instance, dk, Ax, n_size, Normal, NonConjugate);
-		ak = rkrk/lcg_dot_complex(dk, Ax, n_size);
+		lcg_dot_complex(dkAx, dk, Ax, n_size);
+		ak = rkrk/dkAx;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
@@ -344,7 +345,7 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 			}
 		}
 
-		rkrk2 = lcg_dot_complex(rk, rk, n_size);
+		lcg_dot_complex(rkrk2, rk, rk, n_size);
 		betak = rkrk2/rkrk;
 		rkrk = rkrk2;
 
@@ -399,26 +400,25 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 		pk[i] = qk[i] = r0[i] = rk[i] = B[i] - Ax[i];
 	}
 
-	lcg_float B_mod = lcg_inner_complex(B, B, n_size).rel;
-	lcg_complex r0Hrk = lcg_inner_complex(r0, rk, n_size);
+	lcg_complex B_mod, r0Hrk;
+	lcg_inner_complex(B_mod, B, B, n_size);
+	lcg_inner_complex(r0Hrk, r0, rk, n_size);
 
 	int time, ret;
-	lcg_float rk_mod;
-	lcg_complex ak, r0Hrk1, r0HAp, betak;
+	lcg_complex ak, r0Hrk1, r0HAp, betak, rk_mod;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		rk_mod = lcg_inner_complex(rk, rk, n_size).rel;
-
+		lcg_inner_complex(rk_mod, rk, rk, n_size);
 		if (para.abs_diff)
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod <= para.epsilon)
+			if (rk_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
@@ -427,19 +427,19 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, rk_mod/B_mod, &para, n_size, time))
+				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (rk_mod/B_mod <= para.epsilon)
+			if (rk_mod.rel/B_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
 		}
 
 		Afp(instance, qk, Ax, n_size, Normal, NonConjugate);
-		r0HAp = lcg_inner_complex(r0, Ax, n_size);
+		lcg_inner_complex(r0HAp, r0, Ax, n_size);
 		ak = r0Hrk/r0HAp;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -466,7 +466,7 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 			}
 		}
 
-		r0Hrk1 = lcg_inner_complex(r0, rk, n_size);
+		lcg_inner_complex(r0Hrk1, r0, rk, n_size);
 		betak = r0Hrk1/r0Hrk;
 		r0Hrk = r0Hrk1;
 
@@ -530,13 +530,16 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 		v2k[i].set(0.0, 0.0);
 	}
 
-	lcg_complex rho = lcg_inner_complex(r0, r0, n_size);
-	lcg_float tao = sqrt(rho.rel);
-	lcg_float B_mod = lcg_inner_complex(B, B, n_size).rel;
+	lcg_float tao;
+	lcg_complex rho, B_mod;
+	lcg_inner_complex(rho, r0, r0, n_size);
+	lcg_inner_complex(B_mod, B, B, n_size);
+	tao = sqrt(rho.rel);
 
 	int time, ret;
-	lcg_float ck, w_mod = 0.0;
-	lcg_complex betak, rho2, alphak, eta(0.0, 0.0);
+	lcg_float ck, theta = 0.0;
+	lcg_complex betak, rho2, alphak, r0vk;
+	lcg_complex eta(0.0, 0.0), w_mod(0.0, 0.0);
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		if (para.abs_diff)
@@ -557,12 +560,12 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 		{
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, tao*tao/B_mod, &para, n_size, time))
+				if (Pfp(instance, m, tao*tao/B_mod.rel, &para, n_size, time))
 				{
 					ret = CLCG_STOP; goto func_ends;
 				}
 			}
-			if (tao*tao/B_mod <= para.epsilon)
+			if (tao*tao/B_mod.rel <= para.epsilon)
 			{
 				ret = CLCG_CONVERGENCE; goto func_ends;
 			}
@@ -574,18 +577,20 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			vk[i] = vk[i] + v2k[i];
 		}
 
-		alphak = rho/lcg_inner_complex(r0, vk, n_size);
+		lcg_inner_complex(r0vk, r0, vk, n_size);
+		alphak = rho/r0vk;
 
 #pragma omp parallel for private (i) schedule(guided)
 		for (i = 0; i < n_size; i++)
 		{
 			wk[i] = wk[i] - alphak*vk[i];
-			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
+			dk[i] = yk[i] + theta*theta*(eta/alphak)*dk[i];
 		}
 
-		w_mod = sqrt(lcg_inner_complex(wk, wk, n_size).rel)/tao;
-		ck = 1.0/sqrt(1.0+w_mod*w_mod);
-		tao = tao*w_mod*ck;
+		lcg_inner_complex(w_mod, wk, wk, n_size);
+		theta = sqrt(w_mod.rel)/tao;
+		ck = 1.0/sqrt(1.0+theta*theta);
+		tao = tao*theta*ck;
 		eta = ck*ck*alphak;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -617,9 +622,10 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			dk[i] = yk[i] + (w_mod*w_mod)*(eta/alphak)*dk[i];
 		}
 
-		w_mod = sqrt(lcg_inner_complex(wk, wk, n_size).rel)/tao;
-		ck = 1.0/sqrt(1.0+w_mod*w_mod);
-		tao = tao*w_mod*ck;
+		lcg_inner_complex(w_mod, wk, wk, n_size);
+		theta = sqrt(w_mod.rel)/tao;
+		ck = 1.0/sqrt(1.0+theta*theta);
+		tao = tao*theta*ck;
 		eta = ck*ck*alphak;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -636,7 +642,7 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 			}
 		}
 
-		rho2 = lcg_inner_complex(r0, wk, n_size);
+		lcg_inner_complex(rho2, r0, wk, n_size);
 		betak = rho2/rho;
 		rho = rho2;
 

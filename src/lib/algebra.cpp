@@ -107,44 +107,6 @@ std::ostream &operator<<(std::ostream &os, const lcg_complex &a)
 	return os;
 }
 
-lcg_float lcg_dot(const lcg_float *a, const lcg_float *b, int size)
-{
-	lcg_float sum = 0.0;
-	for (int i = 0; i < size; i++)
-	{
-		sum += a[i]*b[i];
-	}
-	return sum;
-}
-
-lcg_complex lcg_dot_complex(const lcg_complex *a, const lcg_complex *b, int x_size)
-{
-	lcg_complex ret;
-	ret.set(0.0, 0.0);
-
-	// <a,b> = \sum{a_i \cdot b_i}
-	for (int i = 0; i < x_size; i++)
-	{
-		ret.rel += (a[i].rel*b[i].rel - a[i].img*b[i].img);
-		ret.img += (a[i].rel*b[i].img + a[i].img*b[i].rel);
-	}
-	return ret;
-}
-
-lcg_complex lcg_inner_complex(const lcg_complex *a, const lcg_complex *b, int x_size)
-{
-	lcg_complex ret;
-	ret.set(0.0, 0.0);
-
-	// <a,b> = \sum{\bar{a_i} \cdot b_i}
-	for (int i = 0; i < x_size; i++)
-	{
-		ret.rel += (a[i].rel*b[i].rel + a[i].img*b[i].img);
-		ret.img += (a[i].rel*b[i].img - a[i].img*b[i].rel);
-	}
-	return ret;
-}
-
 void lcg_matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, 
 	int m_size, int n_size, matrix_layout_e layout)
 {

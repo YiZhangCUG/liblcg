@@ -276,8 +276,9 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 		dk[i] = -1.0*gk[i];
 	}
 
-	lcg_float B_mod = lcg_dot(B, B, n_size);
-	lcg_float gk_mod = lcg_dot(gk, gk, n_size);
+	lcg_float B_mod, gk_mod;
+	lcg_dot(B_mod, B, B, n_size);
+	lcg_dot(gk_mod, gk, gk, n_size);
 
 	int time, ret;
 	lcg_float dTAd, ak, betak, gk1_mod, residual;
@@ -301,7 +302,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 
 		Afp(instance , dk, Adk, n_size);
 
-		dTAd = lcg_dot(dk, Adk, n_size);
+		lcg_dot(dTAd, dk, Adk, n_size);
 		ak = gk_mod/dTAd;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -319,7 +320,7 @@ int lcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float*
 			}
 		}
 
-		gk1_mod = lcg_dot(gk, gk, n_size);
+		lcg_dot(gk1_mod, gk, gk, n_size);
 		betak = gk1_mod/gk_mod;
 		gk_mod = gk1_mod;
 
@@ -398,8 +399,9 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 		dk[i] = zk[i];
 	}
 
-	lcg_float zTr = lcg_dot(zk, rk, n_size);
-	lcg_float B_mod = lcg_dot(B, B, n_size);
+	lcg_float zTr, B_mod;
+	lcg_dot(zTr, zk, rk, n_size);
+	lcg_dot(B_mod, B, B, n_size);
 
 	int time, ret;
 	lcg_float dTAd, ak, betak, zTr1, residual;
@@ -423,7 +425,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 
 		Afp(instance , dk, Adk, n_size);
 
-		dTAd = lcg_dot(dk, Adk, n_size);
+		lcg_dot(dTAd, dk, Adk, n_size);
 		ak = zTr/dTAd;
 
 #pragma omp parallel for private (i) schedule(guided)
@@ -442,7 +444,7 @@ int lpcg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float
 			}
 		}
 
-		zTr1 = lcg_dot(zk, rk, n_size);
+		lcg_dot(zTr1, zk, rk, n_size);
 		betak = zTr1/zTr;
 		zTr = zTr1;
 
