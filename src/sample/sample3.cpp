@@ -18,6 +18,16 @@ int random_int(int small, int big)
 	return (rand() % (big - small))+ small;
 }
 
+lcg_float max_diff(const lcg_complex *a, const lcg_complex *b, int size)
+{
+	lcg_float max = -1;
+	for (int i = 0; i < size; i++)
+	{
+		max = lcg_max((a[i] - b[i]).module(), max);
+	}
+	return max;
+}
+
 // 普通二维数组做核矩阵
 lcg_complex **kernel;
 
@@ -25,7 +35,7 @@ lcg_complex **kernel;
 void CalAx(void *instance, const lcg_complex *x, lcg_complex *prod_Ax, 
 	const int x_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
-	lcg_matvec_complex(kernel, x, prod_Ax, N, x_size, layout, conjugate);
+	lcg_matvec(kernel, x, prod_Ax, N, x_size, layout, conjugate);
 	return;
 }
 
@@ -42,11 +52,7 @@ int main(int argc, char const *argv[])
 {
 	srand(time(0));
 
-	kernel = new lcg_complex *[N];
-	for (int i = 0; i < N; i++)
-	{
-		kernel[i] = new lcg_complex [N];
-	}
+	kernel = lcg_malloc_complex(N, N);
 
 	for (int i = 0; i < N; i++)
 	{
@@ -73,7 +79,7 @@ int main(int argc, char const *argv[])
 	}
 
 	// 生成一组正演解
-	lcg_complex *fm = new lcg_complex [N];
+	lcg_complex *fm = lcg_malloc_complex(N);
 	for (int i = 0; i < N; i++)
 	{
 		fm[i].rel = random_lcg_float(1, 2);
@@ -81,8 +87,8 @@ int main(int argc, char const *argv[])
 	}
 
 	// 计算共轭梯度B项
-	lcg_complex *B = new lcg_complex [N];
-	lcg_matvec_complex(kernel, fm, B, N, N, Normal, NonConjugate);
+	lcg_complex *B = lcg_malloc_complex(N);
+	lcg_matvec(kernel, fm, B, N, N, Normal, NonConjugate);
 
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
@@ -91,48 +97,37 @@ int main(int argc, char const *argv[])
 	self_para.abs_diff = 1;
 
 	// 声明一组解
-	lcg_complex *m = new lcg_complex [N];
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
+	lcg_complex *m = lcg_malloc_complex(N);
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 
 	int ret;
 
 	std::clog << "solver: bicg" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
 	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: bicg-symmetric" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG_SYM);
 	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: cgs" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
 	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: tfqmr" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_TFQMR);
 	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	delete[] kernel;
-	delete[] fm;
-	delete[] B;
-	delete[] m;
+	lcg_free(kernel, N);
+	lcg_free(fm);
+	lcg_free(B);
+	lcg_free(m);
 	return 0;
 }

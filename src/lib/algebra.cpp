@@ -137,7 +137,7 @@ void lcg_matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax,
 	return;
 }
 
-void lcg_matvec_complex(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, 
+void lcg_matvec(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, 
 	int m_size, int n_size, matrix_layout_e layout, complex_conjugate_e conjugate)
 {
 	int i, j;

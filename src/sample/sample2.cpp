@@ -18,6 +18,16 @@ int random_int(int small, int big)
 	return (rand() % (big - small))+ small;
 }
 
+lcg_float max_diff(const lcg_float *a, const lcg_float *b, int size)
+{
+	lcg_float max = -1;
+	for (int i = 0; i < size; i++)
+	{
+		max = lcg_max(sqrt((a[i] - b[i])*(a[i] - b[i])), max);
+	}
+	return max;
+}
+
 class TESTFUNC : public LCG_Solver
 {
 public:
@@ -30,23 +40,8 @@ public:
 	//定义共轭梯度中Ax的算法
 	void AxProduct(const lcg_float* a, lcg_float* b, const int num)
 	{
-		for (int i = 0; i < M; i++)
-		{
-			tmp_arr[i] = 0.0;
-			for (int j = 0; j < num; j++)
-			{
-				tmp_arr[i] += kernel[i][j] * a[j];
-			}
-		}
-
-		for (int j = 0; j < num; j++)
-		{
-			b[j] = 0.0;
-			for (int i = 0; i < M; i++)
-			{
-				b[j] += kernel[i][j] * tmp_arr[i];
-			}
-		}
+		lcg_matvec(kernel, a, tmp_arr, M, num, Normal);
+		lcg_matvec(kernel, tmp_arr, b, M, num, Transpose);
 		return;
 	}
 
@@ -59,12 +54,8 @@ private:
 
 TESTFUNC::TESTFUNC()
 {
-	kernel = new double *[M];
-	for (int i = 0; i < M; i++)
-	{
-		kernel[i] = new double [N];
-	}
-	tmp_arr = new double [M];
+	kernel = lcg_malloc(M, N);
+	tmp_arr = lcg_malloc(M);
 
 	srand(time(0));
 
@@ -94,39 +85,20 @@ TESTFUNC::TESTFUNC()
 
 TESTFUNC::~TESTFUNC()
 {
-	for (int i = 0; i < M; i++)
-	{
-		delete[] kernel[i];
-	}
-	delete[] kernel;
-	delete[] tmp_arr;
+	lcg_free(kernel, M);
+	lcg_free(tmp_arr);
 }
 
 void TESTFUNC::cal_partb(lcg_float *B, const lcg_float *x)
 {
-	for (int i = 0; i < M; i++)
-	{
-		tmp_arr[i] = 0.0;
-		for (int j = 0; j < N; j++)
-		{
-			tmp_arr[i] += kernel[i][j]*x[j];
-		}
-	}
-
-	for (int j = 0; j < N; j++)
-	{
-		B[j] = 0.0;
-		for (int i = 0; i < M; i++)
-		{
-			B[j] += kernel[i][j]*tmp_arr[i];
-		}
-	}
+	lcg_matvec(kernel, x, tmp_arr, M, N, Normal);
+	lcg_matvec(kernel, tmp_arr, B, M, N, Transpose);
 }
 
 int main(int argc, char const *argv[])
 {
 	// 生成一组正演解
-	double *fm = new double [N];
+	double *fm = lcg_malloc(N);
 	for (int i = 0; i < N; i++)
 	{
 		fm[i] = random_double(1, 2);
@@ -135,7 +107,7 @@ int main(int argc, char const *argv[])
 	TESTFUNC test;
 
 	// 计算共轭梯度B项
-	double *B = new double [N];
+	double *B = lcg_malloc(N);
 	test.cal_partb(B, fm);
 
 	/********************准备工作完成************************/
@@ -146,60 +118,51 @@ int main(int argc, char const *argv[])
 	test.set_lcg_parameter(self_para);
 
 	// 声明一组解
-	double *m = new double [N];
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
+	lcg_float *m = lcg_malloc(N);
+	lcg_vecset(m, 0.0, N);
 
-	double *p = new double [N];
-	for (int i = 0; i < N; i++)
-		p[i] = 1.0;
+	// 声明一组预优因子
+	lcg_float *p = lcg_malloc(N);
+	lcg_vecset(p, 1.0, N);
 
 	// 约束解的范围
-	double *low = new double [N];
-	double *hig = new double [N];
-	for (int i = 0; i < N; i++)
-	{
-		low[i] = 1.0;
-		hig[i] = 2.0;
-	}
+	lcg_float *low = lcg_malloc(N);
+	lcg_float *hig = lcg_malloc(N);
+	lcg_vecset(low, 1.0, N);
+	lcg_vecset(hig, 2.0, N);
 
 	test.Minimize(m, B, N, LCG_CG);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.Minimize(m, B, N, LCG_PCG, p);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.Minimize(m, B, N, LCG_CGS);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.Minimize(m, B, N, LCG_BICGSTAB);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.Minimize(m, B, N, LCG_BICGSTAB2);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.MinimizeConstrained(m, B, low, hig, N, LCG_PG);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-		m[i] = 0.0;
-
+	lcg_vecset(m, 0.0, N);
 	test.MinimizeConstrained(m, B, low, hig, N, LCG_SPG);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	delete[] fm;
-	delete[] B;
-	delete[] m;
-	delete[] p;
-	delete[] low;
-	delete[] hig;
+	lcg_free(fm);
+	lcg_free(B);
+	lcg_free(m);
+	lcg_free(p);
+	lcg_free(low);
+	lcg_free(hig);
 	return 0;
 }

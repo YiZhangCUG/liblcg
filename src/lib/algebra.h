@@ -362,6 +362,24 @@ inline static void lcg_free(lcg_complex **x, int m)
 	return;
 }
 
+inline static void lcg_vecset(lcg_float *a, lcg_float b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		a[i] = b;
+	}
+	return;
+}
+
+inline static void lcg_vecset(lcg_complex *a, lcg_complex b, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		a[i] = b;
+	}
+	return;
+}
+
 /**
  * @brief      calculate dot product of two real vectors
  *
@@ -393,7 +411,7 @@ inline static void lcg_dot(lcg_float &ret, const lcg_float *a,
  *
  * @return     product
  */
-inline static void lcg_dot_complex(lcg_complex &ret, const lcg_complex *a, 
+inline static void lcg_dot(lcg_complex &ret, const lcg_complex *a, 
 	const lcg_complex *b, int size)
 {
 	ret.set(0.0, 0.0);
@@ -417,7 +435,7 @@ inline static void lcg_dot_complex(lcg_complex &ret, const lcg_complex *a,
  *
  * @return     product
  */
-inline static void lcg_inner_complex(lcg_complex &ret, const lcg_complex *a, 
+inline static void lcg_inner(lcg_complex &ret, const lcg_complex *a, 
 	const lcg_complex *b, int size)
 {
 	ret.set(0.0, 0.0);
@@ -465,7 +483,7 @@ void lcg_matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, int m_size, in
  * @param[in]  layout     layout of A used for multiplication. Must be Normal or Transpose
  * @param[in]  conjugate  whether to use the complex conjugate of A for calculation
  */
-void lcg_matvec_complex(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
+void lcg_matvec(lcg_complex **A, const lcg_complex *x, lcg_complex *Ax, int m_size, int n_size, 
 	matrix_layout_e layout = Normal, complex_conjugate_e conjugate = NonConjugate);
 
 #endif //_ALGEBRA_H

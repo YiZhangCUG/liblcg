@@ -19,6 +19,16 @@ int random_int(int small, int big)
 	return (rand() % (big - small))+ small;
 }
 
+lcg_float max_diff(const lcg_complex *a, const lcg_complex *b, int size)
+{
+	lcg_float max = -1;
+	for (int i = 0; i < size; i++)
+	{
+		max = lcg_max((a[i] - b[i]).module(), max);
+	}
+	return max;
+}
+
 class TESTFUNC : public CLCG_Solver
 {
 public:
@@ -32,8 +42,8 @@ public:
 	void AxProduct(const lcg_complex *x, lcg_complex *prod_Ax, const int x_size, 
 		matrix_layout_e layout, complex_conjugate_e conjugate)
 	{
-		lcg_matvec_complex(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
-		lcg_matvec_complex(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
+		lcg_matvec(kernel, x, tmp_arr, M, x_size, Normal, conjugate);
+		lcg_matvec(kernel, tmp_arr, prod_Ax, M, x_size, Transpose, conjugate);
 		return;
 	}
 
@@ -46,12 +56,8 @@ private:
 
 TESTFUNC::TESTFUNC()
 {
-	kernel = new lcg_complex *[M];
-	for (int i = 0; i < M; i++)
-	{
-		kernel[i] = new lcg_complex [N];
-	}
-	tmp_arr = new lcg_complex [M];
+	kernel = lcg_malloc_complex(M, N);
+	tmp_arr = lcg_malloc_complex(M);
 
 	for (int i = 0; i < M; i++)
 	{
@@ -78,18 +84,14 @@ TESTFUNC::TESTFUNC()
 
 TESTFUNC::~TESTFUNC()
 {
-	for (int i = 0; i < M; i++)
-	{
-		delete[] kernel[i];
-	}
-	delete[] kernel;
-	delete[] tmp_arr;
+	lcg_free(kernel, M);
+	lcg_free(tmp_arr);
 }
 
 void TESTFUNC::cal_partb(lcg_complex *B, const lcg_complex *x)
 {
-	lcg_matvec_complex(kernel, x, tmp_arr, M, N, Normal);
-	lcg_matvec_complex(kernel, tmp_arr, B, M, N, Transpose);
+	lcg_matvec(kernel, x, tmp_arr, M, N, Normal);
+	lcg_matvec(kernel, tmp_arr, B, M, N, Transpose);
 	return;
 }
 
@@ -98,7 +100,7 @@ int main(int argc, char const *argv[])
 	srand(time(0));
 
 	// 声明一组解
-	lcg_complex *fm = new lcg_complex [N];
+	lcg_complex *fm = lcg_malloc_complex(N);
 	for (int i = 0; i < N; i++)
 	{
 		fm[i].rel = random_lcg_float(1, 2);
@@ -108,7 +110,7 @@ int main(int argc, char const *argv[])
 	TESTFUNC test;
 
 	// 计算共轭梯度B项
-	lcg_complex *B = new lcg_complex [N];
+	lcg_complex *B = lcg_malloc_complex(N);
 	test.cal_partb(B, fm);
 
 	/********************准备工作完成************************/
@@ -119,37 +121,26 @@ int main(int argc, char const *argv[])
 	test.set_clcg_parameter(self_para);
 
 	// 声明一组解
-	lcg_complex *m = new lcg_complex [N];
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
+	lcg_complex *m = lcg_malloc_complex(N);
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 
 	test.Minimize(m, B, N, CLCG_BICG);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	test.Minimize(m, B, N, CLCG_BICG_SYM);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	test.Minimize(m, B, N, CLCG_CGS);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	for (int i = 0; i < N; i++)
-	{
-		m[i].rel = 0.0; m[i].img = 0.0;
-	}
-
+	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	test.Minimize(m, B, N, CLCG_TFQMR);
+	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
-	delete[] fm;
-	delete[] B;
-	delete[] m;
+	lcg_free(fm);
+	lcg_free(B);
+	lcg_free(m);
 	return 0;
 }
