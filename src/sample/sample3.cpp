@@ -93,8 +93,6 @@ int main(int argc, char const *argv[])
 	/********************准备工作完成************************/
 	clcg_para self_para = clcg_default_parameters();
 	self_para.max_iterations = 1000;
-	self_para.epsilon = 1e-3;
-	self_para.abs_diff = 1;
 
 	// 声明一组解
 	lcg_complex *m = lcg_malloc_complex(N);

@@ -171,38 +171,25 @@ int clbicg(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg
 	lcg_inner(r1r2, r2k, r1k, n_size);
 
 	int time, ret;
+	lcg_float residual;
 	lcg_complex ak, Ad1d2, r1r2_next, betak, rk_mod;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		lcg_inner(rk_mod, r1k, r1k, n_size);
+		if (para.abs_diff) residual = rk_mod.rel;
+		else residual = rk_mod.rel/B_mod.rel;
 
-		if (para.abs_diff)
+		if (Pfp != nullptr)
 		{
-			if (Pfp != nullptr)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
+				ret = CLCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel/B_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
-			}
+			ret = CLCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance, d1k, Ax, n_size, Normal, NonConjugate);
@@ -293,37 +280,25 @@ int clbicg_symmetric(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m,
 	lcg_dot(rkrk, rk, rk, n_size);
 
 	int time, ret;
+	lcg_float residual;
 	lcg_complex ak, rkrk2, betak, rk_mod, dkAx;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		lcg_inner(rk_mod, rk, rk, n_size);
-		if (para.abs_diff)
+		if (para.abs_diff) residual = rk_mod.rel;
+		else residual = rk_mod.rel/B_mod.rel;
+
+		if (Pfp != nullptr)
 		{
-			if (Pfp != nullptr)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
+				ret = CLCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel/B_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
-			}
+			ret = CLCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance, dk, Ax, n_size, Normal, NonConjugate);
@@ -405,37 +380,25 @@ int clcgs(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lcg_
 	lcg_inner(r0Hrk, r0, rk, n_size);
 
 	int time, ret;
+	lcg_float residual;
 	lcg_complex ak, r0Hrk1, r0HAp, betak, rk_mod;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		lcg_inner(rk_mod, rk, rk, n_size);
-		if (para.abs_diff)
+		if (para.abs_diff) residual = rk_mod.rel;
+		else residual = rk_mod.rel/B_mod.rel;
+
+		if (Pfp != nullptr)
 		{
-			if (Pfp != nullptr)
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
-				if (Pfp(instance, m, rk_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
+				ret = CLCG_STOP; goto func_ends;
 			}
 		}
-		else
+
+		if (residual <= para.epsilon)
 		{
-			if (Pfp != nullptr)
-			{
-				if (Pfp(instance, m, rk_mod.rel/B_mod.rel, &para, n_size, time))
-				{
-					ret = CLCG_STOP; goto func_ends;
-				}
-			}
-			if (rk_mod.rel/B_mod.rel <= para.epsilon)
-			{
-				ret = CLCG_CONVERGENCE; goto func_ends;
-			}
+			ret = CLCG_CONVERGENCE; goto func_ends;
 		}
 
 		Afp(instance, qk, Ax, n_size, Normal, NonConjugate);
@@ -531,25 +494,32 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 		dk[i].set(0.0, 0.0);
 	}
 
+	lcg_complex B_mod;
+	lcg_inner(B_mod, B, B, n_size);
+
 	lcg_complex rk_mod, rk_mod2;
 	lcg_inner(rk_mod, rk, rk, n_size);
 
 	lcg_float theta = 0.0, omega = sqrt(rk_mod.rel);
-	lcg_float tao = omega;
+	lcg_float residual, tao = omega;
 	lcg_complex sigma, alpha, betak, rho, rho2, sign, eta(0.0, 0.0);
 	lcg_inner(rho, r0, r0, n_size);
 
 	int time, ret;
 	for (time = 0; time < para.max_iterations; time++)
 	{
+		if (para.abs_diff) residual = (time+1)*tao*tao;
+		else residual = (time+1)*tao*tao/B_mod.rel;
+
 		if (Pfp != nullptr)
 		{
-			if (Pfp(instance, m, tao*tao, &para, n_size, time))
+			if (Pfp(instance, m, residual, &para, n_size, time))
 			{
 				ret = CLCG_STOP; goto func_ends;
 			}
 		}
-		if (tao*tao <= para.epsilon)
+
+		if (residual <= para.epsilon)
 		{
 			ret = CLCG_CONVERGENCE; goto func_ends;
 		}
