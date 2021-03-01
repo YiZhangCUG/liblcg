@@ -307,8 +307,11 @@ inline static lcg_complex** lcg_malloc_complex(int m, int n)
  */
 inline static void lcg_free(lcg_float* x)
 {
-	if (x != nullptr) delete[] x;
-	x = nullptr;
+	if (x != nullptr)
+	{
+		delete[] x;
+		x = nullptr;
+	}
 	return;
 }
 
@@ -326,8 +329,8 @@ inline static void lcg_free(lcg_float **x, int m)
 			delete[] x[i];
 		}
 		delete[] x;
+		x = nullptr;
 	}
-	x = nullptr;
 	return;
 }
 
@@ -338,8 +341,11 @@ inline static void lcg_free(lcg_float **x, int m)
  */
 inline static void lcg_free(lcg_complex* x)
 {
-	if (x != nullptr) delete[] x;
-	x = nullptr;
+	if (x != nullptr)
+	{
+		delete[] x;
+		x = nullptr;
+	}
 	return;
 }
 
@@ -357,11 +363,18 @@ inline static void lcg_free(lcg_complex **x, int m)
 			delete[] x[i];
 		}
 		delete[] x;
+		x = nullptr;
 	}
-	x = nullptr;
 	return;
 }
 
+/**
+ * @brief      set a vector's value
+ *
+ * @param      a     pointer of the vector
+ * @param[in]  b     initial value
+ * @param[in]  size  vector size
+ */
 inline static void lcg_vecset(lcg_float *a, lcg_float b, int size)
 {
 	for (int i = 0; i < size; i++)
@@ -371,6 +384,13 @@ inline static void lcg_vecset(lcg_float *a, lcg_float b, int size)
 	return;
 }
 
+/**
+ * @brief      set a complex vector's value
+ *
+ * @param      a     pointer of the vector
+ * @param[in]  b     initial value
+ * @param[in]  size  vector size
+ */
 inline static void lcg_vecset(lcg_complex *a, lcg_complex b, int size)
 {
 	for (int i = 0; i < size; i++)

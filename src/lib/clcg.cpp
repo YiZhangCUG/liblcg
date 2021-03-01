@@ -508,22 +508,6 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 	int time, ret;
 	for (time = 0; time < para.max_iterations; time++)
 	{
-		if (para.abs_diff) residual = (time+1)*tao*tao;
-		else residual = (time+1)*tao*tao/B_mod.rel;
-
-		if (Pfp != nullptr)
-		{
-			if (Pfp(instance, m, residual, &para, n_size, time))
-			{
-				ret = CLCG_STOP; goto func_ends;
-			}
-		}
-
-		if (residual <= para.epsilon)
-		{
-			ret = CLCG_CONVERGENCE; goto func_ends;
-		}
-
 		Afp(instance, pk, vk, n_size, Normal, NonConjugate);
 
 		lcg_inner(sigma, r0, vk, n_size);
@@ -548,6 +532,22 @@ int cltfqmr(clcg_axfunc_ptr Afp, clcg_progress_ptr Pfp, lcg_complex* m, const lc
 
 		for (j = 1; j <= 2; j++)
 		{
+			if (para.abs_diff) residual = (2*time+j)*tao*tao;
+			else residual = (2*time+j)*tao*tao/B_mod.rel;
+
+			if (Pfp != nullptr)
+			{
+				if (Pfp(instance, m, residual, &para, n_size, time))
+				{
+					ret = CLCG_STOP; goto func_ends;
+				}
+			}
+
+			if (residual <= para.epsilon)
+			{
+				ret = CLCG_CONVERGENCE; goto func_ends;
+			}
+
 			sign = theta*theta*(eta/alpha);
 
 			if (j == 1)
