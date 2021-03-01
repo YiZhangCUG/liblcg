@@ -1,2 +1,1 @@
-#cmakedefine LCG_FABS
 #cmakedefine LCG_OPENMP

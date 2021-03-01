@@ -844,7 +844,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 
 	int time, ret;
 	lcg_float ak, wk, rk_abs, rkr0_T1, Apr_T, betak;
-	lcg_float Ass, AsAs, s_abs, rr1_abs, rk_mod, residual;
+	lcg_float Ass, AsAs, rr1_abs, rk_mod, residual;
 	for (time = 0; time < para.max_iterations; time++)
 	{
 		rk_mod = 0.0;
@@ -881,24 +881,16 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 
 		if (para.abs_diff)
 		{
-			s_abs = 0.0;
-			for (i = 0; i < n_size; i++)
-			{
-#ifdef LCG_FABS
-				s_abs += lcg_abs(sk[i]);
-#else
-				s_abs += fabs(sk[i]);
-#endif
-			}
-			s_abs /= 1.0*n_size;
+			lcg_dot(residual, sk, sk, n_size);
+			residual = sqrt(residual)/n_size;
 			if (Pfp != nullptr)
 			{
-				if (Pfp(instance, m, s_abs, &para, n_size, time))
+				if (Pfp(instance, m, residual, &para, n_size, time))
 				{
 					ret = LCG_STOP; goto func_ends;
 				}
 			}
-			if (s_abs <= para.epsilon)
+			if (residual <= para.epsilon)
 			{
 				for (i = 0; i < n_size; i++)
 				{
@@ -908,8 +900,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 						ret = LCG_NAN_VALUE; goto func_ends;
 					}
 				}
-				ret = LCG_CONVERGENCE;
-				goto func_ends;
+				ret = LCG_CONVERGENCE; goto func_ends;
 			}
 		}
 
@@ -949,12 +940,7 @@ int lbicgstab2(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg
 			rkr0_T1 += rk[i]*r0_T[i];
 		}
 
-#ifdef LCG_FABS
-		rr1_abs = lcg_abs(rkr0_T1);
-#else
 		rr1_abs = fabs(rkr0_T1);
-#endif
-
 		if (rr1_abs < para.restart_epsilon)
 		{
 			for (i = 0; i < n_size; i++)

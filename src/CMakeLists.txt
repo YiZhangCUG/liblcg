@@ -21,9 +21,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -O2")
 
 # 添加编译选项
-option(LCG_FABS "use lcg's fabs() function" ON)
 option(LCG_OPENMP "use openmp" ON)
-message(STATUS "Use library's fabs(): " ${LCG_FABS})
 message(STATUS "Use OpenMP: " ${LCG_OPENMP})
 # 加入一个头文件配置，让cmake对源码进行操作
 configure_file(
