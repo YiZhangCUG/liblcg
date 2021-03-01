@@ -6,7 +6,6 @@
 #include "omp.h"
 #endif
 
-
 lcg_complex::lcg_complex()
 {
 	rel = img = NAN;

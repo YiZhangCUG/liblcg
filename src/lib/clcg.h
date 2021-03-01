@@ -122,13 +122,14 @@ typedef int (*clcg_progress_ptr)(void* instance, const lcg_complex* m,
 clcg_para clcg_default_parameters();
 
 /**
- * @brief      Return a string explanation for the clcg_solver() function's return values.
+ * @brief      Display or throw out a string explanation for the clcg_solver() function's return values.
  *
- * @param[in]  er_index  The error index returned by the clcg_solver() function.
+ * @param[in]  er_index  The error index returned by the lcg_solver() function.
+ * @param[in]  er_throw  throw out a char string of the explanation.
  *
  * @return     A string explanation of the error.
  */
-const char* clcg_error_str(int er_index);
+void clcg_error_str(int er_index, bool er_throw = false);
 
 /**
  * @brief      A combined complex conjugate gradient solver function.
@@ -197,31 +198,44 @@ public:
 	}
 
 	void Minimize(lcg_complex *m, const lcg_complex *b, int x_size, 
-		clcg_solver_enum solver_id = CLCG_CGS, bool verbose = true)
+		clcg_solver_enum solver_id = CLCG_CGS, bool verbose = true, 
+		bool er_throw = false)
 	{
-		switch (solver_id)
+		if (!er_throw)
 		{
-			case CLCG_BICG:
-				std::cerr << "Solver: Bi-Conjugate Gradient" << std::endl;
-				break;
-			case CLCG_BICG_SYM:
-				std::cerr << "Solver: Bi-Conjugate Gradient (symmetrically accelerated)" << std::endl;
-				break;
-			case CLCG_CGS:
-				std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
-				break;
-			case CLCG_TFQMR:
-				std::cerr << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;
-				break;
-			default:
-				std::cerr << "Solver: Unknown" << std::endl;
-				break;
+			switch (solver_id)
+			{
+				case CLCG_BICG:
+					std::clog << "Solver: Bi-Conjugate Gradient" << std::endl;
+					break;
+				case CLCG_BICG_SYM:
+					std::clog << "Solver: Bi-Conjugate Gradient (symmetrically accelerated)" << std::endl;
+					break;
+				case CLCG_CGS:
+					std::clog << "Solver: Conjugate Gradient Squared" << std::endl;
+					break;
+				case CLCG_TFQMR:
+					std::clog << "Solver: Transpose Free Quasi-Minimal Residual" << std::endl;
+					break;
+				default:
+					std::clog << "Solver: Unknown" << std::endl;
+					break;
+			}
 		}
+		
 
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = clcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id);
-		if (verbose) std::cerr << std::endl << clcg_error_str(ret) << std::endl;
-		else if (ret < 0) std::cerr << std::endl << clcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			if (!er_throw) std::clog << std::endl;
+			clcg_error_str(ret, er_throw);
+		}
+		else if (ret < 0)
+		{
+			if (!er_throw) std::clog << std::endl;
+			clcg_error_str(ret, er_throw);
+		}
 		return;
 	}
 };

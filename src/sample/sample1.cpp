@@ -114,43 +114,43 @@ int main(int argc, char const *argv[])
 
 	std::clog << "solver: cg" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CG);
-	std::clog << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: pcg" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_PCG, p);
-	std::clog << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: cgs" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_CGS);
-	std::clog << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: bicgstab" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_BICGSTAB);
-	std::clog << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: bicgstab2" << std::endl;
 	ret = lcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, LCG_BICGSTAB2);
-	std::clog << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: pg" << std::endl;
 	ret = lcg_solver_constrained(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_PG);
-	std::cerr << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, 0.0, N);
 	std::clog << "solver: spg" << std::endl;
 	ret = lcg_solver_constrained(CalAx, Prog, m, B, low, hig, N, &self_para, NULL, LCG_SPG);
-	std::cerr << std::endl << lcg_error_str(ret) << std::endl;
+	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_free(kernel, M);

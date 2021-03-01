@@ -102,25 +102,25 @@ int main(int argc, char const *argv[])
 
 	std::clog << "solver: bicg" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG);
-	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << std::endl; clcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: bicg-symmetric" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_BICG_SYM);
-	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << std::endl; clcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: cgs" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_CGS);
-	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << std::endl; clcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_vecset(m, lcg_complex(0.0, 0.0), N);
 	std::clog << "solver: tfqmr" << std::endl;
 	ret = clcg_solver(CalAx, Prog, m, B, N, &self_para, NULL, CLCG_TFQMR);
-	std::clog << std::endl << clcg_error_str(ret) << std::endl;
+	std::clog << std::endl; clcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m, N) << std::endl << std::endl;
 
 	lcg_free(kernel, N);

@@ -163,13 +163,14 @@ typedef int (*lcg_progress_ptr)(void* instance, const lcg_float* m, const lcg_fl
 lcg_para lcg_default_parameters();
 
 /**
- * @brief      Return a string explanation for the lcg_solver() function's return values.
+ * @brief      Display or throw out a string explanation for the lcg_solver() function's return values.
  *
  * @param[in]  er_index  The error index returned by the lcg_solver() function.
+ * @param[in]  er_throw  throw out a char string of the explanation.
  *
  * @return     A string explanation of the error.
  */
-const char* lcg_error_str(int er_index);
+void lcg_error_str(int er_index, bool er_throw = false);
 
 /**
  * @brief      A combined conjugate gradient solver function.
@@ -258,57 +259,81 @@ public:
 	}
 
 	void Minimize(lcg_float *m, const lcg_float *b, int x_size, 
-		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL, bool verbose = true)
+		lcg_solver_enum solver_id = LCG_CG, const lcg_float *p = NULL, 
+		bool verbose = true, bool er_throw = false)
 	{
-		switch (solver_id)
+		if (!er_throw)
 		{
-			case LCG_CG:
-				std::cerr << "Solver: Conjugate Gradient" << std::endl;
-				break;
-			case LCG_PCG:
-				std::cerr << "Solver: Preconditioned Conjugate Gradient" << std::endl;
-				break;
-			case LCG_CGS:
-				std::cerr << "Solver: Conjugate Gradient Squared" << std::endl;
-				break;
-			case LCG_BICGSTAB:
-				std::cerr << "Solver: Bi-Conjugate Gradient Stabilized" << std::endl;
-				break;
-			case LCG_BICGSTAB2:
-				std::cerr << "Solver: Bi-Conjugate Gradient Stabilized 2" << std::endl;
-				break;
-			default:
-				std::cerr << "Solver: Unknown" << std::endl;
-				break;
+			switch (solver_id)
+			{
+				case LCG_CG:
+					std::clog << "Solver: Conjugate Gradient" << std::endl;
+					break;
+				case LCG_PCG:
+					std::clog << "Solver: Preconditioned Conjugate Gradient" << std::endl;
+					break;
+				case LCG_CGS:
+					std::clog << "Solver: Conjugate Gradient Squared" << std::endl;
+					break;
+				case LCG_BICGSTAB:
+					std::clog << "Solver: Bi-Conjugate Gradient Stabilized" << std::endl;
+					break;
+				case LCG_BICGSTAB2:
+					std::clog << "Solver: Bi-Conjugate Gradient Stabilized 2" << std::endl;
+					break;
+				default:
+					std::clog << "Solver: Unknown" << std::endl;
+					break;
+			}	
 		}
 
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver(_AxProduct, _Progress, m, b, x_size, &param_, this, solver_id, p);
-		if (verbose) std::cerr << std::endl << lcg_error_str(ret) << std::endl;
-		else if (ret < 0) std::cerr << std::endl << lcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			if (!er_throw) std::clog << std::endl;
+			lcg_error_str(ret, er_throw);
+		}
+		else if (ret < 0)
+		{
+			if (!er_throw) std::clog << std::endl;
+			lcg_error_str(ret, er_throw);
+		}
 		return;
 	}
 
 	void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float* low, 
-		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG, bool verbose = true)
+		const lcg_float *hig, int x_size, lcg_solver_enum solver_id = LCG_PG, 
+		bool verbose = true, bool er_throw = false)
 	{
-		switch (solver_id)
+		if (!er_throw)
 		{
-			case LCG_PG:
-				std::cerr << "Solver: CG with Projected Gradient" << std::endl;
-				break;
-			case LCG_SPG:
-				std::cerr << "Solver: CG with Spectral Projected gradient" << std::endl;
-				break;
-			default:
-				std::cerr << "Solver: Unknown" << std::endl;
-				break;
+			switch (solver_id)
+			{
+				case LCG_PG:
+					std::clog << "Solver: CG with Projected Gradient" << std::endl;
+					break;
+				case LCG_SPG:
+					std::clog << "Solver: CG with Spectral Projected gradient" << std::endl;
+					break;
+				default:
+					std::clog << "Solver: Unknown" << std::endl;
+					break;
+			}	
 		}
 
 		// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略
 		int ret = lcg_solver_constrained(_AxProduct, _Progress, m, b, low, hig, x_size, &param_, this, solver_id);
-		if (verbose) std::cerr << std::endl << lcg_error_str(ret) << std::endl;
-		else if (ret < 0) std::cerr << std::endl << lcg_error_str(ret) << std::endl;
+		if (verbose)
+		{
+			if (!er_throw) std::clog << std::endl;
+			lcg_error_str(ret, er_throw);
+		}
+		else if (ret < 0)
+		{
+			if (er_throw) std::clog << std::endl;
+			lcg_error_str(ret, er_throw);
+		}
 		return;
 	}
 };
