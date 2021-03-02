@@ -13,7 +13,6 @@
  * @param[in]  Pfp         Callback function for monitoring the iteration progress.
  * @param      m           Initial solution vector.
  * @param      B           Objective vector of the linear system.
- * @param[in]  n_size      Size of the solution vector and objective vector.
  * @param      param       Parameter setup for the conjugate gradient methods.
  * @param      instance    The user data sent for the lcg_solver() function by the client. 
  * This variable is either 'this' for class member functions or 'nullptr' for global functions.
@@ -21,14 +20,20 @@
  *
  * @return     Status of the function.
  */
-typedef int (*eigen_solver_ptr)(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
-	const lcg_para* param, void* instance);
+typedef int (*eigen_solver_ptr)(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P);
 
-int lcg(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
-	const lcg_para* param, void* instance);
+int lcg(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P);
 
-int eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
-	const lcg_para* param, void* instance, lcg_solver_enum solver_id)
+int lpcg(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P);
+
+int lcgs(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P);
+
+int lcg_solver_eigen(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, lcg_solver_enum solver_id, const Eigen::VectorXd *P)
 {
 	eigen_solver_ptr cg_solver;
 	switch (solver_id)
@@ -36,12 +41,18 @@ int eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &
 		case LCG_CG:
 			cg_solver = lcg;
 			break;
+		case LCG_PCG:
+			cg_solver = lpcg;
+			break;
+		case LCG_CGS:
+			cg_solver = lcgs;
+			break;
 		default:
 			cg_solver = lcg;
 			break;
 	}
 
-	return cg_solver(Afp, Pfp, m, B, param, instance);
+	return cg_solver(Afp, Pfp, m, B, param, instance, P);
 }
 
 
@@ -52,7 +63,6 @@ int eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &
  * @param[in]  Pfp         Callback function for monitoring the iteration progress.
  * @param      m           Initial solution vector.
  * @param      B           Objective vector of the linear system.
- * @param[in]  n_size      Size of the solution vector and objective vector.
  * @param      param       Parameter setup for the conjugate gradient methods.
  * @param      instance    The user data sent for the lcg_solver() function by the client. 
  * This variable is either 'this' for class member functions or 'nullptr' for global functions.
@@ -60,8 +70,8 @@ int eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &
  *
  * @return     Status of the function.
  */
-int lcg(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
-	const lcg_para* param, void* instance)
+int lcg(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P)
 {
 	// set CG parameters
 	lcg_para para = (param != nullptr) ? (*param) : defparam;
@@ -69,6 +79,7 @@ int lcg(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const 
 	int n_size = B.size();
 	//check parameters
 	if (n_size <= 0) return LCG_INVILAD_VARIABLE_SIZE;
+	if (n_size != m.size()) return LCG_SIZE_NOT_MATCH;
 	if (para.max_iterations <= 0) return LCG_INVILAD_MAX_ITERATIONS;
 	if (para.epsilon <= 0.0) return LCG_INVILAD_EPSILON;
 
@@ -123,6 +134,203 @@ int lcg(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &m, const 
 		dk.resize(0);
 		gk.resize(0);
 		Adk.resize(0);
+	}
+
+	if (time == para.max_iterations)
+		return LCG_REACHED_MAX_ITERATIONS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
+}
+
+/**
+ * @brief      Preconditioned conjugate gradient method
+ * 
+ * @note       Algorithm 1 in "Preconditioned conjugate gradients for singular systems" by Kaasschieter (1988).
+ *
+ * @param[in]  Afp         Callback function for calculating the product of 'Ax'.
+ * @param[in]  Pfp         Callback function for monitoring the iteration progress.
+ * @param      m           Initial solution vector.
+ * @param      B           Objective vector of the linear system.
+ * @param[in]  n_size      Size of the solution vector and objective vector.
+ * @param      param       Parameter setup for the conjugate gradient methods.
+ * @param      instance    The user data sent for the lcg_solver() function by the client. 
+ * This variable is either 'this' for class member functions or 'nullptr' for global functions.
+ * @param      P           Precondition vector (optional expect for the LCG_PCG method). The default value is nullptr.
+ *
+ * @return     Status of the function.
+ */
+int lpcg(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P)
+{
+	// set CG parameters
+	lcg_para para = (param != nullptr) ? (*param) : defparam;
+
+	int n_size = B.size();
+	//check parameters
+	if (n_size <= 0) return LCG_INVILAD_VARIABLE_SIZE;
+	if (n_size != m.size()) return LCG_SIZE_NOT_MATCH;
+	if (para.max_iterations <= 0) return LCG_INVILAD_MAX_ITERATIONS;
+	if (para.epsilon <= 0.0) return LCG_INVILAD_EPSILON;
+
+	if (P == nullptr) return LCG_NULL_PRECONDITION_MATRIX;
+
+	// locate memory
+	Eigen::VectorXd rk(n_size), zk(n_size), dk(n_size), Adk(n_size);
+
+	Afp(instance, m, Adk);
+
+	rk = B - Adk;
+	zk = P->cwiseProduct(rk); 
+	dk = zk;
+
+	lcg_float zTr = zk.dot(rk);
+	lcg_float B_mod = B.dot(B);
+
+	int time, ret;
+	lcg_float dTAd, ak, betak, zTr1, residual;
+	for (time = 0; time < para.max_iterations; time++)
+	{
+		if (para.abs_diff) residual = sqrt(zTr)/n_size;
+		else residual = zTr/B_mod;
+
+		if (Pfp != nullptr)
+		{
+			if (Pfp(instance, &m, residual, &para, time))
+			{
+				ret = LCG_STOP; goto func_ends;
+			}
+		}
+
+		if (residual <= para.epsilon)
+		{
+			ret = LCG_CONVERGENCE; goto func_ends;
+		}
+
+		Afp(instance, dk, Adk);
+
+		dTAd = dk.dot(Adk);
+		ak = zTr/dTAd;
+
+		m += ak*dk;
+		rk -= ak*Adk;
+		zk = P->cwiseProduct(rk);
+
+		zTr1 = zk.dot(rk);
+		betak = zTr1/zTr;
+		zTr = zTr1;
+
+		dk = (zk + betak*dk);
+	}
+
+	func_ends:
+	{
+		rk.resize(0);
+		zk.resize(0);
+		dk.resize(0);
+		Adk.resize(0);
+	}
+
+	if (time == para.max_iterations)
+		return LCG_REACHED_MAX_ITERATIONS;
+	else if (ret == LCG_CONVERGENCE)
+		return LCG_SUCCESS;
+	else return ret;
+}
+
+/**
+ * @brief      Conjugate gradient squared method.
+ * 
+ * @note       Algorithm 2 in "Generalized conjugate gradient method" by Fokkema et al. (1996).
+ *
+ * @param[in]  Afp         Callback function for calculating the product of 'Ax'.
+ * @param[in]  Pfp         Callback function for monitoring the iteration progress.
+ * @param      m           Initial solution vector.
+ * @param      B           Objective vector of the linear system.
+ * @param[in]  n_size      Size of the solution vector and objective vector.
+ * @param      param       Parameter setup for the conjugate gradient methods.
+ * @param      instance    The user data sent for the lcg_solver() function by the client. 
+ * This variable is either 'this' for class member functions or 'nullptr' for global functions.
+ * @param      P           Precondition vector (optional expect for the LCG_PCG method). The default value is nullptr.
+ *
+ * @return     Status of the function.
+ */
+int lcgs(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, const Eigen::VectorXd &B, 
+	const lcg_para* param, void* instance, const Eigen::VectorXd *P)
+{
+	// set CGS parameters
+	lcg_para para = (param != nullptr) ? (*param) : defparam;
+
+	int n_size = B.size();
+	//check parameters
+	if (n_size <= 0) return LCG_INVILAD_VARIABLE_SIZE;
+	if (n_size != m.size()) return LCG_SIZE_NOT_MATCH;
+	if (para.max_iterations <= 0) return LCG_INVILAD_MAX_ITERATIONS;
+	if (para.epsilon <= 0.0) return LCG_INVILAD_EPSILON;
+
+	Eigen::VectorXd rk(n_size), r0_T(n_size), pk(n_size), Ax(n_size);
+	Eigen::VectorXd uk(n_size), qk(n_size), wk(n_size);
+
+	Afp(instance, m, Ax);
+
+	// 假设p0和q0为零向量 则在第一次迭代是pk和uk都等于rk
+	// 所以我们能直接从计算Apk开始迭代
+	pk = uk = r0_T = rk = (B - Ax);
+
+	lcg_float B_mod = B.dot(B);
+	lcg_float rkr0_T = rk.dot(r0_T);
+
+	int time, ret;
+	lcg_float ak, rkr0_T1, Apr_T, betak, rk_mod, residual;
+	for (time = 0; time < para.max_iterations; time++)
+	{
+		rk_mod = rk.dot(rk);
+
+		if (para.abs_diff) residual = sqrt(rk_mod)/n_size;
+		else residual = rk_mod/B_mod;
+
+		if (Pfp != nullptr)
+		{
+			if (Pfp(instance, &m, residual, &para, time))
+			{
+				ret = LCG_STOP; goto func_ends;
+			}
+		}
+
+		if (residual <= para.epsilon)
+		{
+			ret = LCG_CONVERGENCE; goto func_ends;
+		}
+
+		Afp(instance, pk, Ax);
+
+		Apr_T = Ax.dot(r0_T);
+		ak = rkr0_T/Apr_T;
+		qk = uk - ak*Ax;
+		wk = uk + qk;
+
+		Afp(instance, wk, Ax);
+
+		m += ak*wk;
+		rk -= ak*Ax;
+
+		rkr0_T1 = rk.dot(r0_T);
+		betak = rkr0_T1/rkr0_T;
+		rkr0_T = rkr0_T1;
+
+		uk = rk + betak*qk;
+		pk = uk + betak*(qk + betak*pk);
+	}
+
+	func_ends:
+	{
+		rk.resize(0);
+		r0_T.resize(0);
+		pk.resize(0);
+		Ax.resize(0);
+		uk.resize(0);
+		qk.resize(0);
+		wk.resize(0);
 	}
 
 	if (time == para.max_iterations)

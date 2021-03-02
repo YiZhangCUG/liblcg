@@ -1,10 +1,8 @@
-#include "../lib/lcg_algebra.h"
-#include "ctime"
+#include "../lib/lcg.h"
 #include "random"
-#include "iostream"
 
-#define M 100
-#define N 80
+#define M 1000
+#define N 800
 
 //返回范围内的随机浮点值 注意调取函数之前要调用srand(time(0));
 double random_double(double L,double T)
