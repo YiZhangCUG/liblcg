@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rel_186',['rel',['../structclcg__complex.html#a45151e8694e538e4901fe293cfc4c990',1,'clcg_complex']]],
-  ['restart_5fepsilon_187',['restart_epsilon',['../structlcg__para.html#ac6ea8932a62c8d67c618c04999901396',1,'lcg_para']]]
+  ['rel_195',['rel',['../structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d',1,'lcg_complex']]],
+  ['restart_5fepsilon_196',['restart_epsilon',['../structlcg__para.html#ac6ea8932a62c8d67c618c04999901396',1,'lcg_para']]]
 ];

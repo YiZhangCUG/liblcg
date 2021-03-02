@@ -102,103 +102,59 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 <div class="title">clcg.h 文件参考</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;<a class="el" href="algebra_8h_source.html">algebra.h</a>&quot;</code><br />
+</div>
 <p><a href="clcg_8h_source.html">浏览源代码.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 结构体</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__complex.html">clcg_complex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple definition of the complex number type. Easy to change in the future. Right now it is just two lcg_float variables  <a href="structclcg__complex.html#details">更多...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__para.html">clcg_para</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters of the conjugate gradient methods.  <a href="structclcg__para.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html">CLCG_Solver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complex linear conjugate gradient solver class  <a href="class_c_l_c_g___solver.html#details">更多...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 类型定义</h2></td></tr>
-<tr class="memitem:a13cd49ae0cc26777f4c1fade12022cac"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a13cd49ae0cc26777f4c1fade12022cac">clcg_axfunc_ptr</a>) (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *x, <a class="el" href="structclcg__complex.html">clcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> <a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a>)</td></tr>
-<tr class="memdesc:a13cd49ae0cc26777f4c1fade12022cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback interface for calculating the complex product of a N*N matrix 'A' multiplied by a complex vertical vector 'x'.  <a href="clcg_8h.html#a13cd49ae0cc26777f4c1fade12022cac">更多...</a><br /></td></tr>
-<tr class="separator:a13cd49ae0cc26777f4c1fade12022cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4655d47303ae6a0b9de9532b083e310e"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a4655d47303ae6a0b9de9532b083e310e">clcg_progress_ptr</a>) (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
-<tr class="memdesc:a4655d47303ae6a0b9de9532b083e310e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback interface for monitoring the progress and terminate the iteration if necessary.  <a href="clcg_8h.html#a4655d47303ae6a0b9de9532b083e310e">更多...</a><br /></td></tr>
-<tr class="separator:a4655d47303ae6a0b9de9532b083e310e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfb33749be6d2774b5ae7fac90ab3a3e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#acfb33749be6d2774b5ae7fac90ab3a3e">clcg_axfunc_ptr</a>) (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *x, <a class="el" href="structlcg__complex.html">lcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate)</td></tr>
+<tr class="memdesc:acfb33749be6d2774b5ae7fac90ab3a3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback interface for calculating the complex product of a N*N matrix 'A' multiplied by a complex vertical vector 'x'.  <a href="clcg_8h.html#acfb33749be6d2774b5ae7fac90ab3a3e">更多...</a><br /></td></tr>
+<tr class="separator:acfb33749be6d2774b5ae7fac90ab3a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530f34a5d1fec16291e0863e0d9dff84"><td class="memItemLeft" align="right" valign="top">typedef int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a530f34a5d1fec16291e0863e0d9dff84">clcg_progress_ptr</a>) (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
+<tr class="memdesc:a530f34a5d1fec16291e0863e0d9dff84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback interface for monitoring the progress and terminate the iteration if necessary.  <a href="clcg_8h.html#a530f34a5d1fec16291e0863e0d9dff84">更多...</a><br /></td></tr>
+<tr class="separator:a530f34a5d1fec16291e0863e0d9dff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 枚举</h2></td></tr>
-<tr class="memitem:afa1356d2f38311c3519c524f2a9f8e79"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> { <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a>, 
-<a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba">Transpose</a>
- }</td></tr>
-<tr class="memdesc:afa1356d2f38311c3519c524f2a9f8e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix layouts.  <a href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">更多...</a><br /></td></tr>
-<tr class="separator:afa1356d2f38311c3519c524f2a9f8e79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b798f257bb3294c912dcedc1e76f6b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> { <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a>, 
-<a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d">Conjugate</a>
- }</td></tr>
-<tr class="memdesc:a9b798f257bb3294c912dcedc1e76f6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">conjugate types for a complex number.  <a href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">更多...</a><br /></td></tr>
-<tr class="separator:a9b798f257bb3294c912dcedc1e76f6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af99347c7374b3b5c75db9f4f8732bf0d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">clcg_solver_enum</a> { <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0dae8d1d9a315797b6e26159e45278a6316">CLCG_BICG</a>, 
+<a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0dae52258fb404871a729992a05fff913de">CLCG_BICG_SYM</a>, 
 <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5">CLCG_CGS</a>, 
 <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da57bb4b2b80bd19b23c4c31e1d4087333">CLCG_TFQMR</a>
  }</td></tr>
-<tr class="memdesc:af99347c7374b3b5c75db9f4f8732bf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of method that could be recognized by the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function.  <a href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">更多...</a><br /></td></tr>
+<tr class="memdesc:af99347c7374b3b5c75db9f4f8732bf0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of method that could be recognized by the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function.  <a href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">更多...</a><br /></td></tr>
 <tr class="separator:af99347c7374b3b5c75db9f4f8732bf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 函数</h2></td></tr>
-<tr class="memitem:a99786a615a06c003a11c4fdc660ce349"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a99786a615a06c003a11c4fdc660ce349">operator==</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:a99786a615a06c003a11c4fdc660ce349"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload equality operator.  <a href="clcg_8h.html#a99786a615a06c003a11c4fdc660ce349">更多...</a><br /></td></tr>
-<tr class="separator:a99786a615a06c003a11c4fdc660ce349"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70a3bf36abbba2ee20934ab73da61710"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a70a3bf36abbba2ee20934ab73da61710">operator!=</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:a70a3bf36abbba2ee20934ab73da61710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload equality operator.  <a href="clcg_8h.html#a70a3bf36abbba2ee20934ab73da61710">更多...</a><br /></td></tr>
-<tr class="separator:a70a3bf36abbba2ee20934ab73da61710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed89e2ae26fd7d72c1bf85ea29e68f05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#aed89e2ae26fd7d72c1bf85ea29e68f05">operator+</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:aed89e2ae26fd7d72c1bf85ea29e68f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload addition operator.  <a href="clcg_8h.html#aed89e2ae26fd7d72c1bf85ea29e68f05">更多...</a><br /></td></tr>
-<tr class="separator:aed89e2ae26fd7d72c1bf85ea29e68f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a94e7b1cd6cf3c153b5f90ed429ff8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a5a94e7b1cd6cf3c153b5f90ed429ff8d">operator-</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:a5a94e7b1cd6cf3c153b5f90ed429ff8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload subtraction operator.  <a href="clcg_8h.html#a5a94e7b1cd6cf3c153b5f90ed429ff8d">更多...</a><br /></td></tr>
-<tr class="separator:a5a94e7b1cd6cf3c153b5f90ed429ff8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc3933f6ff7106e0d532636e996bd612"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#afc3933f6ff7106e0d532636e996bd612">operator*</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:afc3933f6ff7106e0d532636e996bd612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload multiplication operator.  <a href="clcg_8h.html#afc3933f6ff7106e0d532636e996bd612">更多...</a><br /></td></tr>
-<tr class="separator:afc3933f6ff7106e0d532636e996bd612"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a971383b70a0513156e1815a00c63b69c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a971383b70a0513156e1815a00c63b69c">operator/</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:a971383b70a0513156e1815a00c63b69c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload division operator.  <a href="clcg_8h.html#a971383b70a0513156e1815a00c63b69c">更多...</a><br /></td></tr>
-<tr class="separator:a971383b70a0513156e1815a00c63b69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a856570f969e1f9e5d2f9332a92eed8cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;a)</td></tr>
-<tr class="memdesc:a856570f969e1f9e5d2f9332a92eed8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate complex conjugate  <a href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">更多...</a><br /></td></tr>
-<tr class="separator:a856570f969e1f9e5d2f9332a92eed8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a647b4058d24fba38ca77a01b68971ef6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a647b4058d24fba38ca77a01b68971ef6">real_product</a> (const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;b)</td></tr>
-<tr class="memdesc:a647b4058d24fba38ca77a01b68971ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate the product of a real number multiplied by a complex number  <a href="clcg_8h.html#a647b4058d24fba38ca77a01b68971ef6">更多...</a><br /></td></tr>
-<tr class="separator:a647b4058d24fba38ca77a01b68971ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e603e8f7b4ac26bdebe87dab8c0beda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a8e603e8f7b4ac26bdebe87dab8c0beda">inner_product</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> *a, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *b, int x_size)</td></tr>
-<tr class="memdesc:a8e603e8f7b4ac26bdebe87dab8c0beda"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate inner product of two complex vectors  <a href="clcg_8h.html#a8e603e8f7b4ac26bdebe87dab8c0beda">更多...</a><br /></td></tr>
-<tr class="separator:a8e603e8f7b4ac26bdebe87dab8c0beda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31b54769e1a5a13fefc1763ce325812b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a31b54769e1a5a13fefc1763ce325812b">matrix_product</a> (<a class="el" href="structclcg__complex.html">clcg_complex</a> **A, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *x, <a class="el" href="structclcg__complex.html">clcg_complex</a> *Ax, int m_size, int n_size, <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout=<a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a>, <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> <a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a>=<a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a>)</td></tr>
-<tr class="memdesc:a31b54769e1a5a13fefc1763ce325812b"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate product of a complex matrix and a complex vector  <a href="clcg_8h.html#a31b54769e1a5a13fefc1763ce325812b">更多...</a><br /></td></tr>
-<tr class="separator:a31b54769e1a5a13fefc1763ce325812b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2aacff3b02b68874c4c0a03106f1ca46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a2aacff3b02b68874c4c0a03106f1ca46">clcg_malloc</a> (const int n)</td></tr>
-<tr class="memdesc:a2aacff3b02b68874c4c0a03106f1ca46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locate memory for a <a class="el" href="structclcg__complex.html" title="A simple definition of the complex number type. Easy to change in the future. Right now it is just tw...">clcg_complex</a> pointer type.  <a href="clcg_8h.html#a2aacff3b02b68874c4c0a03106f1ca46">更多...</a><br /></td></tr>
-<tr class="separator:a2aacff3b02b68874c4c0a03106f1ca46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7feb35f2584a81d5bf92f42fd479ff0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a7feb35f2584a81d5bf92f42fd479ff0c">clcg_free</a> (<a class="el" href="structclcg__complex.html">clcg_complex</a> *x)</td></tr>
-<tr class="memdesc:a7feb35f2584a81d5bf92f42fd479ff0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy memory used by the <a class="el" href="structclcg__complex.html" title="A simple definition of the complex number type. Easy to change in the future. Right now it is just tw...">clcg_complex</a> type array.  <a href="clcg_8h.html#a7feb35f2584a81d5bf92f42fd479ff0c">更多...</a><br /></td></tr>
-<tr class="separator:a7feb35f2584a81d5bf92f42fd479ff0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3023497f88be45d555171bd63f427e20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structclcg__para.html">clcg_para</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#a3023497f88be45d555171bd63f427e20">clcg_default_parameters</a> ()</td></tr>
 <tr class="memdesc:a3023497f88be45d555171bd63f427e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <a class="el" href="structclcg__para.html" title="Parameters of the conjugate gradient methods.">clcg_para</a> type instance with default values.  <a href="clcg_8h.html#a3023497f88be45d555171bd63f427e20">更多...</a><br /></td></tr>
 <tr class="separator:a3023497f88be45d555171bd63f427e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0faa3643be6c59a942542ea3e6944a4"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#af0faa3643be6c59a942542ea3e6944a4">clcg_error_str</a> (int er_index)</td></tr>
-<tr class="memdesc:af0faa3643be6c59a942542ea3e6944a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a string explanation for the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function's return values.  <a href="clcg_8h.html#af0faa3643be6c59a942542ea3e6944a4">更多...</a><br /></td></tr>
-<tr class="separator:af0faa3643be6c59a942542ea3e6944a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace4e4c557ab5523c772ac9f15dd9be9e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e">clcg_solver</a> (<a class="el" href="clcg_8h.html#a13cd49ae0cc26777f4c1fade12022cac">clcg_axfunc_ptr</a> Afp, <a class="el" href="clcg_8h.html#a4655d47303ae6a0b9de9532b083e310e">clcg_progress_ptr</a> Pfp, <a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *B, const int n_size, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, void *instance, <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">clcg_solver_enum</a> solver_id=<a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5">CLCG_CGS</a>)</td></tr>
-<tr class="memdesc:ace4e4c557ab5523c772ac9f15dd9be9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A combined complex conjugate gradient solver function.  <a href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e">更多...</a><br /></td></tr>
-<tr class="separator:ace4e4c557ab5523c772ac9f15dd9be9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a6b6af37e276d13520d96154304008"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#ab5a6b6af37e276d13520d96154304008">clcg_error_str</a> (int er_index, bool er_throw=false)</td></tr>
+<tr class="memdesc:ab5a6b6af37e276d13520d96154304008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display or throw out a string explanation for the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function's return values.  <a href="clcg_8h.html#ab5a6b6af37e276d13520d96154304008">更多...</a><br /></td></tr>
+<tr class="separator:ab5a6b6af37e276d13520d96154304008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ababe7a2311b6e6f2cca5d9053597b225"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225">clcg_solver</a> (<a class="el" href="clcg_8h.html#acfb33749be6d2774b5ae7fac90ab3a3e">clcg_axfunc_ptr</a> Afp, <a class="el" href="clcg_8h.html#a530f34a5d1fec16291e0863e0d9dff84">clcg_progress_ptr</a> Pfp, <a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *B, const int n_size, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, void *instance, <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">clcg_solver_enum</a> solver_id=<a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5">CLCG_CGS</a>)</td></tr>
+<tr class="memdesc:ababe7a2311b6e6f2cca5d9053597b225"><td class="mdescLeft">&#160;</td><td class="mdescRight">A combined complex conjugate gradient solver function.  <a href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225">更多...</a><br /></td></tr>
+<tr class="separator:ababe7a2311b6e6f2cca5d9053597b225"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">类型定义说明</h2>
-<a id="a13cd49ae0cc26777f4c1fade12022cac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13cd49ae0cc26777f4c1fade12022cac">&#9670;&nbsp;</a></span>clcg_axfunc_ptr</h2>
+<a id="acfb33749be6d2774b5ae7fac90ab3a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfb33749be6d2774b5ae7fac90ab3a3e">&#9670;&nbsp;</a></span>clcg_axfunc_ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* clcg_axfunc_ptr) (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *x, <a class="el" href="structclcg__complex.html">clcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> <a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a>)</td>
+          <td class="memname">typedef void(* clcg_axfunc_ptr) (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *x, <a class="el" href="structlcg__complex.html">lcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -206,7 +162,7 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 <p>Callback interface for calculating the complex product of a N*N matrix 'A' multiplied by a complex vertical vector 'x'. </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> functions by the client. </td></tr>
+    <tr><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> functions by the client. </td></tr>
     <tr><td class="paramname">x</td><td>Multiplier of the Ax product. </td></tr>
     <tr><td class="paramname">Ax</td><td>Product of A multiplied by x. </td></tr>
     <tr><td class="paramname">x_size</td><td>Size of x and column/row numbers of A. </td></tr>
@@ -218,14 +174,14 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 
 </div>
 </div>
-<a id="a4655d47303ae6a0b9de9532b083e310e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4655d47303ae6a0b9de9532b083e310e">&#9670;&nbsp;</a></span>clcg_progress_ptr</h2>
+<a id="a530f34a5d1fec16291e0863e0d9dff84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a530f34a5d1fec16291e0863e0d9dff84">&#9670;&nbsp;</a></span>clcg_progress_ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef int(* clcg_progress_ptr) (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td>
+          <td class="memname">typedef int(* clcg_progress_ptr) (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,7 +189,7 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 <p>Callback interface for monitoring the progress and terminate the iteration if necessary. </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> functions by the client. </td></tr>
+    <tr><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> functions by the client. </td></tr>
     <tr><td class="paramname">m</td><td>The current solutions. </td></tr>
     <tr><td class="paramname">converge</td><td>The current value evaluating the iteration progress. </td></tr>
     <tr><td class="paramname">n_size</td><td>The size of the variables </td></tr>
@@ -263,54 +219,21 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
       </table>
 </div><div class="memdoc">
 
-<p>Types of method that could be recognized by the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function. </p>
+<p>Types of method that could be recognized by the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function. </p>
+<p>C++ library of complex linear conjugate gradient.</p>
+<p>Copyright (c) 2019-2029 Yi Zhang (<a href="#" onclick="location.href='mai'+'lto:'+'zha'+'ng'+'yis'+'s@'+'icl'+'ou'+'d.c'+'om'; return false;">zhang<span style="display: none;">.nosp@m.</span>yiss<span style="display: none;">.nosp@m.</span>@iclo<span style="display: none;">.nosp@m.</span>ud.c<span style="display: none;">.nosp@m.</span>om</a>) All rights reserved.</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
 <table class="fieldtable">
 <tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="af99347c7374b3b5c75db9f4f8732bf0dae8d1d9a315797b6e26159e45278a6316"></a>CLCG_BICG&#160;</td><td class="fielddoc"><p>Jacob's Bi-Conjugate Gradient Method </p>
 </td></tr>
-<tr><td class="fieldname"><a id="af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5"></a>CLCG_CGS&#160;</td><td class="fielddoc"><p>Conjugate Gradient Squared Method. </p>
+<tr><td class="fieldname"><a id="af99347c7374b3b5c75db9f4f8732bf0dae52258fb404871a729992a05fff913de"></a>CLCG_BICG_SYM&#160;</td><td class="fielddoc"><p>Bi-Conjugate Gradient Method accelerated for complex symmetric A </p>
+</td></tr>
+<tr><td class="fieldname"><a id="af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5"></a>CLCG_CGS&#160;</td><td class="fielddoc"><p>Conjugate Gradient Squared Method with real coefficients. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="af99347c7374b3b5c75db9f4f8732bf0da57bb4b2b80bd19b23c4c31e1d4087333"></a>CLCG_TFQMR&#160;</td><td class="fielddoc"><p>Transpose Free Quasi-Minimal Residual Method </p>
 </td></tr>
-</table>
-
-</div>
-</div>
-<a id="a9b798f257bb3294c912dcedc1e76f6b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b798f257bb3294c912dcedc1e76f6b5">&#9670;&nbsp;</a></span>complex_conjugate_e</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>conjugate types for a complex number. </p>
-<table class="fieldtable">
-<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362"></a>NonConjugate&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d"></a>Conjugate&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<a id="afa1356d2f38311c3519c524f2a9f8e79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa1356d2f38311c3519c524f2a9f8e79">&#9670;&nbsp;</a></span>matrix_layout_e</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Matrix layouts. </p>
-<table class="fieldtable">
-<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b"></a>Normal&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba"></a>Transpose&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -337,26 +260,37 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 
 </div>
 </div>
-<a id="af0faa3643be6c59a942542ea3e6944a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0faa3643be6c59a942542ea3e6944a4">&#9670;&nbsp;</a></span>clcg_error_str()</h2>
+<a id="ab5a6b6af37e276d13520d96154304008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a6b6af37e276d13520d96154304008">&#9670;&nbsp;</a></span>clcg_error_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char* clcg_error_str </td>
+          <td class="memname">void clcg_error_str </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>er_index</em></td><td>)</td>
+          <td class="paramname"><em>er_index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>er_throw</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return a string explanation for the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function's return values. </p>
+<p>Display or throw out a string explanation for the <a class="el" href="clcg_8h.html#ababe7a2311b6e6f2cca5d9053597b225" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function's return values. </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">er_index</td><td>The error index returned by the <a class="el" href="clcg_8h.html#ace4e4c557ab5523c772ac9f15dd9be9e" title="A combined complex conjugate gradient solver function.">clcg_solver()</a> function.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">er_index</td><td>The error index returned by the <a class="el" href="lcg__algebra_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">er_throw</td><td>throw out a char string of the explanation.</td></tr>
   </table>
   </dd>
 </dl>
@@ -364,61 +298,8 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
 
 </div>
 </div>
-<a id="a7feb35f2584a81d5bf92f42fd479ff0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7feb35f2584a81d5bf92f42fd479ff0c">&#9670;&nbsp;</a></span>clcg_free()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void clcg_free </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroy memory used by the <a class="el" href="structclcg__complex.html" title="A simple definition of the complex number type. Easy to change in the future. Right now it is just tw...">clcg_complex</a> type array. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>Pointer of the array. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2aacff3b02b68874c4c0a03106f1ca46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2aacff3b02b68874c4c0a03106f1ca46">&#9670;&nbsp;</a></span>clcg_malloc()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a>* clcg_malloc </td>
-          <td>(</td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>n</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Locate memory for a <a class="el" href="structclcg__complex.html" title="A simple definition of the complex number type. Easy to change in the future. Right now it is just tw...">clcg_complex</a> pointer type. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>Size of the lcg_float array.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>Pointer of the array's location. </dd></dl>
-
-</div>
-</div>
-<a id="ace4e4c557ab5523c772ac9f15dd9be9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace4e4c557ab5523c772ac9f15dd9be9e">&#9670;&nbsp;</a></span>clcg_solver()</h2>
+<a id="ababe7a2311b6e6f2cca5d9053597b225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ababe7a2311b6e6f2cca5d9053597b225">&#9670;&nbsp;</a></span>clcg_solver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -426,25 +307,25 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
         <tr>
           <td class="memname">int clcg_solver </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#a13cd49ae0cc26777f4c1fade12022cac">clcg_axfunc_ptr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="clcg_8h.html#acfb33749be6d2774b5ae7fac90ab3a3e">clcg_axfunc_ptr</a>&#160;</td>
           <td class="paramname"><em>Afp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#a4655d47303ae6a0b9de9532b083e310e">clcg_progress_ptr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="clcg_8h.html#a530f34a5d1fec16291e0863e0d9dff84">clcg_progress_ptr</a>&#160;</td>
           <td class="paramname"><em>Pfp</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>B</em>, </td>
         </tr>
         <tr>
@@ -488,424 +369,12 @@ $(document).ready(function(){initNavTree('clcg_8h.html',''); initResizable(); })
     <tr><td class="paramdir"></td><td class="paramname">B</td><td>Objective vector of the linear system. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n_size</td><td>Size of the solution vector and objective vector. </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">param</td><td>Parameter setup for the conjugate gradient methods. </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function by the client. This variable is either 'this' for class member functions or 'NULL' for global functions. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">instance</td><td>The user data sent for the <a class="el" href="lcg__algebra_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function by the client. This variable is either 'this' for class member functions or 'NULL' for global functions. </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">solver_id</td><td>Solver type used to solve the linear system. The default value is LCG_CGS.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>返回</dt><dd>Status of the function. </dd></dl>
-
-</div>
-</div>
-<a id="a856570f969e1f9e5d2f9332a92eed8cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a856570f969e1f9e5d2f9332a92eed8cc">&#9670;&nbsp;</a></span>conjugate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> conjugate </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calculate complex conjugate </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>complex conjugate </dd></dl>
-
-</div>
-</div>
-<a id="a8e603e8f7b4ac26bdebe87dab8c0beda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e603e8f7b4ac26bdebe87dab8c0beda">&#9670;&nbsp;</a></span>inner_product()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> inner_product </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>x_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calculate inner product of two complex vectors </p>
-<p>the product of two complex vectors are defined as &lt;a, b&gt; = \sum{\bar{a_i}\cdot\b_i}</p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex vector a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex vector b </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x_size</td><td>size of the vector</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>product </dd></dl>
-
-</div>
-</div>
-<a id="a31b54769e1a5a13fefc1763ce325812b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b54769e1a5a13fefc1763ce325812b">&#9670;&nbsp;</a></span>matrix_product()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void matrix_product </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> **&#160;</td>
-          <td class="paramname"><em>A</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
-          <td class="paramname"><em>Ax</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>m_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>n_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
-          <td class="paramname"><em>layout</em> = <code><a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a></code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
-          <td class="paramname"><em>conjugate</em> = <code><a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calculate product of a complex matrix and a complex vector </p>
-<p>the product of two complex vectors are defined as &lt;a, b&gt; = \sum{\bar{a_i}\cdot\b_i}. Different configurations: layout=Normal,conjugate=false -&gt; A layout=Transpose,conjugate=false -&gt; A^T layout=Normal,conjugate=true -&gt; \bar{A} layout=Transpose,conjugate=true -&gt; A^H</p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">A</td><td>complex matrix A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>complex vector x </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">Ax</td><td>product of Ax </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">m_size</td><td>row size of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">n_size</td><td>column size of A </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>layout of A used for multiplication. Must be Normal or Transpose </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">conjugate</td><td>whether to use the complex conjugate of A for calculation </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a70a3bf36abbba2ee20934ab73da61710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70a3bf36abbba2ee20934ab73da61710">&#9670;&nbsp;</a></span>operator!=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload equality operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>unequal or not </dd></dl>
-
-</div>
-</div>
-<a id="afc3933f6ff7106e0d532636e996bd612"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc3933f6ff7106e0d532636e996bd612">&#9670;&nbsp;</a></span>operator*()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> operator* </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload multiplication operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>product </dd></dl>
-
-</div>
-</div>
-<a id="aed89e2ae26fd7d72c1bf85ea29e68f05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed89e2ae26fd7d72c1bf85ea29e68f05">&#9670;&nbsp;</a></span>operator+()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> operator+ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload addition operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>sum </dd></dl>
-
-</div>
-</div>
-<a id="a5a94e7b1cd6cf3c153b5f90ed429ff8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a94e7b1cd6cf3c153b5f90ed429ff8d">&#9670;&nbsp;</a></span>operator-()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> operator- </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload subtraction operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>subtraction </dd></dl>
-
-</div>
-</div>
-<a id="a971383b70a0513156e1815a00c63b69c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a971383b70a0513156e1815a00c63b69c">&#9670;&nbsp;</a></span>operator/()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> operator/ </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload division operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>quotient </dd></dl>
-
-</div>
-</div>
-<a id="a99786a615a06c003a11c4fdc660ce349"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99786a615a06c003a11c4fdc660ce349">&#9670;&nbsp;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reload equality operator. </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>equal or not </dd></dl>
-
-</div>
-</div>
-<a id="a647b4058d24fba38ca77a01b68971ef6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a647b4058d24fba38ca77a01b68971ef6">&#9670;&nbsp;</a></span>real_product()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structclcg__complex.html">clcg_complex</a> real_product </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> &amp;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>calculate the product of a real number multiplied by a complex number </p>
-<dl class="params"><dt>参数</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>real number a </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>返回</dt><dd>complex number </dd></dl>
 
 </div>
 </div>

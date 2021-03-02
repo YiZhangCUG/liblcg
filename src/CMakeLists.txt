@@ -1,5 +1,27 @@
+# 添加编译选项
+option(LCG_OPENMP "use openmp" ON)
+option(LCG_EIGEN "use eigen" OFF)
+message(STATUS "Use OpenMP: " ${LCG_OPENMP})
+message(STATUS "Use EIGEN: " ${LCG_EIGEN})
+# 加入一个头文件配置，让cmake对源码进行操作
+configure_file(
+	"${PROJECT_SOURCE_DIR}/config.h.in"
+	"${PROJECT_SOURCE_DIR}/src/lib/config.h"
+	)
+
+if(LCG_EIGEN)
+	find_package(Eigen3 REQUIRED)
+	if(EIGEN3_FOUND)
+		message(STATUS "Eigen3 Found.")
+		include_directories(${EIGEN3_INCLUDE_DIR})
+	endif()
+endif()
+
 # 设定源文件文件夹
-aux_source_directory(lib/ LCGLIB_SRC)
+aux_source_directory(lib LCGLIB_SRC)
+if(NOT LCG_EIGEN)
+	list(REMOVE_ITEM LCGLIB_SRC "lib/lcg_eigen.cpp")
+endif()
 
 # 以下部分为库的编译
 # 注意目标名必须唯一 所以不能直接生成相同名称的动态库与静态库
@@ -19,15 +41,6 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 # 设置编译选项
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -O2")
-
-# 添加编译选项
-option(LCG_OPENMP "use openmp" ON)
-message(STATUS "Use OpenMP: " ${LCG_OPENMP})
-# 加入一个头文件配置，让cmake对源码进行操作
-configure_file(
-	"${PROJECT_SOURCE_DIR}/config.h.in"
-	"${PROJECT_SOURCE_DIR}/src/lib/config.h"
-	)
 
 if(LCG_OPENMP)
 	# 添加openmp的编译命令 设置编译选项
@@ -54,7 +67,11 @@ endif()
 # 头文件安装命令
 install(FILES lib/algebra.h DESTINATION include/lcg)
 install(FILES lib/lcg.h DESTINATION include/lcg)
+install(FILES lib/lcg_algebra.h DESTINATION include/lcg)
 install(FILES lib/clcg.h DESTINATION include/lcg)
+if(LCG_EIGEN)
+	install(FILES lib/lcg_eigen.h DESTINATION include/lcg)
+endif()
 
 # 以下部分为例子程序的编译
 # 设置可执行文件的输出地址

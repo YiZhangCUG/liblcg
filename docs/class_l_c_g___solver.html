@@ -102,7 +102,10 @@ $(document).ready(function(){initNavTree('class_l_c_g___solver.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="lcg__cxx_8h_source.html">lcg_cxx.h</a>&gt;</code></p>
+<p>Linear conjugate gradient solver class  
+ <a href="class_l_c_g___solver.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="lcg__algebra_8h_source.html">lcg_algebra.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
@@ -110,22 +113,22 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:ac579562705f8c6bf009a9954cf29153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae885adbb33e14b8e036141d890819292"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#ae885adbb33e14b8e036141d890819292">~LCG_Solver</a> ()</td></tr>
 <tr class="separator:ae885adbb33e14b8e036141d890819292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a8db9f44f4acc20a3c9708afbb64fbd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">AxProduct</a> (const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const int num)=0</td></tr>
+<tr class="memitem:a1a8db9f44f4acc20a3c9708afbb64fbd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">AxProduct</a> (const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const int num)=0</td></tr>
 <tr class="separator:a1a8db9f44f4acc20a3c9708afbb64fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4f81f0ab69743134b181675ab2aecc8"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">Progress</a> (const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structlcg__para.html">lcg_para</a> *param, const int n_size, const int k)</td></tr>
+<tr class="memitem:ad4f81f0ab69743134b181675ab2aecc8"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">Progress</a> (const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structlcg__para.html">lcg_para</a> *param, const int n_size, const int k)</td></tr>
 <tr class="separator:ad4f81f0ab69743134b181675ab2aecc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9792711ff132e2f7fc4b141c56cb3c7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a9792711ff132e2f7fc4b141c56cb3c7a">set_lcg_parameter</a> (const <a class="el" href="structlcg__para.html">lcg_para</a> &amp;in_param)</td></tr>
 <tr class="separator:a9792711ff132e2f7fc4b141c56cb3c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a016439383af4e9cff2399ba06c7fbd0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a016439383af4e9cff2399ba06c7fbd0d">Minimize</a> (<a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, int x_size, <a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id=<a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02">LCG_CG</a>, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *p=NULL, bool verbose=true)</td></tr>
-<tr class="separator:a016439383af4e9cff2399ba06c7fbd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cfa6228d6d2096d2e86bb6417286780"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a6cfa6228d6d2096d2e86bb6417286780">MinimizeConstrained</a> (<a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *low, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, int x_size, <a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id=<a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a>, bool verbose=true)</td></tr>
-<tr class="separator:a6cfa6228d6d2096d2e86bb6417286780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f10e45d9604abe4914438a3df5fa53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#ad4f10e45d9604abe4914438a3df5fa53">Minimize</a> (<a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, int x_size, <a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id=<a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02">LCG_CG</a>, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *p=NULL, bool verbose=true, bool er_throw=false)</td></tr>
+<tr class="separator:ad4f10e45d9604abe4914438a3df5fa53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5814cec095106d94a7324009705e463f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a5814cec095106d94a7324009705e463f">MinimizeConstrained</a> (<a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *low, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, int x_size, <a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id=<a class="el" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a>, bool verbose=true, bool er_throw=false)</td></tr>
+<tr class="separator:a5814cec095106d94a7324009705e463f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 静态 Public 成员函数</h2></td></tr>
-<tr class="memitem:a7f431a9ce9dbc7876293f35e7b1d5e20"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">_AxProduct</a> (void *instance, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const int num)</td></tr>
+<tr class="memitem:a7f431a9ce9dbc7876293f35e7b1d5e20"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">_AxProduct</a> (void *instance, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, const int num)</td></tr>
 <tr class="separator:a7f431a9ce9dbc7876293f35e7b1d5e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d8293bf43b5076a639200141e1954da"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">_Progress</a> (void *instance, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structlcg__para.html">lcg_para</a> *param, const int n_size, const int k)</td></tr>
+<tr class="memitem:a1d8293bf43b5076a639200141e1954da"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">_Progress</a> (void *instance, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structlcg__para.html">lcg_para</a> *param, const int n_size, const int k)</td></tr>
 <tr class="separator:a1d8293bf43b5076a639200141e1954da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
@@ -134,11 +137,7 @@ Protected 属性</h2></td></tr>
 <tr class="separator:ac370c9e6dc4080b6a19c8b3068c437ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock"><p>C/C++ library of linear conjugate gradient.</p>
-<p>Copyright (c) 2019-2029 Yi Zhang (<a href="#" onclick="location.href='mai'+'lto:'+'zha'+'ng'+'yis'+'s@'+'icl'+'ou'+'d.c'+'om'; return false;">zhang<span style="display: none;">.nosp@m.</span>yiss<span style="display: none;">.nosp@m.</span>@iclo<span style="display: none;">.nosp@m.</span>ud.c<span style="display: none;">.nosp@m.</span>om</a>) All rights reserved.</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
+<div class="textblock"><p>Linear conjugate gradient solver class </p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="ac579562705f8c6bf009a9954cf29153d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac579562705f8c6bf009a9954cf29153d">&#9670;&nbsp;</a></span>LCG_Solver()</h2>
@@ -209,13 +208,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>b</em>, </td>
         </tr>
         <tr>
@@ -258,13 +257,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
           <td class="paramname"><em>converge</em>, </td>
         </tr>
         <tr>
@@ -312,13 +311,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">virtual void LCG_Solver::AxProduct </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>a</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>b</em>, </td>
         </tr>
         <tr>
@@ -342,8 +341,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="a016439383af4e9cff2399ba06c7fbd0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a016439383af4e9cff2399ba06c7fbd0d">&#9670;&nbsp;</a></span>Minimize()</h2>
+<a id="ad4f10e45d9604abe4914438a3df5fa53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4f10e45d9604abe4914438a3df5fa53">&#9670;&nbsp;</a></span>Minimize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -354,13 +353,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">void LCG_Solver::Minimize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>b</em>, </td>
         </tr>
         <tr>
@@ -378,14 +377,20 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>p</em> = <code>NULL</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>verbose</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>er_throw</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -402,8 +407,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="a6cfa6228d6d2096d2e86bb6417286780"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cfa6228d6d2096d2e86bb6417286780">&#9670;&nbsp;</a></span>MinimizeConstrained()</h2>
+<a id="a5814cec095106d94a7324009705e463f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5814cec095106d94a7324009705e463f">&#9670;&nbsp;</a></span>MinimizeConstrained()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -414,25 +419,25 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">void LCG_Solver::MinimizeConstrained </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>b</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>low</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>hig</em>, </td>
         </tr>
         <tr>
@@ -451,7 +456,13 @@ Protected 属性</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>verbose</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>er_throw</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -480,13 +491,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">virtual int LCG_Solver::Progress </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
           <td class="paramname"><em>converge</em>, </td>
         </tr>
         <tr>
@@ -572,7 +583,7 @@ Protected 属性</h2></td></tr>
 </div>
 </div>
 <hr/>该类的文档由以下文件生成:<ul>
-<li>src/lib/<a class="el" href="lcg__cxx_8h_source.html">lcg_cxx.h</a></li>
+<li>src/lib/<a class="el" href="lcg__algebra_8h_source.html">lcg_algebra.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

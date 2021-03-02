@@ -102,7 +102,10 @@ $(document).ready(function(){initNavTree('class_c_l_c_g___solver.html',''); init
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="clcg__cxx_8h_source.html">clcg_cxx.h</a>&gt;</code></p>
+<p>Complex linear conjugate gradient solver class  
+ <a href="class_c_l_c_g___solver.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="clcg_8h_source.html">clcg.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public 成员函数</h2></td></tr>
@@ -110,21 +113,21 @@ Public 成员函数</h2></td></tr>
 <tr class="separator:a629c24acc90a2b60dddd539218567d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf732555dc7f9285097be04abbca3a46"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#acf732555dc7f9285097be04abbca3a46">~CLCG_Solver</a> ()</td></tr>
 <tr class="separator:acf732555dc7f9285097be04abbca3a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc394c16db702b88fa7c59f42dab8f49"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#afc394c16db702b88fa7c59f42dab8f49">AxProduct</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> *x, <a class="el" href="structclcg__complex.html">clcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> <a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a>)=0</td></tr>
-<tr class="separator:afc394c16db702b88fa7c59f42dab8f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0ec5f8788a0f0e14587914ec8acc3ec"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#ac0ec5f8788a0f0e14587914ec8acc3ec">Progress</a> (const <a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
-<tr class="separator:ac0ec5f8788a0f0e14587914ec8acc3ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6768ceaa4570c916d5e72d4194a30f8c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a6768ceaa4570c916d5e72d4194a30f8c">AxProduct</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> *x, <a class="el" href="structlcg__complex.html">lcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate)=0</td></tr>
+<tr class="separator:a6768ceaa4570c916d5e72d4194a30f8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0bda5d4c50dd543ec60b4ac51c85cd4"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#aa0bda5d4c50dd543ec60b4ac51c85cd4">Progress</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
+<tr class="separator:aa0bda5d4c50dd543ec60b4ac51c85cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12c5bb654fd4d16c086872b4102c3d45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a12c5bb654fd4d16c086872b4102c3d45">set_clcg_parameter</a> (const <a class="el" href="structclcg__para.html">clcg_para</a> &amp;in_param)</td></tr>
 <tr class="separator:a12c5bb654fd4d16c086872b4102c3d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ffc494e0077998fd55f0763fe3b3c35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a2ffc494e0077998fd55f0763fe3b3c35">Minimize</a> (<a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *b, int x_size, <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">clcg_solver_enum</a> solver_id=<a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5">CLCG_CGS</a>, bool verbose=true)</td></tr>
-<tr class="separator:a2ffc494e0077998fd55f0763fe3b3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9c6d0af9acbec469ff1131bd95e6d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a6f9c6d0af9acbec469ff1131bd95e6d9">Minimize</a> (<a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *b, int x_size, <a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0d">clcg_solver_enum</a> solver_id=<a class="el" href="clcg_8h.html#af99347c7374b3b5c75db9f4f8732bf0da58fe97d47b9c952e92421e6a8179a9d5">CLCG_CGS</a>, bool verbose=true, bool er_throw=false)</td></tr>
+<tr class="separator:a6f9c6d0af9acbec469ff1131bd95e6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 静态 Public 成员函数</h2></td></tr>
-<tr class="memitem:a7771f8030ea87095e6e4d0bdcc6bbdfa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a7771f8030ea87095e6e4d0bdcc6bbdfa">_AxProduct</a> (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *x, <a class="el" href="structclcg__complex.html">clcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> <a class="el" href="clcg_8h.html#a856570f969e1f9e5d2f9332a92eed8cc">conjugate</a>)</td></tr>
-<tr class="separator:a7771f8030ea87095e6e4d0bdcc6bbdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2092694681a520aec78ca99bb5e12910"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a2092694681a520aec78ca99bb5e12910">_Progress</a> (void *instance, const <a class="el" href="structclcg__complex.html">clcg_complex</a> *m, const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
-<tr class="separator:a2092694681a520aec78ca99bb5e12910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5e8782a96e1f59ca78e38c0d409249"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a4e5e8782a96e1f59ca78e38c0d409249">_AxProduct</a> (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *x, <a class="el" href="structlcg__complex.html">lcg_complex</a> *prod_Ax, const int x_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate)</td></tr>
+<tr class="separator:a4e5e8782a96e1f59ca78e38c0d409249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b163dbf5674c19a1dcf03fefa07e881"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_c_g___solver.html#a9b163dbf5674c19a1dcf03fefa07e881">_Progress</a> (void *instance, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *m, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, const <a class="el" href="structclcg__para.html">clcg_para</a> *param, const int n_size, const int k)</td></tr>
+<tr class="separator:a9b163dbf5674c19a1dcf03fefa07e881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected 属性</h2></td></tr>
@@ -132,11 +135,7 @@ Protected 属性</h2></td></tr>
 <tr class="separator:ade36eab5dbfcd314c8cda605ad6b716d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
-<div class="textblock"><p>C/C++ library of complex linear conjugate gradient.</p>
-<p>Copyright (c) 2019-2029 Yi Zhang (<a href="#" onclick="location.href='mai'+'lto:'+'zha'+'ng'+'yis'+'s@'+'icl'+'ou'+'d.c'+'om'; return false;">zhang<span style="display: none;">.nosp@m.</span>yiss<span style="display: none;">.nosp@m.</span>@iclo<span style="display: none;">.nosp@m.</span>ud.c<span style="display: none;">.nosp@m.</span>om</a>) All rights reserved.</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
+<div class="textblock"><p>Complex linear conjugate gradient solver class </p>
 </div><h2 class="groupheader">构造及析构函数说明</h2>
 <a id="a629c24acc90a2b60dddd539218567d9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a629c24acc90a2b60dddd539218567d9e">&#9670;&nbsp;</a></span>CLCG_Solver()</h2>
@@ -189,8 +188,8 @@ Protected 属性</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">成员函数说明</h2>
-<a id="a7771f8030ea87095e6e4d0bdcc6bbdfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7771f8030ea87095e6e4d0bdcc6bbdfa">&#9670;&nbsp;</a></span>_AxProduct()</h2>
+<a id="a4e5e8782a96e1f59ca78e38c0d409249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5e8782a96e1f59ca78e38c0d409249">&#9670;&nbsp;</a></span>_AxProduct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,13 +206,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>prod_Ax</em>, </td>
         </tr>
         <tr>
@@ -225,13 +224,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
           <td class="paramname"><em>layout</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
           <td class="paramname"><em>conjugate</em>&#160;</td>
         </tr>
         <tr>
@@ -250,8 +249,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="a2092694681a520aec78ca99bb5e12910"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2092694681a520aec78ca99bb5e12910">&#9670;&nbsp;</a></span>_Progress()</h2>
+<a id="a9b163dbf5674c19a1dcf03fefa07e881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b163dbf5674c19a1dcf03fefa07e881">&#9670;&nbsp;</a></span>_Progress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,13 +267,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
           <td class="paramname"><em>converge</em>, </td>
         </tr>
         <tr>
@@ -310,8 +309,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="afc394c16db702b88fa7c59f42dab8f49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc394c16db702b88fa7c59f42dab8f49">&#9670;&nbsp;</a></span>AxProduct()</h2>
+<a id="a6768ceaa4570c916d5e72d4194a30f8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6768ceaa4570c916d5e72d4194a30f8c">&#9670;&nbsp;</a></span>AxProduct()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,13 +321,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">virtual void CLCG_Solver::AxProduct </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>prod_Ax</em>, </td>
         </tr>
         <tr>
@@ -340,13 +339,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
           <td class="paramname"><em>layout</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="clcg_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
           <td class="paramname"><em>conjugate</em>&#160;</td>
         </tr>
         <tr>
@@ -364,8 +363,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="a2ffc494e0077998fd55f0763fe3b3c35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ffc494e0077998fd55f0763fe3b3c35">&#9670;&nbsp;</a></span>Minimize()</h2>
+<a id="a6f9c6d0af9acbec469ff1131bd95e6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f9c6d0af9acbec469ff1131bd95e6d9">&#9670;&nbsp;</a></span>Minimize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -376,13 +375,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">void CLCG_Solver::Minimize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>b</em>, </td>
         </tr>
         <tr>
@@ -401,7 +400,13 @@ Protected 属性</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>verbose</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>er_throw</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -418,8 +423,8 @@ Protected 属性</h2></td></tr>
 
 </div>
 </div>
-<a id="ac0ec5f8788a0f0e14587914ec8acc3ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0ec5f8788a0f0e14587914ec8acc3ec">&#9670;&nbsp;</a></span>Progress()</h2>
+<a id="aa0bda5d4c50dd543ec60b4ac51c85cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0bda5d4c50dd543ec60b4ac51c85cd4">&#9670;&nbsp;</a></span>Progress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -430,13 +435,13 @@ Protected 属性</h2></td></tr>
         <tr>
           <td class="memname">virtual int CLCG_Solver::Progress </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structclcg__complex.html">clcg_complex</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td>
           <td class="paramname"><em>converge</em>, </td>
         </tr>
         <tr>
@@ -522,7 +527,7 @@ Protected 属性</h2></td></tr>
 </div>
 </div>
 <hr/>该类的文档由以下文件生成:<ul>
-<li>src/lib/<a class="el" href="clcg__cxx_8h_source.html">clcg_cxx.h</a></li>
+<li>src/lib/<a class="el" href="clcg_8h_source.html">clcg.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

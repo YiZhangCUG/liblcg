@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Liblcg: src/lib/algebra.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Liblcg
+   &#160;<span id="projectnumber">1.6.0</span>
+   </div>
+   <div id="projectbrief">C++ Library of Linear Conjugate Gradient Methods</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('algebra_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">algebra.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="algebra_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/******************************************************/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef _ALGEBRA_H</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define _ALGEBRA_H</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;iostream&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">   35</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">   37</a></span>&#160;    <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba">   38</a></span>&#160;    <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba">Transpose</a>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">   44</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">   46</a></span>&#160;    <a class="code" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a>,</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d">   47</a></span>&#160;    <a class="code" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d">Conjugate</a>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">   54</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">double</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structlcg__complex.html">   60</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structlcg__complex.html">lcg_complex</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">   62</a></span>&#160;    <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> <a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">   63</a></span>&#160;    <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> <a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="structlcg__complex.html#a29d718d1e521303a6b0514d490dd3d80">lcg_complex</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="structlcg__complex.html#a29d718d1e521303a6b0514d490dd3d80">lcg_complex</a>(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> r, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> i);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="structlcg__complex.html#a98a355c39352db4fc18c7eb5eb8e1f1c">~lcg_complex</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="structlcg__complex.html#a6615b85cc0cf3504aeb565dd1a020733">set</a>(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> r, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> i);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> <a class="code" href="structlcg__complex.html#aaa17fa40b0b03d8d655acf9497904875">module</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="structlcg__complex.html#ad731e0c0f450724b1d35e9cf2cf24a60">conjugate</a>();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="algebra_8h.html#aa59b4db7d7cab26311b57052245e2105">operator==</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="algebra_8h.html#ace77720f9931db19e2e2ce06e28ed17e">operator!=</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="algebra_8h.html#ac36758c519f5acff524bd4fcb36002b7">operator+</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="algebra_8h.html#a8d8040fceb7339aa5186f66ecfd7f750">operator-</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="algebra_8h.html#ab553fa38be1956f86e87d6a3d76b57b5">operator*</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="algebra_8h.html#ab553fa38be1956f86e87d6a3d76b57b5">operator*</a>(<span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<a class="code" href="structlcg__complex.html">lcg_complex</a> <a class="code" href="algebra_8h.html#af475f4c6927bf0487521de3e77fe8978">operator/</a>(<span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;b);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;std::ostream &amp;<a class="code" href="algebra_8h.html#a3d4f4510cc1525f1c24e063a3b522934">operator&lt;&lt;</a>(std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;a);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> lcg_abs(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> a)</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;{</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">if</span> (a &gt;= 0.0) <span class="keywordflow">return</span> a;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keywordflow">return</span> -1.0*a;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> lcg_max(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> a, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> b)</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;{</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">if</span> (a &gt;= b) <span class="keywordflow">return</span> a;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;}</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> lcg_min(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> a, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> b)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;{</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">if</span> (a &lt;= b) <span class="keywordflow">return</span> a;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">return</span> b;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> lcg_set2box(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> low, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> hig, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> a, </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordtype">bool</span> low_bound = <span class="keyword">true</span>, <span class="keywordtype">bool</span> hig_bound = <span class="keyword">true</span>)</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">if</span> (hig_bound &amp;&amp; a &gt;= hig) <span class="keywordflow">return</span> hig;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">if</span> (!hig_bound &amp;&amp; a &gt;= hig) <span class="keywordflow">return</span> (hig - 1e-16);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordflow">if</span> (low_bound &amp;&amp; a &lt;= low) <span class="keywordflow">return</span> low;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">if</span> (!low_bound &amp;&amp; a &lt;= low) <span class="keywordflow">return</span> (low + 1e-16);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">return</span> a;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* lcg_malloc(<span class="keywordtype">int</span> n)</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;{</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* x = <span class="keyword">new</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> [n];</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">return</span> x;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>** lcg_malloc(<span class="keywordtype">int</span> m, <span class="keywordtype">int</span> n)</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;{</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> **x = <span class="keyword">new</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* [m];</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; i++)</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        x[i] = <span class="keyword">new</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> [n];</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">return</span> x;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="structlcg__complex.html">lcg_complex</a>* lcg_malloc_complex(<span class="keywordtype">int</span> n)</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;{</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <a class="code" href="structlcg__complex.html">lcg_complex</a>* x = <span class="keyword">new</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> [n];</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordflow">return</span> x;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <a class="code" href="structlcg__complex.html">lcg_complex</a>** lcg_malloc_complex(<span class="keywordtype">int</span> m, <span class="keywordtype">int</span> n)</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;{</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <a class="code" href="structlcg__complex.html">lcg_complex</a> **x = <span class="keyword">new</span> <a class="code" href="structlcg__complex.html">lcg_complex</a>* [m];</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; i++)</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        x[i] = <span class="keyword">new</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> [n];</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">return</span> x;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_free(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* x)</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;{</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">if</span> (x != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    {</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="keyword">delete</span>[] x;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        x = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    }</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_free(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> **x, <span class="keywordtype">int</span> m)</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;{</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordflow">if</span> (x != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    {</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; i++)</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            <span class="keyword">delete</span>[] x[i];</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <span class="keyword">delete</span>[] x;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        x = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_free(<a class="code" href="structlcg__complex.html">lcg_complex</a>* x)</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;{</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordflow">if</span> (x != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    {</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        <span class="keyword">delete</span>[] x;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        x = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    }</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;}</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_free(<a class="code" href="structlcg__complex.html">lcg_complex</a> **x, <span class="keywordtype">int</span> m)</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;{</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">if</span> (x != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m; i++)</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            <span class="keyword">delete</span>[] x[i];</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        }</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keyword">delete</span>[] x;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        x = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    }</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;}</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_vecset(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> b, <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;{</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        a[i] = b;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;}</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_vecset(<a class="code" href="structlcg__complex.html">lcg_complex</a> *a, <a class="code" href="structlcg__complex.html">lcg_complex</a> b, <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;{</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    {</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        a[i] = b;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    }</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;}</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_dot(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;ret, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *a, </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;{</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    ret = 0.0;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        ret += a[i]*b[i];</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    }</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;}</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_dot(<a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;ret, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> *a, </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> *b, <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;{</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    ret.<a class="code" href="structlcg__complex.html#a6615b85cc0cf3504aeb565dd1a020733">set</a>(0.0, 0.0);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    <span class="comment">// &lt;a,b&gt; = \sum{a_i \cdot b_i}</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        ret.<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a> += (a[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>*b[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a> - a[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>*b[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        ret.<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a> += (a[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>*b[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a> + a[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>*b[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>);</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    }</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;}</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> lcg_inner(<a class="code" href="structlcg__complex.html">lcg_complex</a> &amp;ret, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> *a, </div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> *b, <span class="keywordtype">int</span> size)</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;{</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    ret.<a class="code" href="structlcg__complex.html#a6615b85cc0cf3504aeb565dd1a020733">set</a>(0.0, 0.0);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="comment">// &lt;a,b&gt; = \sum{\bar{a_i} \cdot b_i}</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++)</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    {</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;        ret.<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a> += (a[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>*b[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a> + a[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>*b[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        ret.<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a> += (a[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>*b[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a> - a[i].<a class="code" href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">img</a>*b[i].<a class="code" href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">rel</a>);</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    }</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;}</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="keywordtype">void</span> <a class="code" href="algebra_8h.html#ab49d2050c9178d2a98ee9529fa722b5f">lcg_matvec</a>(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> **A, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *x, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *Ax, <span class="keywordtype">int</span> m_size, <span class="keywordtype">int</span> n_size, </div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout = <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a>);</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="keywordtype">void</span> <a class="code" href="algebra_8h.html#ab49d2050c9178d2a98ee9529fa722b5f">lcg_matvec</a>(<a class="code" href="structlcg__complex.html">lcg_complex</a> **A, <span class="keyword">const</span> <a class="code" href="structlcg__complex.html">lcg_complex</a> *x, <a class="code" href="structlcg__complex.html">lcg_complex</a> *Ax, <span class="keywordtype">int</span> m_size, <span class="keywordtype">int</span> n_size, </div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout = <a class="code" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a>, <a class="code" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate = <a class="code" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a>);</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160; </div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="preprocessor">#endif //_ALGEBRA_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aalgebra_8h_html_af475f4c6927bf0487521de3e77fe8978"><div class="ttname"><a href="algebra_8h.html#af475f4c6927bf0487521de3e77fe8978">operator/</a></div><div class="ttdeci">lcg_complex operator/(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload division operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:86</div></div>
+<div class="ttc" id="aalgebra_8h_html_a5282007dc6f0c317361d25fa0eeb4a35"><div class="ttname"><a href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a></div><div class="ttdeci">double lcg_float</div><div class="ttdoc">A simple definition of the float type we use here. Easy to change in the future. Right now it is just...</div><div class="ttdef"><b>Definition:</b> algebra.h:54</div></div>
+<div class="ttc" id="aalgebra_8h_html_ab553fa38be1956f86e87d6a3d76b57b5"><div class="ttname"><a href="algebra_8h.html#ab553fa38be1956f86e87d6a3d76b57b5">operator*</a></div><div class="ttdeci">lcg_complex operator*(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload multiplication operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:70</div></div>
+<div class="ttc" id="astructlcg__complex_html_a6615b85cc0cf3504aeb565dd1a020733"><div class="ttname"><a href="structlcg__complex.html#a6615b85cc0cf3504aeb565dd1a020733">lcg_complex::set</a></div><div class="ttdeci">void set(lcg_float r, lcg_float i)</div><div class="ttdoc">setup a complex number</div><div class="ttdef"><b>Definition:</b> algebra.cpp:21</div></div>
+<div class="ttc" id="aalgebra_8h_html_ac36758c519f5acff524bd4fcb36002b7"><div class="ttname"><a href="algebra_8h.html#ac36758c519f5acff524bd4fcb36002b7">operator+</a></div><div class="ttdeci">lcg_complex operator+(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload addition operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:54</div></div>
+<div class="ttc" id="aalgebra_8h_html_afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba"><div class="ttname"><a href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79af11ca2d40b3bca2eb37e5b28d425d5ba">Transpose</a></div><div class="ttdeci">@ Transpose</div><div class="ttdef"><b>Definition:</b> algebra.h:38</div></div>
+<div class="ttc" id="aalgebra_8h_html_ace77720f9931db19e2e2ce06e28ed17e"><div class="ttname"><a href="algebra_8h.html#ace77720f9931db19e2e2ce06e28ed17e">operator!=</a></div><div class="ttdeci">bool operator!=(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload inequality operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:47</div></div>
+<div class="ttc" id="astructlcg__complex_html"><div class="ttname"><a href="structlcg__complex.html">lcg_complex</a></div><div class="ttdoc">A simple definition of the complex number type. Easy to change in the future. Right now it is just tw...</div><div class="ttdef"><b>Definition:</b> algebra.h:61</div></div>
+<div class="ttc" id="astructlcg__complex_html_a07cc710d56a731d9f326ff40b79cf42d"><div class="ttname"><a href="structlcg__complex.html#a07cc710d56a731d9f326ff40b79cf42d">lcg_complex::rel</a></div><div class="ttdeci">lcg_float rel</div><div class="ttdoc">The real part</div><div class="ttdef"><b>Definition:</b> algebra.h:62</div></div>
+<div class="ttc" id="aalgebra_8h_html_ab49d2050c9178d2a98ee9529fa722b5f"><div class="ttname"><a href="algebra_8h.html#ab49d2050c9178d2a98ee9529fa722b5f">lcg_matvec</a></div><div class="ttdeci">void lcg_matvec(lcg_float **A, const lcg_float *x, lcg_float *Ax, int m_size, int n_size, matrix_layout_e layout=Normal)</div><div class="ttdoc">calculate product of a real matrix and a vector</div><div class="ttdef"><b>Definition:</b> algebra.cpp:109</div></div>
+<div class="ttc" id="astructlcg__complex_html_a98a355c39352db4fc18c7eb5eb8e1f1c"><div class="ttname"><a href="structlcg__complex.html#a98a355c39352db4fc18c7eb5eb8e1f1c">lcg_complex::~lcg_complex</a></div><div class="ttdeci">virtual ~lcg_complex()</div><div class="ttdoc">Destructor</div><div class="ttdef"><b>Definition:</b> algebra.cpp:19</div></div>
+<div class="ttc" id="aalgebra_8h_html_a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362"><div class="ttname"><a href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a></div><div class="ttdeci">@ NonConjugate</div><div class="ttdef"><b>Definition:</b> algebra.h:46</div></div>
+<div class="ttc" id="astructlcg__complex_html_a29d718d1e521303a6b0514d490dd3d80"><div class="ttname"><a href="structlcg__complex.html#a29d718d1e521303a6b0514d490dd3d80">lcg_complex::lcg_complex</a></div><div class="ttdeci">lcg_complex()</div><div class="ttdoc">Constructs a new instance.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:9</div></div>
+<div class="ttc" id="astructlcg__complex_html_aaa17fa40b0b03d8d655acf9497904875"><div class="ttname"><a href="structlcg__complex.html#aaa17fa40b0b03d8d655acf9497904875">lcg_complex::module</a></div><div class="ttdeci">lcg_float module()</div><div class="ttdoc">Calculate the L2 module of a complex number</div><div class="ttdef"><b>Definition:</b> algebra.cpp:27</div></div>
+<div class="ttc" id="aalgebra_8h_html_afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b"><div class="ttname"><a href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a></div><div class="ttdeci">@ Normal</div><div class="ttdef"><b>Definition:</b> algebra.h:37</div></div>
+<div class="ttc" id="aalgebra_8h_html_a9b798f257bb3294c912dcedc1e76f6b5"><div class="ttname"><a href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a></div><div class="ttdeci">complex_conjugate_e</div><div class="ttdoc">Conjugate types for a complex number.</div><div class="ttdef"><b>Definition:</b> algebra.h:45</div></div>
+<div class="ttc" id="aalgebra_8h_html_aa59b4db7d7cab26311b57052245e2105"><div class="ttname"><a href="algebra_8h.html#aa59b4db7d7cab26311b57052245e2105">operator==</a></div><div class="ttdeci">bool operator==(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload equality operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:40</div></div>
+<div class="ttc" id="aalgebra_8h_html_afa1356d2f38311c3519c524f2a9f8e79"><div class="ttname"><a href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a></div><div class="ttdeci">matrix_layout_e</div><div class="ttdoc">Matrix layouts.</div><div class="ttdef"><b>Definition:</b> algebra.h:36</div></div>
+<div class="ttc" id="astructlcg__complex_html_ad731e0c0f450724b1d35e9cf2cf24a60"><div class="ttname"><a href="structlcg__complex.html#ad731e0c0f450724b1d35e9cf2cf24a60">lcg_complex::conjugate</a></div><div class="ttdeci">lcg_complex conjugate()</div><div class="ttdoc">Calculate the conjugate of a complex number</div><div class="ttdef"><b>Definition:</b> algebra.cpp:32</div></div>
+<div class="ttc" id="aalgebra_8h_html_a8d8040fceb7339aa5186f66ecfd7f750"><div class="ttname"><a href="algebra_8h.html#a8d8040fceb7339aa5186f66ecfd7f750">operator-</a></div><div class="ttdeci">lcg_complex operator-(const lcg_complex &amp;a, const lcg_complex &amp;b)</div><div class="ttdoc">Reload subtraction operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:62</div></div>
+<div class="ttc" id="astructlcg__complex_html_a16c00c0991088407fbd44fe9fa1e4e21"><div class="ttname"><a href="structlcg__complex.html#a16c00c0991088407fbd44fe9fa1e4e21">lcg_complex::img</a></div><div class="ttdeci">lcg_float img</div><div class="ttdoc">The imaginary part</div><div class="ttdef"><b>Definition:</b> algebra.h:63</div></div>
+<div class="ttc" id="aalgebra_8h_html_a3d4f4510cc1525f1c24e063a3b522934"><div class="ttname"><a href="algebra_8h.html#a3d4f4510cc1525f1c24e063a3b522934">operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const lcg_complex &amp;a)</div><div class="ttdoc">Reload ostream operator.</div><div class="ttdef"><b>Definition:</b> algebra.cpp:100</div></div>
+<div class="ttc" id="aalgebra_8h_html_a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d"><div class="ttname"><a href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3a520a6a0b858c61cad005ad660ffa4d">Conjugate</a></div><div class="ttdeci">@ Conjugate</div><div class="ttdef"><b>Definition:</b> algebra.h:47</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c85d3e3c5052e9ad9ce18c6863244a25.html">lib</a></li><li class="navelem"><a class="el" href="algebra_8h.html">algebra.h</a></li>
+    <li class="footer">制作者 <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20 </li>
+  </ul>
+</div>
+</body>
+</html>

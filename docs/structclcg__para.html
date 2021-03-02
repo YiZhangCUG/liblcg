@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('structclcg__para.html',''); initResiza
 成员变量</h2></td></tr>
 <tr class="memitem:a404d8c3a84920ebe583d213d13282c20"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__para.html#a404d8c3a84920ebe583d213d13282c20">max_iterations</a></td></tr>
 <tr class="separator:a404d8c3a84920ebe583d213d13282c20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ee42c4e0d3b25a810804cc589e37c65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__para.html#a6ee42c4e0d3b25a810804cc589e37c65">epsilon</a></td></tr>
+<tr class="memitem:a6ee42c4e0d3b25a810804cc589e37c65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__para.html#a6ee42c4e0d3b25a810804cc589e37c65">epsilon</a></td></tr>
 <tr class="separator:a6ee42c4e0d3b25a810804cc589e37c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24cf3b5ba379a2e942c115eb7a4a3184"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structclcg__para.html#a24cf3b5ba379a2e942c115eb7a4a3184">abs_diff</a></td></tr>
 <tr class="separator:a24cf3b5ba379a2e942c115eb7a4a3184"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,11 +139,11 @@ $(document).ready(function(){initNavTree('structclcg__para.html',''); initResiza
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="lcg_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> clcg_para::epsilon</td>
+          <td class="memname"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> clcg_para::epsilon</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Epsilon for convergence test. This parameter determines the accuracy with which the solution is to be found. A minimization terminates when ||g||/||b|| &lt;= epsilon or |Ax - B| &lt;= epsilon for the <a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function, where ||.|| denotes the Euclidean (L2) norm and | | denotes the L1 norm. The default value of epsilon is 1e-6. For box-constrained methods, the convergence test is implemented using ||P(m-g) - m|| &lt;= epsilon, in which P is the projector that transfers m into the constrained domain. </p>
+<p>Epsilon for convergence test. This parameter determines the accuracy with which the solution is to be found. A minimization terminates when ||g||/||b|| &lt;= epsilon or |Ax - B| &lt;= epsilon for the <a class="el" href="lcg__algebra_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function, where ||.|| denotes the Euclidean (L2) norm and | | denotes the L1 norm. The default value of epsilon is 1e-6. For box-constrained methods, the convergence test is implemented using ||P(m-g) - m|| &lt;= epsilon, in which P is the projector that transfers m into the constrained domain. </p>
 
 </div>
 </div>
@@ -158,7 +158,7 @@ $(document).ready(function(){initNavTree('structclcg__para.html',''); initResiza
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Maximal iteration times. The default value is 100. one adjust this parameter by passing a <a class="el" href="structlcg__para.html" title="Parameters of the conjugate gradient methods.">lcg_para</a> type to the <a class="el" href="lcg_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function. </p>
+<p>Maximal iteration times. The default value is 100. one adjust this parameter by passing a <a class="el" href="structlcg__para.html" title="Parameters of the conjugate gradient methods.">lcg_para</a> type to the <a class="el" href="lcg__algebra_8cpp.html#a5d3eb4595fc2c3d6830c5c5fbe130ae9" title="A combined conjugate gradient solver function.">lcg_solver()</a> function. </p>
 
 </div>
 </div>

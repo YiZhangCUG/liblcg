@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Liblcg: src/lib/lcg_algebra.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Liblcg
+   &#160;<span id="projectnumber">1.6.0</span>
+   </div>
+   <div id="projectbrief">C++ Library of Linear Conjugate Gradient Methods</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('lcg__algebra_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">lcg_algebra.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="lcg__algebra_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/******************************************************/</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#ifndef _LCG_ALGEBRA_H</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#define _LCG_ALGEBRA_H</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="lcg_8h.html">lcg.h</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="lcg__algebra_8h.html#aad8c7423a269f54e028c07441615fba6">   40</a></span>&#160;<span class="keyword">typedef</span> void (*<a class="code" href="lcg__algebra_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a>)(<span class="keywordtype">void</span>* instance, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* x, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* prod_Ax, </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> n_size);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="lcg__algebra_8h.html#af5153afe716c929b922ad48dda46d252">   57</a></span>&#160;<span class="keyword">typedef</span> int (*<a class="code" href="lcg__algebra_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a>)(<span class="keywordtype">void</span>* instance, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a>* param, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <span class="keywordtype">int</span> k);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">int</span> <a class="code" href="lcg__algebra_8h.html#a618c2554bf309b8a3d1257915772eec0">lcg_solver</a>(<a class="code" href="lcg__algebra_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a> Afp, <a class="code" href="lcg__algebra_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a> Pfp, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* B, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a>* param, <span class="keywordtype">void</span>* instance, <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id = <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1acc5dd438a153e97dc12881d78f9023e6">LCG_CGS</a>, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* P = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keywordtype">int</span> <a class="code" href="lcg__algebra_8h.html#a967075cdbd4ef5410bb1d9fb1ae1598e">lcg_solver_constrained</a>(<a class="code" href="lcg__algebra_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a> Afp, <a class="code" href="lcg__algebra_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a> Pfp, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* B, </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* low, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a>* param, </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span>* instance, <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id = <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html">  104</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_l_c_g___solver.html">LCG_Solver</a></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">  107</a></span>&#160;    <a class="code" href="structlcg__para.html">lcg_para</a> <a class="code" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">param_</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#ac579562705f8c6bf009a9954cf29153d">  110</a></span>&#160;    <a class="code" href="class_l_c_g___solver.html#ac579562705f8c6bf009a9954cf29153d">LCG_Solver</a>()</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <a class="code" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">param_</a> = <a class="code" href="lcg_8cpp.html#ae709a311e61bd35843a9f4333c38ab18">lcg_default_parameters</a>();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#ae885adbb33e14b8e036141d890819292">  115</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_l_c_g___solver.html#ae885adbb33e14b8e036141d890819292">~LCG_Solver</a>(){}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">  122</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">_AxProduct</a>(<span class="keywordtype">void</span>* instance, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* a, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* b, <span class="keyword">const</span> <span class="keywordtype">int</span> num)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code" href="class_l_c_g___solver.html">LCG_Solver</a>*<span class="keyword">&gt;</span>(instance)-&gt;<a class="code" href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">AxProduct</a>(a, b, num);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">  126</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">AxProduct</a>(<span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* a, <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* b, <span class="keyword">const</span> <span class="keywordtype">int</span> num) = 0;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">  128</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">_Progress</a>(<span class="keywordtype">void</span>* instance, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a> *param, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <span class="keywordtype">int</span> k)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><a class="code" href="class_l_c_g___solver.html">LCG_Solver</a>*<span class="keyword">&gt;</span>(instance)-&gt;<a class="code" href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">Progress</a>(m, converge, param, n_size, k);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">  133</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">Progress</a>(<span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> converge, </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a> *param, <span class="keyword">const</span> <span class="keywordtype">int</span> n_size, <span class="keyword">const</span> <span class="keywordtype">int</span> k)</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        std::clog &lt;&lt; <span class="stringliteral">&quot;\rIteration-times: &quot;</span> &lt;&lt; k &lt;&lt; <span class="stringliteral">&quot;\tconvergence: &quot;</span> &lt;&lt; converge;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#a9792711ff132e2f7fc4b141c56cb3c7a">  140</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_l_c_g___solver.html#a9792711ff132e2f7fc4b141c56cb3c7a">set_lcg_parameter</a>(<span class="keyword">const</span> <a class="code" href="structlcg__para.html">lcg_para</a> &amp;in_param)</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <a class="code" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">param_</a> = in_param;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#ad4f10e45d9604abe4914438a3df5fa53">  146</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_l_c_g___solver.html#ad4f10e45d9604abe4914438a3df5fa53">Minimize</a>(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, <span class="keywordtype">int</span> x_size, </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id = <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02">LCG_CG</a>, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *p = NULL, </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordtype">bool</span> verbose = <span class="keyword">true</span>, <span class="keywordtype">bool</span> er_throw = <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">if</span> (!er_throw)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordflow">switch</span> (solver_id)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02">LCG_CG</a>:</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Conjugate Gradient&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a883bb6d23fbf342404921510838cc921">LCG_PCG</a>:</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Preconditioned Conjugate Gradient&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1acc5dd438a153e97dc12881d78f9023e6">LCG_CGS</a>:</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Conjugate Gradient Squared&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1aad28288f368765535f046e9cd47c9827">LCG_BICGSTAB</a>:</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Bi-Conjugate Gradient Stabilized&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a91f1452bb812869a8dcb50fbe0e60ca4">LCG_BICGSTAB2</a>:</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Bi-Conjugate Gradient Stabilized 2&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Unknown&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            }   </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="comment">// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordtype">int</span> ret = <a class="code" href="lcg__algebra_8h.html#a618c2554bf309b8a3d1257915772eec0">lcg_solver</a>(<a class="code" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">_AxProduct</a>, <a class="code" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">_Progress</a>, m, b, x_size, &amp;<a class="code" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">param_</a>, <span class="keyword">this</span>, solver_id, p);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (verbose)</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keywordflow">if</span> (!er_throw) std::clog &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <a class="code" href="lcg_8cpp.html#ac2820ec7e050c81f889fdf7f4f2fdc83">lcg_error_str</a>(ret, er_throw);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        }</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ret &lt; 0)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordflow">if</span> (!er_throw) std::clog &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <a class="code" href="lcg_8cpp.html#ac2820ec7e050c81f889fdf7f4f2fdc83">lcg_error_str</a>(ret, er_throw);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    }</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="class_l_c_g___solver.html#a5814cec095106d94a7324009705e463f">  190</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_l_c_g___solver.html#a5814cec095106d94a7324009705e463f">MinimizeConstrained</a>(<a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *m, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *b, <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a>* low, </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">const</span> <a class="code" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *hig, <span class="keywordtype">int</span> x_size, <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a> solver_id = <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a>, </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordtype">bool</span> verbose = <span class="keyword">true</span>, <span class="keywordtype">bool</span> er_throw = <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">if</span> (!er_throw)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            <span class="keywordflow">switch</span> (solver_id)</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a>:</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: CG with Projected Gradient&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                <span class="keywordflow">case</span> <a class="code" href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a742a59eb85b7fe90ed34e348da29ce0b">LCG_SPG</a>:</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: CG with Spectral Projected gradient&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                    std::clog &lt;&lt; <span class="stringliteral">&quot;Solver: Unknown&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            }   </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="comment">// 使用lcg求解 注意当我们使用函数指针来调用求解函数时默认参数不可以省略</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordtype">int</span> ret = <a class="code" href="lcg__algebra_8h.html#a967075cdbd4ef5410bb1d9fb1ae1598e">lcg_solver_constrained</a>(<a class="code" href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">_AxProduct</a>, <a class="code" href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">_Progress</a>, m, b, low, hig, x_size, &amp;<a class="code" href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">param_</a>, <span class="keyword">this</span>, solver_id);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keywordflow">if</span> (verbose)</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">if</span> (!er_throw) std::clog &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <a class="code" href="lcg_8cpp.html#ac2820ec7e050c81f889fdf7f4f2fdc83">lcg_error_str</a>(ret, er_throw);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        }</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ret &lt; 0)</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        {</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            <span class="keywordflow">if</span> (er_throw) std::clog &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            <a class="code" href="lcg_8cpp.html#ac2820ec7e050c81f889fdf7f4f2fdc83">lcg_error_str</a>(ret, er_throw);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;};</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="preprocessor">#endif //_LCG_ALGEBRA_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclass_l_c_g___solver_html_a9792711ff132e2f7fc4b141c56cb3c7a"><div class="ttname"><a href="class_l_c_g___solver.html#a9792711ff132e2f7fc4b141c56cb3c7a">LCG_Solver::set_lcg_parameter</a></div><div class="ttdeci">void set_lcg_parameter(const lcg_para &amp;in_param)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:140</div></div>
+<div class="ttc" id="aalgebra_8h_html_a5282007dc6f0c317361d25fa0eeb4a35"><div class="ttname"><a href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a></div><div class="ttdeci">double lcg_float</div><div class="ttdoc">A simple definition of the float type we use here. Easy to change in the future. Right now it is just...</div><div class="ttdef"><b>Definition:</b> algebra.h:54</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1a742a59eb85b7fe90ed34e348da29ce0b"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a742a59eb85b7fe90ed34e348da29ce0b">LCG_SPG</a></div><div class="ttdeci">@ LCG_SPG</div><div class="ttdef"><b>Definition:</b> lcg.h:65</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a0da166a7b3f85cc3a16baae92395a62d">LCG_PG</a></div><div class="ttdeci">@ LCG_PG</div><div class="ttdef"><b>Definition:</b> lcg.h:60</div></div>
+<div class="ttc" id="alcg__algebra_8h_html_aad8c7423a269f54e028c07441615fba6"><div class="ttname"><a href="lcg__algebra_8h.html#aad8c7423a269f54e028c07441615fba6">lcg_axfunc_ptr</a></div><div class="ttdeci">void(* lcg_axfunc_ptr)(void *instance, const lcg_float *x, lcg_float *prod_Ax, const int n_size)</div><div class="ttdoc">Callback interface for calculating the product of a N*N matrix 'A' multiplied by a vertical vector 'x...</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:40</div></div>
+<div class="ttc" id="alcg__algebra_8h_html_af5153afe716c929b922ad48dda46d252"><div class="ttname"><a href="lcg__algebra_8h.html#af5153afe716c929b922ad48dda46d252">lcg_progress_ptr</a></div><div class="ttdeci">int(* lcg_progress_ptr)(void *instance, const lcg_float *m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)</div><div class="ttdoc">Callback interface for monitoring the progress and terminate the iteration if necessary.</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:57</div></div>
+<div class="ttc" id="astructlcg__para_html"><div class="ttname"><a href="structlcg__para.html">lcg_para</a></div><div class="ttdoc">Parameters of the conjugate gradient methods.</div><div class="ttdef"><b>Definition:</b> lcg.h:97</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1">lcg_solver_enum</a></div><div class="ttdeci">lcg_solver_enum</div><div class="ttdoc">Types of method that could be recognized by the lcg_solver() function.</div><div class="ttdef"><b>Definition:</b> lcg.h:35</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_a7f431a9ce9dbc7876293f35e7b1d5e20"><div class="ttname"><a href="class_l_c_g___solver.html#a7f431a9ce9dbc7876293f35e7b1d5e20">LCG_Solver::_AxProduct</a></div><div class="ttdeci">static void _AxProduct(void *instance, const lcg_float *a, lcg_float *b, const int num)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:122</div></div>
+<div class="ttc" id="alcg_8cpp_html_ac2820ec7e050c81f889fdf7f4f2fdc83"><div class="ttname"><a href="lcg_8cpp.html#ac2820ec7e050c81f889fdf7f4f2fdc83">lcg_error_str</a></div><div class="ttdeci">void lcg_error_str(int er_index, bool er_throw)</div><div class="ttdoc">Display or throw out a string explanation for the lcg_solver() function's return values.</div><div class="ttdef"><b>Definition:</b> lcg.cpp:19</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_ac579562705f8c6bf009a9954cf29153d"><div class="ttname"><a href="class_l_c_g___solver.html#ac579562705f8c6bf009a9954cf29153d">LCG_Solver::LCG_Solver</a></div><div class="ttdeci">LCG_Solver()</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:110</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a1bce3354b52508bccfeb0bdee74fec02">LCG_CG</a></div><div class="ttdeci">@ LCG_CG</div><div class="ttdef"><b>Definition:</b> lcg.h:39</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_a1d8293bf43b5076a639200141e1954da"><div class="ttname"><a href="class_l_c_g___solver.html#a1d8293bf43b5076a639200141e1954da">LCG_Solver::_Progress</a></div><div class="ttdeci">static int _Progress(void *instance, const lcg_float *m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:128</div></div>
+<div class="ttc" id="alcg__algebra_8h_html_a618c2554bf309b8a3d1257915772eec0"><div class="ttname"><a href="lcg__algebra_8h.html#a618c2554bf309b8a3d1257915772eec0">lcg_solver</a></div><div class="ttdeci">int lcg_solver(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float *m, const lcg_float *B, const int n_size, const lcg_para *param, void *instance, lcg_solver_enum solver_id=LCG_CGS, const lcg_float *P=nullptr)</div><div class="ttdoc">A combined conjugate gradient solver function.</div><div class="ttdef"><b>Definition:</b> lcg_algebra.cpp:38</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1aad28288f368765535f046e9cd47c9827"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1aad28288f368765535f046e9cd47c9827">LCG_BICGSTAB</a></div><div class="ttdeci">@ LCG_BICGSTAB</div><div class="ttdef"><b>Definition:</b> lcg.h:51</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_ae885adbb33e14b8e036141d890819292"><div class="ttname"><a href="class_l_c_g___solver.html#ae885adbb33e14b8e036141d890819292">LCG_Solver::~LCG_Solver</a></div><div class="ttdeci">virtual ~LCG_Solver()</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:115</div></div>
+<div class="ttc" id="alcg_8h_html"><div class="ttname"><a href="lcg_8h.html">lcg.h</a></div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_a5814cec095106d94a7324009705e463f"><div class="ttname"><a href="class_l_c_g___solver.html#a5814cec095106d94a7324009705e463f">LCG_Solver::MinimizeConstrained</a></div><div class="ttdeci">void MinimizeConstrained(lcg_float *m, const lcg_float *b, const lcg_float *low, const lcg_float *hig, int x_size, lcg_solver_enum solver_id=LCG_PG, bool verbose=true, bool er_throw=false)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:190</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_ac370c9e6dc4080b6a19c8b3068c437ca"><div class="ttname"><a href="class_l_c_g___solver.html#ac370c9e6dc4080b6a19c8b3068c437ca">LCG_Solver::param_</a></div><div class="ttdeci">lcg_para param_</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:107</div></div>
+<div class="ttc" id="alcg__algebra_8h_html_a967075cdbd4ef5410bb1d9fb1ae1598e"><div class="ttname"><a href="lcg__algebra_8h.html#a967075cdbd4ef5410bb1d9fb1ae1598e">lcg_solver_constrained</a></div><div class="ttdeci">int lcg_solver_constrained(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float *m, const lcg_float *B, const lcg_float *low, const lcg_float *hig, const int n_size, const lcg_para *param, void *instance, lcg_solver_enum solver_id=LCG_PG)</div><div class="ttdoc">A combined conjugate gradient solver function with inequality constraints.</div><div class="ttdef"><b>Definition:</b> lcg_algebra.cpp:96</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1acc5dd438a153e97dc12881d78f9023e6"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1acc5dd438a153e97dc12881d78f9023e6">LCG_CGS</a></div><div class="ttdeci">@ LCG_CGS</div><div class="ttdef"><b>Definition:</b> lcg.h:47</div></div>
+<div class="ttc" id="alcg_8cpp_html_ae709a311e61bd35843a9f4333c38ab18"><div class="ttname"><a href="lcg_8cpp.html#ae709a311e61bd35843a9f4333c38ab18">lcg_default_parameters</a></div><div class="ttdeci">lcg_para lcg_default_parameters()</div><div class="ttdoc">Return a lcg_para type instance with default values.</div><div class="ttdef"><b>Definition:</b> lcg.cpp:13</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_ad4f10e45d9604abe4914438a3df5fa53"><div class="ttname"><a href="class_l_c_g___solver.html#ad4f10e45d9604abe4914438a3df5fa53">LCG_Solver::Minimize</a></div><div class="ttdeci">void Minimize(lcg_float *m, const lcg_float *b, int x_size, lcg_solver_enum solver_id=LCG_CG, const lcg_float *p=NULL, bool verbose=true, bool er_throw=false)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:146</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_a1a8db9f44f4acc20a3c9708afbb64fbd"><div class="ttname"><a href="class_l_c_g___solver.html#a1a8db9f44f4acc20a3c9708afbb64fbd">LCG_Solver::AxProduct</a></div><div class="ttdeci">virtual void AxProduct(const lcg_float *a, lcg_float *b, const int num)=0</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html"><div class="ttname"><a href="class_l_c_g___solver.html">LCG_Solver</a></div><div class="ttdoc">Linear conjugate gradient solver class</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:105</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1a883bb6d23fbf342404921510838cc921"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a883bb6d23fbf342404921510838cc921">LCG_PCG</a></div><div class="ttdeci">@ LCG_PCG</div><div class="ttdef"><b>Definition:</b> lcg.h:43</div></div>
+<div class="ttc" id="aclass_l_c_g___solver_html_ad4f81f0ab69743134b181675ab2aecc8"><div class="ttname"><a href="class_l_c_g___solver.html#ad4f81f0ab69743134b181675ab2aecc8">LCG_Solver::Progress</a></div><div class="ttdeci">virtual int Progress(const lcg_float *m, const lcg_float converge, const lcg_para *param, const int n_size, const int k)</div><div class="ttdef"><b>Definition:</b> lcg_algebra.h:133</div></div>
+<div class="ttc" id="alcg_8h_html_a9ce95cfde91c2580af819d69bdcc86b1a91f1452bb812869a8dcb50fbe0e60ca4"><div class="ttname"><a href="lcg_8h.html#a9ce95cfde91c2580af819d69bdcc86b1a91f1452bb812869a8dcb50fbe0e60ca4">LCG_BICGSTAB2</a></div><div class="ttdeci">@ LCG_BICGSTAB2</div><div class="ttdef"><b>Definition:</b> lcg.h:55</div></div>
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c85d3e3c5052e9ad9ce18c6863244a25.html">lib</a></li><li class="navelem"><a class="el" href="lcg__algebra_8h.html">lcg_algebra.h</a></li>
+    <li class="footer">制作者 <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20 </li>
+  </ul>
+</div>
+</body>
+</html>

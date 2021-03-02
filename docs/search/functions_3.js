@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inner_5fproduct_149',['inner_product',['../clcg_8cpp.html#a8e603e8f7b4ac26bdebe87dab8c0beda',1,'inner_product(const clcg_complex *a, const clcg_complex *b, int x_size):&#160;clcg.cpp'],['../clcg_8h.html#a8e603e8f7b4ac26bdebe87dab8c0beda',1,'inner_product(const clcg_complex *a, const clcg_complex *b, int x_size):&#160;clcg.cpp']]]
+  ['eigen_5fsolver_156',['eigen_solver',['../lcg__eigen_8cpp.html#adbff9d2909c5434a933552697a53c915',1,'eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &amp;m, const Eigen::VectorXd &amp;B, const lcg_para *param, void *instance, lcg_solver_enum solver_id):&#160;lcg_eigen.cpp'],['../lcg__eigen_8h.html#a8e1c6935b1bd476422682deb0b778f6b',1,'eigen_solver(eigen_axfunc_ptr Afp, eigen_progress_ptr Pfp, Eigen::VectorXd &amp;m, const Eigen::VectorXd &amp;B, const lcg_para *param, void *instance, lcg_solver_enum solver_id=LCG_CG):&#160;lcg_eigen.cpp']]]
 ];

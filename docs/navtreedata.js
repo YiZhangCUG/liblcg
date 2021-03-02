@@ -52,7 +52,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"algebra_8cpp.html"
 ];
 
 var SYNCONMSG = '点击 关闭 面板同步';

@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.20"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Liblcg: src/lib/algebra.cpp 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Liblcg
+   &#160;<span id="projectnumber">1.6.0</span>
+   </div>
+   <div id="projectbrief">C++ Library of Linear Conjugate Gradient Methods</div>
+  </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.20 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('algebra_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">algebra.cpp 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="algebra_8h_source.html">algebra.h</a>&quot;</code><br />
+<code>#include &quot;cmath&quot;</code><br />
+<code>#include &quot;omp.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:aa59b4db7d7cab26311b57052245e2105"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#aa59b4db7d7cab26311b57052245e2105">operator==</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:aa59b4db7d7cab26311b57052245e2105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload equality operator.  <a href="algebra_8cpp.html#aa59b4db7d7cab26311b57052245e2105">更多...</a><br /></td></tr>
+<tr class="separator:aa59b4db7d7cab26311b57052245e2105"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace77720f9931db19e2e2ce06e28ed17e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#ace77720f9931db19e2e2ce06e28ed17e">operator!=</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:ace77720f9931db19e2e2ce06e28ed17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload inequality operator.  <a href="algebra_8cpp.html#ace77720f9931db19e2e2ce06e28ed17e">更多...</a><br /></td></tr>
+<tr class="separator:ace77720f9931db19e2e2ce06e28ed17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac36758c519f5acff524bd4fcb36002b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlcg__complex.html">lcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#ac36758c519f5acff524bd4fcb36002b7">operator+</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:ac36758c519f5acff524bd4fcb36002b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload addition operator.  <a href="algebra_8cpp.html#ac36758c519f5acff524bd4fcb36002b7">更多...</a><br /></td></tr>
+<tr class="separator:ac36758c519f5acff524bd4fcb36002b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8040fceb7339aa5186f66ecfd7f750"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlcg__complex.html">lcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#a8d8040fceb7339aa5186f66ecfd7f750">operator-</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:a8d8040fceb7339aa5186f66ecfd7f750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload subtraction operator.  <a href="algebra_8cpp.html#a8d8040fceb7339aa5186f66ecfd7f750">更多...</a><br /></td></tr>
+<tr class="separator:a8d8040fceb7339aa5186f66ecfd7f750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab553fa38be1956f86e87d6a3d76b57b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlcg__complex.html">lcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#ab553fa38be1956f86e87d6a3d76b57b5">operator*</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:ab553fa38be1956f86e87d6a3d76b57b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload multiplication operator.  <a href="algebra_8cpp.html#ab553fa38be1956f86e87d6a3d76b57b5">更多...</a><br /></td></tr>
+<tr class="separator:ab553fa38be1956f86e87d6a3d76b57b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80ba3e5eba10e2ca47e41c725a28036f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlcg__complex.html">lcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#a80ba3e5eba10e2ca47e41c725a28036f">operator*</a> (const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:a80ba3e5eba10e2ca47e41c725a28036f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload multiplication operator.  <a href="algebra_8cpp.html#a80ba3e5eba10e2ca47e41c725a28036f">更多...</a><br /></td></tr>
+<tr class="separator:a80ba3e5eba10e2ca47e41c725a28036f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af475f4c6927bf0487521de3e77fe8978"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlcg__complex.html">lcg_complex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#af475f4c6927bf0487521de3e77fe8978">operator/</a> (const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;b)</td></tr>
+<tr class="memdesc:af475f4c6927bf0487521de3e77fe8978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload division operator.  <a href="algebra_8cpp.html#af475f4c6927bf0487521de3e77fe8978">更多...</a><br /></td></tr>
+<tr class="separator:af475f4c6927bf0487521de3e77fe8978"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4f4510cc1525f1c24e063a3b522934"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#a3d4f4510cc1525f1c24e063a3b522934">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;a)</td></tr>
+<tr class="memdesc:a3d4f4510cc1525f1c24e063a3b522934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reload ostream operator.  <a href="algebra_8cpp.html#a3d4f4510cc1525f1c24e063a3b522934">更多...</a><br /></td></tr>
+<tr class="separator:a3d4f4510cc1525f1c24e063a3b522934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30fce4f886d6fe1ccdd70ad2b3142e3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#a30fce4f886d6fe1ccdd70ad2b3142e3c">lcg_matvec</a> (<a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> **A, const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *x, <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *Ax, int m_size, int n_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout)</td></tr>
+<tr class="memdesc:a30fce4f886d6fe1ccdd70ad2b3142e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate product of a real matrix and a vector  <a href="algebra_8cpp.html#a30fce4f886d6fe1ccdd70ad2b3142e3c">更多...</a><br /></td></tr>
+<tr class="separator:a30fce4f886d6fe1ccdd70ad2b3142e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96231380081dfe09a608336cda90b7e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="algebra_8cpp.html#a96231380081dfe09a608336cda90b7e3">lcg_matvec</a> (<a class="el" href="structlcg__complex.html">lcg_complex</a> **A, const <a class="el" href="structlcg__complex.html">lcg_complex</a> *x, <a class="el" href="structlcg__complex.html">lcg_complex</a> *Ax, int m_size, int n_size, <a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a> layout, <a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a> conjugate)</td></tr>
+<tr class="memdesc:a96231380081dfe09a608336cda90b7e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculate product of a complex matrix and a complex vector  <a href="algebra_8cpp.html#a96231380081dfe09a608336cda90b7e3">更多...</a><br /></td></tr>
+<tr class="separator:a96231380081dfe09a608336cda90b7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="a96231380081dfe09a608336cda90b7e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96231380081dfe09a608336cda90b7e3">&#9670;&nbsp;</a></span>lcg_matvec() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcg_matvec </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> **&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structlcg__complex.html">lcg_complex</a> *&#160;</td>
+          <td class="paramname"><em>Ax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
+          <td class="paramname"><em>layout</em> = <code><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5">complex_conjugate_e</a>&#160;</td>
+          <td class="paramname"><em>conjugate</em> = <code><a class="el" href="algebra_8h.html#a9b798f257bb3294c912dcedc1e76f6b5a3c58aeb596460847714a08cfa58b0362">NonConjugate</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculate product of a complex matrix and a complex vector </p>
+<p>the product of two complex vectors are defined as &lt;a, b&gt; = \sum{\bar{a_i}\cdot\b_i}. Different configurations: layout=Normal,conjugate=false -&gt; A layout=Transpose,conjugate=false -&gt; A^T layout=Normal,conjugate=true -&gt; \bar{A} layout=Transpose,conjugate=true -&gt; A^H</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">A</td><td>complex matrix A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>complex vector x </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Ax</td><td>product of Ax </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m_size</td><td>row size of A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n_size</td><td>column size of A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>layout of A used for multiplication. Must be Normal or Transpose </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">conjugate</td><td>whether to use the complex conjugate of A for calculation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a30fce4f886d6fe1ccdd70ad2b3142e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30fce4f886d6fe1ccdd70ad2b3142e3c">&#9670;&nbsp;</a></span>lcg_matvec() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcg_matvec </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> **&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> *&#160;</td>
+          <td class="paramname"><em>Ax</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79">matrix_layout_e</a>&#160;</td>
+          <td class="paramname"><em>layout</em> = <code><a class="el" href="algebra_8h.html#afa1356d2f38311c3519c524f2a9f8e79a5ecbcf0afce98b042f35ec71ba03fa4b">Normal</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculate product of a real matrix and a vector </p>
+<p>Different configurations: layout=Normal -&gt; A layout=Transpose -&gt; A^T</p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">A</td><td>matrix A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>vector x </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Ax</td><td>product of Ax </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m_size</td><td>row size of A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">n_size</td><td>column size of A </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layout</td><td>layout of A used for multiplication. Must be Normal or Transpose </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ace77720f9931db19e2e2ce06e28ed17e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace77720f9931db19e2e2ce06e28ed17e">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload inequality operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>unequal or not </dd></dl>
+
+</div>
+</div>
+<a id="ab553fa38be1956f86e87d6a3d76b57b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab553fa38be1956f86e87d6a3d76b57b5">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlcg__complex.html">lcg_complex</a> operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload multiplication operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>product </dd></dl>
+
+</div>
+</div>
+<a id="a80ba3e5eba10e2ca47e41c725a28036f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80ba3e5eba10e2ca47e41c725a28036f">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlcg__complex.html">lcg_complex</a> operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="algebra_8h.html#a5282007dc6f0c317361d25fa0eeb4a35">lcg_float</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload multiplication operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>product </dd></dl>
+
+</div>
+</div>
+<a id="ac36758c519f5acff524bd4fcb36002b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac36758c519f5acff524bd4fcb36002b7">&#9670;&nbsp;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlcg__complex.html">lcg_complex</a> operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload addition operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>sum </dd></dl>
+
+</div>
+</div>
+<a id="a8d8040fceb7339aa5186f66ecfd7f750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8040fceb7339aa5186f66ecfd7f750">&#9670;&nbsp;</a></span>operator-()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlcg__complex.html">lcg_complex</a> operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload subtraction operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>subtraction </dd></dl>
+
+</div>
+</div>
+<a id="af475f4c6927bf0487521de3e77fe8978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af475f4c6927bf0487521de3e77fe8978">&#9670;&nbsp;</a></span>operator/()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structlcg__complex.html">lcg_complex</a> operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload division operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>quotient </dd></dl>
+
+</div>
+</div>
+<a id="a3d4f4510cc1525f1c24e063a3b522934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4f4510cc1525f1c24e063a3b522934">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload ostream operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">os</td><td>The ostream </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>The ostream </dd></dl>
+
+</div>
+</div>
+<a id="aa59b4db7d7cab26311b57052245e2105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa59b4db7d7cab26311b57052245e2105">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structlcg__complex.html">lcg_complex</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reload equality operator. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>complex number a </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>complex number b</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>equal or not </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c85d3e3c5052e9ad9ce18c6863244a25.html">lib</a></li><li class="navelem"><a class="el" href="algebra_8cpp.html">algebra.cpp</a></li>
+    <li class="footer">制作者 <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20 </li>
+  </ul>
+</div>
+</body>
+</html>
