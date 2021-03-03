@@ -57,28 +57,20 @@ endif()
 
 # 库的安装命令
 if(WIN32)
-	install(TARGETS lcg DESTINATION Liblcg/lib)
-	install(TARGETS lcg_static DESTINATION Liblcg/lib)
-	# 头文件安装命令
-	install(FILES lib/algebra.h DESTINATION Liblcg/include)
-	install(FILES lib/lcg_cmn.h DESTINATION Liblcg/include)
-	install(FILES lib/lcg.h DESTINATION Liblcg/include)
-	install(FILES lib/clcg.h DESTINATION Liblcg/include)
-	if(LCG_EIGEN)
-		install(FILES lib/lcg_eigen.h DESTINATION Liblcg/include)
-	endif()
+	install(TARGETS lcg DESTINATION lib)
+	install(TARGETS lcg_static DESTINATION lib)
 else()
 	install(TARGETS lcg lcg_static
 	LIBRARY DESTINATION lib
 	ARCHIVE DESTINATION lib)
-	# 头文件安装命令
-	install(FILES lib/algebra.h DESTINATION include/lcg)
-	install(FILES lib/lcg_cmn.h DESTINATION include/lcg)
-	install(FILES lib/lcg.h DESTINATION include/lcg)
-	install(FILES lib/clcg.h DESTINATION include/lcg)
-	if(LCG_EIGEN)
-		install(FILES lib/lcg_eigen.h DESTINATION include/lcg)
-	endif()
+endif()
+# 头文件安装命令
+install(FILES lib/algebra.h DESTINATION include/lcg)
+install(FILES lib/lcg_cmn.h DESTINATION include/lcg)
+install(FILES lib/lcg.h DESTINATION include/lcg)
+install(FILES lib/clcg.h DESTINATION include/lcg)
+if(LCG_EIGEN)
+	install(FILES lib/lcg_eigen.h DESTINATION include/lcg)
 endif()
 
 # 以下部分为例子程序的编译
