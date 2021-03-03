@@ -75,6 +75,27 @@ int lcg_solver_eigen(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen
 	const Eigen::VectorXd *P = nullptr);
 
 /**
+ * @brief      A combined conjugate gradient solver function with inequality constraints.
+ *
+ * @param[in]  Afp         Callback function for calculating the product of 'Ax'.
+ * @param[in]  Pfp         Callback function for monitoring the iteration progress.
+ * @param      m           Initial solution vector.
+ * @param      B           Objective vector of the linear system.
+ * @param[in]  low         The lower boundary of the acceptable solution.
+ * @param[in]  hig         The higher boundary of the acceptable solution.
+ * @param      param       Parameter setup for the conjugate gradient methods.
+ * @param      instance    The user data sent for the lcg_solver() function by the client. 
+ * This variable is either 'this' for class member functions or 'NULL' for global functions.
+ * @param      solver_id   Solver type used to solve the linear system. The default value is LCG_CGS.
+ * @param      P           Precondition vector (optional expect for the LCG_PCG method). The default value is NULL.
+ *
+ * @return     Status of the function.
+ */
+int lcg_solver_constrained_eigen(lcg_axfunc_eigen_ptr Afp, lcg_progress_eigen_ptr Pfp, Eigen::VectorXd &m, 
+	const Eigen::VectorXd &B, const Eigen::VectorXd &low, const Eigen::VectorXd &hig, 
+	const lcg_para* param, void* instance, lcg_solver_enum solver_id = LCG_PG);
+
+/**
  * @brief      Linear conjugate gradient solver class
  */
 class LCG_EIGEN_Solver

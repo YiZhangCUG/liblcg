@@ -39,7 +39,10 @@ int Prog(void* instance, const Eigen::VectorXd *m, const lcg_float converge,
 int main(int argc, char const *argv[])
 {
 	// 生成一组正演解
+	lcg_float LO = 1.0, HI = 2.0, Range = HI - LO;
 	Eigen::VectorXd fm = Eigen::VectorXd::Random(N);
+	fm = (fm + Eigen::VectorXd::Constant(N, 1.0))*0.5*Range;
+	fm = (fm + Eigen::VectorXd::Constant(N, LO));
 
 	// 计算共轭梯度B项
 	Eigen::VectorXd B(N);
@@ -55,6 +58,8 @@ int main(int argc, char const *argv[])
 	// 声明一组解
 	Eigen::VectorXd m = Eigen::VectorXd::Zero(N);
 	Eigen::VectorXd p = Eigen::VectorXd::Constant(N, 1.0);
+	Eigen::VectorXd low = Eigen::VectorXd::Constant(N, LO);
+	Eigen::VectorXd hig = Eigen::VectorXd::Constant(N, HI);
 
 	std::clog << "solver: cg" << std::endl;
 	clock_t start = clock();
@@ -77,6 +82,42 @@ int main(int argc, char const *argv[])
 	std::clog << "solver: cgs" << std::endl;
 	start = clock();
 	ret = lcg_solver_eigen(CalAx, Prog, m, B, &self_para, NULL, LCG_CGS);
+	end = clock();
+	std::clog << std::endl; lcg_error_str(ret);
+	std::clog << "maximal difference: " << max_diff(fm, m) << std::endl;
+	std::clog << "time use: "<<1000*(end-start)/(double)CLOCKS_PER_SEC<<" ms" << std::endl;
+
+	m.setZero();
+	std::clog << "solver: bicgstab" << std::endl;
+	start = clock();
+	ret = lcg_solver_eigen(CalAx, Prog, m, B, &self_para, NULL, LCG_BICGSTAB);
+	end = clock();
+	std::clog << std::endl; lcg_error_str(ret);
+	std::clog << "maximal difference: " << max_diff(fm, m) << std::endl;
+	std::clog << "time use: "<<1000*(end-start)/(double)CLOCKS_PER_SEC<<" ms" << std::endl;
+
+	m.setZero();
+	std::clog << "solver: bicgstab2" << std::endl;
+	start = clock();
+	ret = lcg_solver_eigen(CalAx, Prog, m, B, &self_para, NULL, LCG_BICGSTAB2);
+	end = clock();
+	std::clog << std::endl; lcg_error_str(ret);
+	std::clog << "maximal difference: " << max_diff(fm, m) << std::endl;
+	std::clog << "time use: "<<1000*(end-start)/(double)CLOCKS_PER_SEC<<" ms" << std::endl;
+
+	m.setZero();
+	std::clog << "solver: pg" << std::endl;
+	start = clock();
+	ret = lcg_solver_constrained_eigen(CalAx, Prog, m, B, low, hig, &self_para, NULL, LCG_PG);
+	end = clock();
+	std::clog << std::endl; lcg_error_str(ret);
+	std::clog << "maximal difference: " << max_diff(fm, m) << std::endl;
+	std::clog << "time use: "<<1000*(end-start)/(double)CLOCKS_PER_SEC<<" ms" << std::endl;
+
+	m.setZero();
+	std::clog << "solver: spg" << std::endl;
+	start = clock();
+	ret = lcg_solver_constrained_eigen(CalAx, Prog, m, B, low, hig, &self_para, NULL, LCG_SPG);
 	end = clock();
 	std::clog << std::endl; lcg_error_str(ret);
 	std::clog << "maximal difference: " << max_diff(fm, m) << std::endl;

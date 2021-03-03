@@ -88,7 +88,6 @@ typedef int (*lcg_solver_ptr2)(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_flo
 int lpg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance);
-
 int lspg(lcg_axfunc_ptr Afp, lcg_progress_ptr Pfp, lcg_float* m, const lcg_float* B, 
 	const lcg_float* low, const lcg_float* hig, const int n_size, const lcg_para* param, 
 	void* instance);
