@@ -26,61 +26,7 @@
 #ifndef _CLCG_H
 #define _CLCG_H
 
-#include "algebra.h"
-
-/**
- * @brief      Types of method that could be recognized by the clcg_solver() function.
- */
-enum clcg_solver_enum
-{
-	/**
-	 * Jacob's Bi-Conjugate Gradient Method
-	 */
-	CLCG_BICG,
-	/**
-	 * Bi-Conjugate Gradient Method accelerated for complex symmetric A
-	 */
-	CLCG_BICG_SYM,
-	/**
-	 * Conjugate Gradient Squared Method with real coefficients.
-	 */
-	CLCG_CGS,
-	/**
-	 * Transpose Free Quasi-Minimal Residual Method
-	 */
-	CLCG_TFQMR,
-};
-
-/**
- * @brief      Parameters of the conjugate gradient methods.
- */
-struct clcg_para
-{
-	/**
-	 * Maximal iteration times. The default value is 100. one adjust this parameter 
-	 * by passing a lcg_para type to the lcg_solver() function.
-	*/
-	int max_iterations;
-
-	/**
-	 * Epsilon for convergence test.
-	 * This parameter determines the accuracy with which the solution is to be found. 
-	 * A minimization terminates when ||g||/||b|| <= epsilon or |Ax - B| <= epsilon for 
-	 * the lcg_solver() function, where ||.|| denotes the Euclidean (L2) norm and | | 
-	 * denotes the L1 norm. The default value of epsilon is 1e-6. For box-constrained methods,
-	 * the convergence test is implemented using ||P(m-g) - m|| <= epsilon, in which P is the
-	 * projector that transfers m into the constrained domain.
-	*/
-	lcg_float epsilon;
-
-	/**
-	 * Whether to use absolute mean differences (AMD) between |Ax - B| to evaluate the process. 
-	 * The default value is false which means the gradient based evaluating method is used. 
-	 * The AMD based method will be used if this variable is set to true. This parameter is only 
-	 * applied to the non-constrained methods.
-	 */
-	int abs_diff;
-};
+#include "clcg_cmn.h"
 
 /**
  * @brief  Callback interface for calculating the complex product of a N*N matrix 'A' multiplied 
@@ -111,25 +57,6 @@ typedef void (*clcg_axfunc_ptr)(void *instance, const lcg_complex *x, lcg_comple
  */
 typedef int (*clcg_progress_ptr)(void* instance, const lcg_complex* m, 
 	const lcg_float converge, const clcg_para* param, const int n_size, const int k);
-
-/**
- * @brief      Return a clcg_para type instance with default values.
- * 
- * Users can use this function to get default parameters' value for the complex conjugate gradient methods.
- * 
- * @return     A clcg_para type instance.
- */
-clcg_para clcg_default_parameters();
-
-/**
- * @brief      Display or throw out a string explanation for the clcg_solver() function's return values.
- *
- * @param[in]  er_index  The error index returned by the lcg_solver() function.
- * @param[in]  er_throw  throw out a char string of the explanation.
- *
- * @return     A string explanation of the error.
- */
-void clcg_error_str(int er_index, bool er_throw = false);
 
 /**
  * @brief      A combined complex conjugate gradient solver function.

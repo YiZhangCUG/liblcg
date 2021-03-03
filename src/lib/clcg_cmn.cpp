@@ -1,17 +1,17 @@
 #include "config.h"
-#include "lcg_cmn.h"
+#include "clcg_cmn.h"
 
 #ifdef __WIN32__
 #include "windows.h"
 #endif
 
-lcg_para lcg_default_parameters()
+clcg_para clcg_default_parameters()
 {
-	lcg_para param = defparam;
+	clcg_para param = defparam;
 	return param;
 }
 
-void lcg_error_str(int er_index, bool er_throw)
+void clcg_error_str(int er_index, bool er_throw)
 {
 #if defined(__linux__) || defined(__APPLE__)
 	if (!er_throw)
@@ -40,40 +40,26 @@ void lcg_error_str(int er_index, bool er_throw)
 	std::string err_str;
 	switch (er_index)
 	{
-		case LCG_SUCCESS:
+		case CLCG_SUCCESS:
 			err_str = "Iteration reached convergence."; break;
-		case LCG_STOP:
+		case CLCG_STOP:
 			err_str = "Iteration is stopped by the progress evaluation function."; break;
-		case LCG_ALREADY_OPTIMIZIED:
+		case CLCG_ALREADY_OPTIMIZIED:
 			err_str = "Variables are already optimized."; break;
-		case LCG_UNKNOWN_ERROR:
+		case CLCG_UNKNOWN_ERROR:
 			err_str = "Unknown error."; break;
-		case LCG_INVILAD_VARIABLE_SIZE:
+		case CLCG_INVILAD_VARIABLE_SIZE:
 			err_str = "Size of the variables is negative."; break;
-		case LCG_INVILAD_MAX_ITERATIONS:
-			err_str = "The maximal iteration times can't be negative."; break;
-		case LCG_INVILAD_EPSILON:
-			err_str = "The convergence threshold can't be negative."; break;
-		case LCG_INVILAD_RESTART_EPSILON:
-			err_str = "The restart threshold can't be negative."; break;
-		case LCG_REACHED_MAX_ITERATIONS:
+		case CLCG_INVILAD_MAX_ITERATIONS:
+			err_str = "The maximal iteration times is negative."; break;
+		case CLCG_INVILAD_EPSILON:
+			err_str = "The epsilon is negative."; break;
+		case CLCG_REACHED_MAX_ITERATIONS:
 			err_str = "The maximal iteration has been reached."; break;
-		case LCG_NULL_PRECONDITION_MATRIX:
-			err_str = "The precondition matrix can't be null."; break;
-		case LCG_NAN_VALUE:
+		case CLCG_NAN_VALUE:
 			err_str = "The model values are NaN."; break;
-		case LCG_INVALID_POINTER:
+		case CLCG_INVALID_POINTER:
 			err_str = "Invalid pointer."; break;
-		case LCG_INVALID_LAMBDA:
-			err_str = "Invalid value for lambda."; break;
-		case LCG_INVALID_SIGMA:
-			err_str = "Invalid value for sigma."; break;
-		case LCG_INVALID_BETA:
-			err_str = "Invalid value for beta."; break;
-		case LCG_INVALID_MAXIM:
-			err_str = "Invalid value for maxi_m."; break;
-		case LCG_SIZE_NOT_MATCH:
-			err_str = "The sizes of solution and target do not match."; break;
 		default:
 			err_str = "Unknown error."; break;
 	}
