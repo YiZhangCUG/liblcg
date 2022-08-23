@@ -1,0 +1,4 @@
+#cmakedefine LibLCG_OPENMP
+#cmakedefine LibLCG_EIGEN
+#cmakedefine LibLCG_STD_COMPLEX
+#cmakedefine LibLCG_CUDA

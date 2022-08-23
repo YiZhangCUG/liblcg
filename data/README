@@ -1,0 +1,11 @@
+case_*_A: Full symmetric matrix
+
+[ N (int) | nz (int) ]
+[ RowIdx (int) | ColIdx (int) | Val (double) ] * nz
+[ b (double) * N ]
+[ d (double) * N ] (complex matrix only)
+
+case_*_B: Vector
+
+[ N (int) ]
+[ x (double) * N]
